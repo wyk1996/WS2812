@@ -1,0 +1,68 @@
+T05DC 000:138.476   SEGGER J-Link V7.22b Log File
+T05DC 000:139.068   DLL Compiled: Jun 17 2021 17:22:49
+T05DC 000:139.082   Logging started @ 2025-04-10 01:31
+T05DC 000:139.092 - 139.098ms
+T05DC 000:139.251 JLINK_SetWarnOutHandler(...)
+T05DC 000:139.271 - 0.024ms
+T05DC 000:139.282 JLINK_OpenEx(...)
+T05DC 000:207.559   Looking for J-Link GUI Server exe at: D:\keil_v5\ARM\Segger\JLinkGUIServer.exe
+T05DC 000:207.634   Looking for J-Link GUI Server exe at: D:\jlink\\JLinkGUIServer.exe
+T05DC 000:508.401   Failed to connect to J-Link GUI Server.
+T05DC 012:547.415   TELNET listener socket opened on port 19021
+T05DC 012:547.548   WEBSRV Starting webserver
+T05DC 012:547.656   WEBSRV Webserver running on local port 19080
+T05DC 012:547.758 - 12408.477ms returns "O.K."
+T05DC 012:547.781 JLINK_GetEmuCaps()
+T05DC 012:547.785 - 0.006ms returns 0x98E61B83
+T05DC 012:547.795 JLINK_TIF_GetAvailable(...)
+T05DC 012:547.799 - 0.005ms
+T05DC 012:547.804 JLINK_SetErrorOutHandler(...)
+T05DC 012:547.807 - 0.005ms
+T05DC 012:548.032 JLINK_ExecCommand("ProjectFile = "C:\Users\Administrator\Desktop\22\pro\JLinkSettings.ini"", ...). 
+T05DC 012:750.422 - 202.396ms returns 0x00
+T05DC 012:751.717 JLINK_ExecCommand("Device = GD32E230C8", ...). 
+T05DC 012:752.733   Device "GD32E230C8" selected.
+T05DC 012:759.025 - 7.306ms returns 0x00
+T05DC 012:759.048 JLINK_GetHardwareVersion()
+T05DC 012:760.555 - 1.514ms returns 10000
+T05DC 012:760.568 JLINK_GetDLLVersion()
+T05DC 012:760.572 - 0.005ms returns 72202
+T05DC 012:760.576 JLINK_GetOEMString(...)
+T05DC 012:760.581 JLINK_GetFirmwareString(...)
+T05DC 012:760.589 - 0.009ms
+T05DC 012:760.598 JLINK_GetDLLVersion()
+T05DC 012:760.602 - 0.004ms returns 72202
+T05DC 012:760.606 JLINK_GetCompileDateTime()
+T05DC 012:760.609 - 0.005ms
+T05DC 012:760.615 JLINK_GetFirmwareString(...)
+T05DC 012:760.618 - 0.004ms
+T05DC 012:760.622 JLINK_GetHardwareVersion()
+T05DC 012:760.626 - 0.004ms returns 10000
+T05DC 012:760.630 JLINK_GetSN()
+T05DC 012:760.634 - 0.005ms returns 1046389736
+T05DC 012:760.638 JLINK_GetOEMString(...)
+T05DC 014:364.566 JLINK_TIF_Select(JLINKARM_TIF_JTAG)
+T05DC 014:364.614   
+  ***** Error: 
+T05DC 014:364.620   Debugger tries to select target interface JTAG.
+This interface is not supported by the connected emulator.
+Selection will be ignored by the DLL.
+T05DC 014:364.625 - 0.060ms returns 0x01
+T05DC 014:364.636 JLINK_HasError()
+T05DC 014:364.915 JLINK_SetSpeed(5000)
+T05DC 014:364.930 - 0.016ms
+T05DC 014:365.119 JLINK_HasError()
+T05DC 014:365.128 JLINK_SetResetType(JLINKARM_RESET_TYPE_NORMAL)
+T05DC 014:365.133 - 0.006ms returns JLINKARM_RESET_TYPE_NORMAL
+T05DC 014:365.137 JLINK_Reset()
+T05DC 015:657.640 - 1292.543ms
+T05DC 015:657.690 JLINK_GetId()
+T05DC 016:067.698 - 410.019ms returns 0x00000000
+T05DC 016:067.718 JLINK_GetId()
+T05DC 016:476.583 - 408.876ms returns 0x00000000
+T05DC 016:479.963 JLINK_GetFirmwareString(...)
+T05DC 016:479.974 - 0.013ms
+T05DC 016:500.912 JLINK_Close()
+T05DC 016:520.477 - 19.582ms
+T05DC 016:520.498   
+T05DC 016:520.502   Closed
