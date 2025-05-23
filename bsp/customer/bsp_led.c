@@ -27,10 +27,7 @@ const RGB_Color_TypeDef OEANGE   =  {152, 251, 152};
 #endif
 
 uint16_t Pixel_Buf[Pixel_NUM + 2][24];//RGB灯传输数据;多于的24bit是刷新用 
-// volatile uint8_t marquee_step = 0; // 跑马灯步进
-// volatile uint8_t marquee_dir = 0;  // 方向，0左到右，1右到左
-volatile uint8_t marquee_dir = 1;  // 方向，0左到右，1右到左
-volatile uint8_t marquee_step = Pixel_NUM; // 跑马灯步进
+
 
 
 /*
@@ -203,20 +200,25 @@ void ws2812_marqueeyyy(uint16_t color)
 }
 #endif
 
+#if 1
+volatile uint8_t marquee_step = 0; // 跑马灯步进
+volatile uint8_t marquee_dir = 0;  // 方向，0左到右，1右到左
+#else
+volatile uint8_t marquee_dir = 1;  // 方向，0左到右，1右到左
+volatile uint8_t marquee_step = 5; // 跑马灯步进
+#endif
 
-
-
-static void ws2812_marquee_step(uint16_t color)
+static void ws2812_marquee_step(uint8_t color)
 {
     RGB_Color_TypeDef color_type = ws2812_return_color_type(color);
     RGB_Color_TypeDef black_type = ws2812_return_color_type(BLACK_COLOR);
 
     // 先全部熄灭
-    for (uint8_t i = 0; i < Pixel_NUM; i++) {
+    for (uint8_t i = 0; i < 5; i++) {
         ws2812_rgb_set_color_buf(i, black_type);
     }
     // 点亮当前步
-    if (marquee_step < Pixel_NUM)
+    if (marquee_step < 5)
         ws2812_rgb_set_color_buf(marquee_step, color_type);
 
     ws2812_rgb_send_array();
@@ -224,24 +226,18 @@ static void ws2812_marquee_step(uint16_t color)
     // 步进
     if (marquee_dir == 0) {
         marquee_step++;
-        if (marquee_step >= Pixel_NUM) {
+        if (marquee_step > 4) {
             marquee_step = 0;
-            // marquee_dir = 1;
         }
     } else {
-        // if (marquee_step == 0) {
-        //     marquee_dir = 0;
-        //     marquee_step = 1;
-        // } else {
-        //     marquee_step--;
-        // }
-
+        #if 1
         if (marquee_step == 0) {
             marquee_dir = 1;
-            marquee_step = 6;
+            marquee_step = 5;
         } else {
             marquee_step--;
         }
+        #endif
     }
 }
 
@@ -310,6 +306,9 @@ static void ws2812_single_led(uint8_t Led_id,uint16_t color)
 
 
 }
+
+
+
 
 
 
@@ -557,23 +556,18 @@ void ws2812_init(void)
 
 
 
-
+uint8_t color = OEANGE_COLOR;
+uint8_t cnt = 3;
 void Led_Handler(void)
 {
-    uint8_t color = OEANGE_COLOR;
-    uint8_t cnt = 4;
-
-
-	// ii ++;
-	// if(ii > 4)ii = 0;
-
 
     if (TimeOutDet_Check(&app_para.tout.poll)) {
 
         // ws2812_middle_marquee(color);
         // ws2812_middle_expand_marquee(color);
-        // ws2812_marquee_step(color);
+       
 
+        #if 1
         app_para.flag_vlaue = ~app_para.flag_vlaue;
 
         if (app_para.flag_vlaue) {
@@ -581,6 +575,9 @@ void Led_Handler(void)
         } else{
             ws2812_single_led(cnt,BLACK_COLOR);
         }
+        #else
+        ws2812_marquee_step(color);
+        #endif
 
         TimeOut_Record(&app_para.tout.poll, POLL_TIME);
     }

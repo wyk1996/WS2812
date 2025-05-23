@@ -4,7 +4,7 @@
 #include "gd32e23x.h"
 #include "TimeOut.h"
 
-#define POLL_TIME                      500
+#define POLL_TIME                      150
 
 
 void App_Init(void);

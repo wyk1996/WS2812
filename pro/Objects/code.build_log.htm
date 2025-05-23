@@ -27,7 +27,395 @@ Project File Date:  04/28/2025
 <h2>Output:</h2>
 *** Using Compiler 'V6.16', folder: 'D:\keil_v5\ARM\ARMCLANG\Bin'
 Build target 'Target 1'
-".\Objects\code.axf" - 0 Error(s), 0 Warning(s).
+../bsp/customer/bsp_led.c(18): warning: no previous extern declaration for non-static variable 'RED' [-Wmissing-variable-declarations]
+const RGB_Color_TypeDef RED      =  {255,0,0};    
+                        ^
+../bsp/customer/bsp_led.c(18): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+const RGB_Color_TypeDef RED      =  {255,0,0};    
+      ^
+../bsp/customer/bsp_led.c(19): warning: no previous extern declaration for non-static variable 'GREEN' [-Wmissing-variable-declarations]
+const RGB_Color_TypeDef GREEN    =  {0, 255, 0};
+                        ^
+../bsp/customer/bsp_led.c(19): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+const RGB_Color_TypeDef GREEN    =  {0, 255, 0};
+      ^
+../bsp/customer/bsp_led.c(20): warning: no previous extern declaration for non-static variable 'BLUE' [-Wmissing-variable-declarations]
+const RGB_Color_TypeDef BLUE     =  {0, 0, 255};
+                        ^
+../bsp/customer/bsp_led.c(20): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+const RGB_Color_TypeDef BLUE     =  {0, 0, 255};
+      ^
+../bsp/customer/bsp_led.c(21): warning: no previous extern declaration for non-static variable 'SKY' [-Wmissing-variable-declarations]
+const RGB_Color_TypeDef SKY      =  {0, 255, 255};
+                        ^
+../bsp/customer/bsp_led.c(21): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+const RGB_Color_TypeDef SKY      =  {0, 255, 255};
+      ^
+../bsp/customer/bsp_led.c(22): warning: no previous extern declaration for non-static variable 'MAGENTA' [-Wmissing-variable-declarations]
+const RGB_Color_TypeDef MAGENTA  =  {255, 0, 255};
+                        ^
+../bsp/customer/bsp_led.c(22): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+const RGB_Color_TypeDef MAGENTA  =  {255, 0, 255};
+      ^
+../bsp/customer/bsp_led.c(23): warning: no previous extern declaration for non-static variable 'YELLOW' [-Wmissing-variable-declarations]
+const RGB_Color_TypeDef YELLOW   =  {255, 255, 0};
+                        ^
+../bsp/customer/bsp_led.c(23): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+const RGB_Color_TypeDef YELLOW   =  {255, 255, 0};
+      ^
+../bsp/customer/bsp_led.c(24): warning: no previous extern declaration for non-static variable 'WHITE' [-Wmissing-variable-declarations]
+const RGB_Color_TypeDef WHITE    =  {255, 255, 255};
+                        ^
+../bsp/customer/bsp_led.c(24): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+const RGB_Color_TypeDef WHITE    =  {255, 255, 255};
+      ^
+../bsp/customer/bsp_led.c(25): warning: no previous extern declaration for non-static variable 'BLACK' [-Wmissing-variable-declarations]
+const RGB_Color_TypeDef BLACK    =  {0, 0, 0};
+                        ^
+../bsp/customer/bsp_led.c(25): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+const RGB_Color_TypeDef BLACK    =  {0, 0, 0};
+      ^
+../bsp/customer/bsp_led.c(26): warning: no previous extern declaration for non-static variable 'OEANGE' [-Wmissing-variable-declarations]
+const RGB_Color_TypeDef OEANGE   =  {152, 251, 152};
+                        ^
+../bsp/customer/bsp_led.c(26): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+const RGB_Color_TypeDef OEANGE   =  {152, 251, 152};
+      ^
+../bsp/customer/bsp_led.c(110): warning: implicit conversion loses integer precision: 'uint16_t' (aka 'unsigned short') to 'uint8_t' (aka 'unsigned char') [-Wimplicit-int-conversion]
+        ws2812_rgb_set_color_buf(i,color);
+        ~~~~~~~~~~~~~~~~~~~~~~~~ ^
+../bsp/customer/bsp_led.c(144): warning: implicit conversion loses integer precision: 'uint16_t' (aka 'unsigned short') to 'uint8_t' (aka 'unsigned char') [-Wimplicit-int-conversion]
+    RGB_Color_TypeDef color_type = ws2812_return_color_type(color);
+                                   ~~~~~~~~~~~~~~~~~~~~~~~~ ^~~~~
+../bsp/customer/bsp_led.c(147): warning: implicit conversion loses integer precision: 'uint16_t' (aka 'unsigned short') to 'uint8_t' (aka 'unsigned char') [-Wimplicit-int-conversion]
+        ws2812_rgb_set_color_buf(i,color_type);
+        ~~~~~~~~~~~~~~~~~~~~~~~~ ^
+../bsp/customer/bsp_led.c(204): warning: no previous extern declaration for non-static variable 'marquee_step' [-Wmissing-variable-declarations]
+volatile uint8_t marquee_step = 0; // 跑马灯步进
+                 ^
+../bsp/customer/bsp_led.c(204): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+volatile uint8_t marquee_step = 0; // 跑马灯步进
+         ^
+../bsp/customer/bsp_led.c(205): warning: no previous extern declaration for non-static variable 'marquee_dir' [-Wmissing-variable-declarations]
+volatile uint8_t marquee_dir = 0;  // 方向，0左到右，1右到左
+                 ^
+../bsp/customer/bsp_led.c(205): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+volatile uint8_t marquee_dir = 0;  // 方向，0左到右，1右到左
+         ^
+../bsp/customer/bsp_led.c(247): warning: no previous extern declaration for non-static variable 'temp' [-Wmissing-variable-declarations]
+uint16_t temp[Pixel_NUM] = {BLACK_COLOR,BLACK_COLOR,BLACK_COLOR,BLACK_COLOR,BLACK_COLOR};
+         ^
+../bsp/customer/bsp_led.c(247): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+uint16_t temp[Pixel_NUM] = {BLACK_COLOR,BLACK_COLOR,BLACK_COLOR,BLACK_COLOR,BLACK_COLOR};
+^
+../bsp/customer/bsp_led.c(248): warning: no previous extern declaration for non-static variable 'conut' [-Wmissing-variable-declarations]
+uint8_t conut = 0;
+        ^
+../bsp/customer/bsp_led.c(248): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+uint8_t conut = 0;
+^
+../bsp/customer/bsp_led.c(254): warning: possible misuse of comma operator here [-Wcomma]
+        case 0:temp[0] = BLACK_COLOR,temp[1] = BLACK_COLOR,temp[2] = BLACK_COLOR,temp[3] = BLACK_COLOR,temp[4] = BLACK_COLOR;break;
+                                    ^
+../bsp/customer/bsp_led.c(254): note: cast expression to void to silence warning
+        case 0:temp[0] = BLACK_COLOR,temp[1] = BLACK_COLOR,temp[2] = BLACK_COLOR,temp[3] = BLACK_COLOR,temp[4] = BLACK_COLOR;break;
+               ^~~~~~~~~~~~~~~~~~~~~
+               (void)(              )
+../bsp/customer/bsp_led.c(254): warning: possible misuse of comma operator here [-Wcomma]
+        case 0:temp[0] = BLACK_COLOR,temp[1] = BLACK_COLOR,temp[2] = BLACK_COLOR,temp[3] = BLACK_COLOR,temp[4] = BLACK_COLOR;break;
+                                                          ^
+../bsp/customer/bsp_led.c(254): note: cast expression to void to silence warning
+        case 0:temp[0] = BLACK_COLOR,temp[1] = BLACK_COLOR,temp[2] = BLACK_COLOR,temp[3] = BLACK_COLOR,temp[4] = BLACK_COLOR;break;
+                                     ^~~~~~~~~~~~~~~~~~~~~
+                                     (void)(              )
+../bsp/customer/bsp_led.c(254): warning: possible misuse of comma operator here [-Wcomma]
+        case 0:temp[0] = BLACK_COLOR,temp[1] = BLACK_COLOR,temp[2] = BLACK_COLOR,temp[3] = BLACK_COLOR,temp[4] = BLACK_COLOR;break;
+                                                                                ^
+../bsp/customer/bsp_led.c(254): note: cast expression to void to silence warning
+        case 0:temp[0] = BLACK_COLOR,temp[1] = BLACK_COLOR,temp[2] = BLACK_COLOR,temp[3] = BLACK_COLOR,temp[4] = BLACK_COLOR;break;
+                                                           ^~~~~~~~~~~~~~~~~~~~~
+                                                           (void)(              )
+../bsp/customer/bsp_led.c(254): warning: possible misuse of comma operator here [-Wcomma]
+        case 0:temp[0] = BLACK_COLOR,temp[1] = BLACK_COLOR,temp[2] = BLACK_COLOR,temp[3] = BLACK_COLOR,temp[4] = BLACK_COLOR;break;
+                                                                                                      ^
+../bsp/customer/bsp_led.c(254): note: cast expression to void to silence warning
+        case 0:temp[0] = BLACK_COLOR,temp[1] = BLACK_COLOR,temp[2] = BLACK_COLOR,temp[3] = BLACK_COLOR,temp[4] = BLACK_COLOR;break;
+                                                                                 ^~~~~~~~~~~~~~~~~~~~~
+                                                                                 (void)(              )
+../bsp/customer/bsp_led.c(255): warning: possible misuse of comma operator here [-Wcomma]
+        case 1:temp[0] = BLACK_COLOR,temp[1] = BLACK_COLOR,temp[2] = color,temp[3] = BLACK_COLOR,temp[4] = BLACK_COLOR;break;
+                                    ^
+../bsp/customer/bsp_led.c(255): note: cast expression to void to silence warning
+        case 1:temp[0] = BLACK_COLOR,temp[1] = BLACK_COLOR,temp[2] = color,temp[3] = BLACK_COLOR,temp[4] = BLACK_COLOR;break;
+               ^~~~~~~~~~~~~~~~~~~~~
+               (void)(              )
+../bsp/customer/bsp_led.c(255): warning: possible misuse of comma operator here [-Wcomma]
+        case 1:temp[0] = BLACK_COLOR,temp[1] = BLACK_COLOR,temp[2] = color,temp[3] = BLACK_COLOR,temp[4] = BLACK_COLOR;break;
+                                                          ^
+../bsp/customer/bsp_led.c(255): note: cast expression to void to silence warning
+        case 1:temp[0] = BLACK_COLOR,temp[1] = BLACK_COLOR,temp[2] = color,temp[3] = BLACK_COLOR,temp[4] = BLACK_COLOR;break;
+                                     ^~~~~~~~~~~~~~~~~~~~~
+                                     (void)(              )
+../bsp/customer/bsp_led.c(255): warning: possible misuse of comma operator here [-Wcomma]
+        case 1:temp[0] = BLACK_COLOR,temp[1] = BLACK_COLOR,temp[2] = color,temp[3] = BLACK_COLOR,temp[4] = BLACK_COLOR;break;
+                                                                          ^
+../bsp/customer/bsp_led.c(255): note: cast expression to void to silence warning
+        case 1:temp[0] = BLACK_COLOR,temp[1] = BLACK_COLOR,temp[2] = color,temp[3] = BLACK_COLOR,temp[4] = BLACK_COLOR;break;
+                                                           ^~~~~~~~~~~~~~~
+                                                           (void)(        )
+../bsp/customer/bsp_led.c(255): warning: possible misuse of comma operator here [-Wcomma]
+        case 1:temp[0] = BLACK_COLOR,temp[1] = BLACK_COLOR,temp[2] = color,temp[3] = BLACK_COLOR,temp[4] = BLACK_COLOR;break;
+                                                                                                ^
+../bsp/customer/bsp_led.c(255): note: cast expression to void to silence warning
+        case 1:temp[0] = BLACK_COLOR,temp[1] = BLACK_COLOR,temp[2] = color,temp[3] = BLACK_COLOR,temp[4] = BLACK_COLOR;break;
+                                                                           ^~~~~~~~~~~~~~~~~~~~~
+                                                                           (void)(              )
+../bsp/customer/bsp_led.c(256): warning: possible misuse of comma operator here [-Wcomma]
+        case 2:temp[0] = BLACK_COLOR,temp[1] = color,temp[2] = BLACK_COLOR,temp[3] = color,temp[4] = BLACK_COLOR;break;
+                                    ^
+../bsp/customer/bsp_led.c(256): note: cast expression to void to silence warning
+        case 2:temp[0] = BLACK_COLOR,temp[1] = color,temp[2] = BLACK_COLOR,temp[3] = color,temp[4] = BLACK_COLOR;break;
+               ^~~~~~~~~~~~~~~~~~~~~
+               (void)(              )
+../bsp/customer/bsp_led.c(256): warning: possible misuse of comma operator here [-Wcomma]
+        case 2:temp[0] = BLACK_COLOR,temp[1] = color,temp[2] = BLACK_COLOR,temp[3] = color,temp[4] = BLACK_COLOR;break;
+                                                    ^
+../bsp/customer/bsp_led.c(256): note: cast expression to void to silence warning
+        case 2:temp[0] = BLACK_COLOR,temp[1] = color,temp[2] = BLACK_COLOR,temp[3] = color,temp[4] = BLACK_COLOR;break;
+                                     ^~~~~~~~~~~~~~~
+                                     (void)(        )
+../bsp/customer/bsp_led.c(256): warning: possible misuse of comma operator here [-Wcomma]
+        case 2:temp[0] = BLACK_COLOR,temp[1] = color,temp[2] = BLACK_COLOR,temp[3] = color,temp[4] = BLACK_COLOR;break;
+                                                                          ^
+../bsp/customer/bsp_led.c(256): note: cast expression to void to silence warning
+        case 2:temp[0] = BLACK_COLOR,temp[1] = color,temp[2] = BLACK_COLOR,temp[3] = color,temp[4] = BLACK_COLOR;break;
+                                                     ^~~~~~~~~~~~~~~~~~~~~
+                                                     (void)(              )
+../bsp/customer/bsp_led.c(256): warning: possible misuse of comma operator here [-Wcomma]
+        case 2:temp[0] = BLACK_COLOR,temp[1] = color,temp[2] = BLACK_COLOR,temp[3] = color,temp[4] = BLACK_COLOR;break;
+                                                                                          ^
+../bsp/customer/bsp_led.c(256): note: cast expression to void to silence warning
+        case 2:temp[0] = BLACK_COLOR,temp[1] = color,temp[2] = BLACK_COLOR,temp[3] = color,temp[4] = BLACK_COLOR;break;
+                                                                           ^~~~~~~~~~~~~~~
+                                                                           (void)(        )
+../bsp/customer/bsp_led.c(257): warning: possible misuse of comma operator here [-Wcomma]
+        case 3:temp[0] = color,temp[1] = BLACK_COLOR,temp[2] = BLACK_COLOR,temp[3] = BLACK_COLOR,temp[4] = color;break;
+                              ^
+../bsp/customer/bsp_led.c(257): note: cast expression to void to silence warning
+        case 3:temp[0] = color,temp[1] = BLACK_COLOR,temp[2] = BLACK_COLOR,temp[3] = BLACK_COLOR,temp[4] = color;break;
+               ^~~~~~~~~~~~~~~
+               (void)(        )
+../bsp/customer/bsp_led.c(257): warning: possible misuse of comma operator here [-Wcomma]
+        case 3:temp[0] = color,temp[1] = BLACK_COLOR,temp[2] = BLACK_COLOR,temp[3] = BLACK_COLOR,temp[4] = color;break;
+                                                    ^
+../bsp/customer/bsp_led.c(257): note: cast expression to void to silence warning
+        case 3:temp[0] = color,temp[1] = BLACK_COLOR,temp[2] = BLACK_COLOR,temp[3] = BLACK_COLOR,temp[4] = color;break;
+                               ^~~~~~~~~~~~~~~~~~~~~
+                               (void)(              )
+../bsp/customer/bsp_led.c(257): warning: possible misuse of comma operator here [-Wcomma]
+        case 3:temp[0] = color,temp[1] = BLACK_COLOR,temp[2] = BLACK_COLOR,temp[3] = BLACK_COLOR,temp[4] = color;break;
+                                                                          ^
+../bsp/customer/bsp_led.c(257): note: cast expression to void to silence warning
+        case 3:temp[0] = color,temp[1] = BLACK_COLOR,temp[2] = BLACK_COLOR,temp[3] = BLACK_COLOR,temp[4] = color;break;
+                                                     ^~~~~~~~~~~~~~~~~~~~~
+                                                     (void)(              )
+../bsp/customer/bsp_led.c(257): warning: possible misuse of comma operator here [-Wcomma]
+        case 3:temp[0] = color,temp[1] = BLACK_COLOR,temp[2] = BLACK_COLOR,temp[3] = BLACK_COLOR,temp[4] = color;break;
+                                                                                                ^
+../bsp/customer/bsp_led.c(257): note: cast expression to void to silence warning
+        case 3:temp[0] = color,temp[1] = BLACK_COLOR,temp[2] = BLACK_COLOR,temp[3] = BLACK_COLOR,temp[4] = color;break;
+                                                                           ^~~~~~~~~~~~~~~~~~~~~
+                                                                           (void)(              )
+../bsp/customer/bsp_led.c(263): warning: implicit conversion loses integer precision: 'uint16_t' (aka 'unsigned short') to 'uint8_t' (aka 'unsigned char') [-Wimplicit-int-conversion]
+        ws2812_rgb_set_color_buf(i, ws2812_return_color_type(temp[i]));
+                                    ~~~~~~~~~~~~~~~~~~~~~~~~ ^~~~~~~
+../bsp/customer/bsp_led.c(274): warning: possible misuse of comma operator here [-Wcomma]
+        case 0:temp[0] = BLACK_COLOR,temp[1] = BLACK_COLOR,temp[2] = BLACK_COLOR,temp[3] = BLACK_COLOR,temp[4] = BLACK_COLOR;break;
+                                    ^
+../bsp/customer/bsp_led.c(274): note: cast expression to void to silence warning
+        case 0:temp[0] = BLACK_COLOR,temp[1] = BLACK_COLOR,temp[2] = BLACK_COLOR,temp[3] = BLACK_COLOR,temp[4] = BLACK_COLOR;break;
+               ^~~~~~~~~~~~~~~~~~~~~
+               (void)(              )
+../bsp/customer/bsp_led.c(274): warning: possible misuse of comma operator here [-Wcomma]
+        case 0:temp[0] = BLACK_COLOR,temp[1] = BLACK_COLOR,temp[2] = BLACK_COLOR,temp[3] = BLACK_COLOR,temp[4] = BLACK_COLOR;break;
+                                                          ^
+../bsp/customer/bsp_led.c(274): note: cast expression to void to silence warning
+        case 0:temp[0] = BLACK_COLOR,temp[1] = BLACK_COLOR,temp[2] = BLACK_COLOR,temp[3] = BLACK_COLOR,temp[4] = BLACK_COLOR;break;
+                                     ^~~~~~~~~~~~~~~~~~~~~
+                                     (void)(              )
+../bsp/customer/bsp_led.c(274): warning: possible misuse of comma operator here [-Wcomma]
+        case 0:temp[0] = BLACK_COLOR,temp[1] = BLACK_COLOR,temp[2] = BLACK_COLOR,temp[3] = BLACK_COLOR,temp[4] = BLACK_COLOR;break;
+                                                                                ^
+../bsp/customer/bsp_led.c(274): note: cast expression to void to silence warning
+        case 0:temp[0] = BLACK_COLOR,temp[1] = BLACK_COLOR,temp[2] = BLACK_COLOR,temp[3] = BLACK_COLOR,temp[4] = BLACK_COLOR;break;
+                                                           ^~~~~~~~~~~~~~~~~~~~~
+                                                           (void)(              )
+../bsp/customer/bsp_led.c(274): warning: possible misuse of comma operator here [-Wcomma]
+        case 0:temp[0] = BLACK_COLOR,temp[1] = BLACK_COLOR,temp[2] = BLACK_COLOR,temp[3] = BLACK_COLOR,temp[4] = BLACK_COLOR;break;
+                                                                                                      ^
+../bsp/customer/bsp_led.c(274): note: cast expression to void to silence warning
+        case 0:temp[0] = BLACK_COLOR,temp[1] = BLACK_COLOR,temp[2] = BLACK_COLOR,temp[3] = BLACK_COLOR,temp[4] = BLACK_COLOR;break;
+                                                                                 ^~~~~~~~~~~~~~~~~~~~~
+                                                                                 (void)(              )
+../bsp/customer/bsp_led.c(275): warning: possible misuse of comma operator here [-Wcomma]
+        case 1:temp[0] = color,temp[1] = BLACK_COLOR,temp[2] = BLACK_COLOR,temp[3] = BLACK_COLOR,temp[4] = color;break;
+                              ^
+../bsp/customer/bsp_led.c(275): note: cast expression to void to silence warning
+        case 1:temp[0] = color,temp[1] = BLACK_COLOR,temp[2] = BLACK_COLOR,temp[3] = BLACK_COLOR,temp[4] = color;break;
+               ^~~~~~~~~~~~~~~
+               (void)(        )
+../bsp/customer/bsp_led.c(275): warning: possible misuse of comma operator here [-Wcomma]
+        case 1:temp[0] = color,temp[1] = BLACK_COLOR,temp[2] = BLACK_COLOR,temp[3] = BLACK_COLOR,temp[4] = color;break;
+                                                    ^
+../bsp/customer/bsp_led.c(275): note: cast expression to void to silence warning
+        case 1:temp[0] = color,temp[1] = BLACK_COLOR,temp[2] = BLACK_COLOR,temp[3] = BLACK_COLOR,temp[4] = color;break;
+                               ^~~~~~~~~~~~~~~~~~~~~
+                               (void)(              )
+../bsp/customer/bsp_led.c(275): warning: possible misuse of comma operator here [-Wcomma]
+        case 1:temp[0] = color,temp[1] = BLACK_COLOR,temp[2] = BLACK_COLOR,temp[3] = BLACK_COLOR,temp[4] = color;break;
+                                                                          ^
+../bsp/customer/bsp_led.c(275): note: cast expression to void to silence warning
+        case 1:temp[0] = color,temp[1] = BLACK_COLOR,temp[2] = BLACK_COLOR,temp[3] = BLACK_COLOR,temp[4] = color;break;
+                                                     ^~~~~~~~~~~~~~~~~~~~~
+                                                     (void)(              )
+../bsp/customer/bsp_led.c(275): warning: possible misuse of comma operator here [-Wcomma]
+        case 1:temp[0] = color,temp[1] = BLACK_COLOR,temp[2] = BLACK_COLOR,temp[3] = BLACK_COLOR,temp[4] = color;break;
+                                                                                                ^
+../bsp/customer/bsp_led.c(275): note: cast expression to void to silence warning
+        case 1:temp[0] = color,temp[1] = BLACK_COLOR,temp[2] = BLACK_COLOR,temp[3] = BLACK_COLOR,temp[4] = color;break;
+                                                                           ^~~~~~~~~~~~~~~~~~~~~
+                                                                           (void)(              )
+../bsp/customer/bsp_led.c(276): warning: possible misuse of comma operator here [-Wcomma]
+        case 2:temp[0] = BLACK_COLOR,temp[1] = color,temp[2] = BLACK_COLOR,temp[3] = color,temp[4] = BLACK_COLOR;break;
+                                    ^
+../bsp/customer/bsp_led.c(276): note: cast expression to void to silence warning
+        case 2:temp[0] = BLACK_COLOR,temp[1] = color,temp[2] = BLACK_COLOR,temp[3] = color,temp[4] = BLACK_COLOR;break;
+               ^~~~~~~~~~~~~~~~~~~~~
+               (void)(              )
+../bsp/customer/bsp_led.c(276): warning: possible misuse of comma operator here [-Wcomma]
+        case 2:temp[0] = BLACK_COLOR,temp[1] = color,temp[2] = BLACK_COLOR,temp[3] = color,temp[4] = BLACK_COLOR;break;
+                                                    ^
+../bsp/customer/bsp_led.c(276): note: cast expression to void to silence warning
+        case 2:temp[0] = BLACK_COLOR,temp[1] = color,temp[2] = BLACK_COLOR,temp[3] = color,temp[4] = BLACK_COLOR;break;
+                                     ^~~~~~~~~~~~~~~
+                                     (void)(        )
+../bsp/customer/bsp_led.c(276): warning: possible misuse of comma operator here [-Wcomma]
+        case 2:temp[0] = BLACK_COLOR,temp[1] = color,temp[2] = BLACK_COLOR,temp[3] = color,temp[4] = BLACK_COLOR;break;
+                                                                          ^
+../bsp/customer/bsp_led.c(276): note: cast expression to void to silence warning
+        case 2:temp[0] = BLACK_COLOR,temp[1] = color,temp[2] = BLACK_COLOR,temp[3] = color,temp[4] = BLACK_COLOR;break;
+                                                     ^~~~~~~~~~~~~~~~~~~~~
+                                                     (void)(              )
+../bsp/customer/bsp_led.c(276): warning: possible misuse of comma operator here [-Wcomma]
+        case 2:temp[0] = BLACK_COLOR,temp[1] = color,temp[2] = BLACK_COLOR,temp[3] = color,temp[4] = BLACK_COLOR;break;
+                                                                                          ^
+../bsp/customer/bsp_led.c(276): note: cast expression to void to silence warning
+        case 2:temp[0] = BLACK_COLOR,temp[1] = color,temp[2] = BLACK_COLOR,temp[3] = color,temp[4] = BLACK_COLOR;break;
+                                                                           ^~~~~~~~~~~~~~~
+                                                                           (void)(        )
+../bsp/customer/bsp_led.c(277): warning: possible misuse of comma operator here [-Wcomma]
+        case 3:temp[0] = BLACK_COLOR,temp[1] = BLACK_COLOR,temp[2] = color,temp[3] = BLACK_COLOR,temp[4] = BLACK_COLOR;break;
+                                    ^
+../bsp/customer/bsp_led.c(277): note: cast expression to void to silence warning
+        case 3:temp[0] = BLACK_COLOR,temp[1] = BLACK_COLOR,temp[2] = color,temp[3] = BLACK_COLOR,temp[4] = BLACK_COLOR;break;
+               ^~~~~~~~~~~~~~~~~~~~~
+               (void)(              )
+../bsp/customer/bsp_led.c(277): warning: possible misuse of comma operator here [-Wcomma]
+        case 3:temp[0] = BLACK_COLOR,temp[1] = BLACK_COLOR,temp[2] = color,temp[3] = BLACK_COLOR,temp[4] = BLACK_COLOR;break;
+                                                          ^
+../bsp/customer/bsp_led.c(277): note: cast expression to void to silence warning
+        case 3:temp[0] = BLACK_COLOR,temp[1] = BLACK_COLOR,temp[2] = color,temp[3] = BLACK_COLOR,temp[4] = BLACK_COLOR;break;
+                                     ^~~~~~~~~~~~~~~~~~~~~
+                                     (void)(              )
+../bsp/customer/bsp_led.c(277): warning: possible misuse of comma operator here [-Wcomma]
+        case 3:temp[0] = BLACK_COLOR,temp[1] = BLACK_COLOR,temp[2] = color,temp[3] = BLACK_COLOR,temp[4] = BLACK_COLOR;break;
+                                                                          ^
+../bsp/customer/bsp_led.c(277): note: cast expression to void to silence warning
+        case 3:temp[0] = BLACK_COLOR,temp[1] = BLACK_COLOR,temp[2] = color,temp[3] = BLACK_COLOR,temp[4] = BLACK_COLOR;break;
+                                                           ^~~~~~~~~~~~~~~
+                                                           (void)(        )
+../bsp/customer/bsp_led.c(277): warning: possible misuse of comma operator here [-Wcomma]
+        case 3:temp[0] = BLACK_COLOR,temp[1] = BLACK_COLOR,temp[2] = color,temp[3] = BLACK_COLOR,temp[4] = BLACK_COLOR;break;
+                                                                                                ^
+../bsp/customer/bsp_led.c(277): note: cast expression to void to silence warning
+        case 3:temp[0] = BLACK_COLOR,temp[1] = BLACK_COLOR,temp[2] = color,temp[3] = BLACK_COLOR,temp[4] = BLACK_COLOR;break;
+                                                                           ^~~~~~~~~~~~~~~~~~~~~
+                                                                           (void)(              )
+../bsp/customer/bsp_led.c(283): warning: implicit conversion loses integer precision: 'uint16_t' (aka 'unsigned short') to 'uint8_t' (aka 'unsigned char') [-Wimplicit-int-conversion]
+        ws2812_rgb_set_color_buf(i, ws2812_return_color_type(temp[i]));
+                                    ~~~~~~~~~~~~~~~~~~~~~~~~ ^~~~~~~
+../bsp/customer/bsp_led.c(295): warning: implicit conversion loses integer precision: 'uint16_t' (aka 'unsigned short') to 'uint8_t' (aka 'unsigned char') [-Wimplicit-int-conversion]
+        ws2812_rgb_set_color_buf(i, ws2812_return_color_type(temp[i]));
+                                    ~~~~~~~~~~~~~~~~~~~~~~~~ ^~~~~~~
+../bsp/customer/bsp_led.c(443): warning: implicit conversion loses integer precision: 'uint16_t' (aka 'unsigned short') to 'uint8_t' (aka 'unsigned char') [-Wimplicit-int-conversion]
+    RGB_Color_TypeDef color_type = ws2812_return_color_type(color);
+                                   ~~~~~~~~~~~~~~~~~~~~~~~~ ^~~~~
+../bsp/customer/bsp_led.c(448): warning: implicit conversion loses integer precision: 'int' to 'uint8_t' (aka 'unsigned char') [-Wimplicit-int-conversion]
+    breathe_type.R = (color_type.R * i) / 255;
+                   ~ ~~~~~~~~~~~~~~~~~~~^~~~~
+../bsp/customer/bsp_led.c(449): warning: implicit conversion loses integer precision: 'int' to 'uint8_t' (aka 'unsigned char') [-Wimplicit-int-conversion]
+    breathe_type.G = (color_type.G * i) / 255;
+                   ~ ~~~~~~~~~~~~~~~~~~~^~~~~
+../bsp/customer/bsp_led.c(450): warning: implicit conversion loses integer precision: 'int' to 'uint8_t' (aka 'unsigned char') [-Wimplicit-int-conversion]
+    breathe_type.B = (color_type.B * i) / 255;
+                   ~ ~~~~~~~~~~~~~~~~~~~^~~~~
+../bsp/customer/bsp_led.c(1): warning: In file included from...
+../bsp/customer/bsp_led.h(8): warning: In file included from...
+../lib/CMSIS/GD/GD32E23x/Include\gd32e23x.h(208): warning: In file included from...
+../pro\gd32e23x_libopt.h(52): warning: In file included from...
+../lib/GD32E23x_standard_peripheral/Include\gd32e23x_timer.h(252): warning: padding size of 'timer_parameter_struct' with 3 bytes to alignment boundary [-Wpadded]
+typedef struct
+        ^
+../bsp/customer/bsp_led.c(1): warning: In file included from...
+../bsp/customer/bsp_led.h(8): warning: In file included from...
+../lib/CMSIS/GD/GD32E23x/Include\gd32e23x.h(208): warning: In file included from...
+../pro\gd32e23x_libopt.h(41): warning: In file included from...
+../lib/GD32E23x_standard_peripheral/Include\gd32e23x_dma.h(115): warning: padding size of 'dma_parameter_struct' with 1 byte to alignment boundary [-Wpadded]
+typedef struct
+        ^
+../bsp/customer/bsp_led.c(559): warning: no previous extern declaration for non-static variable 'color' [-Wmissing-variable-declarations]
+uint8_t color = OEANGE_COLOR;
+        ^
+../bsp/customer/bsp_led.c(559): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+uint8_t color = OEANGE_COLOR;
+^
+../bsp/customer/bsp_led.c(560): warning: no previous extern declaration for non-static variable 'cnt' [-Wmissing-variable-declarations]
+uint8_t cnt = 3;
+        ^
+../bsp/customer/bsp_led.c(560): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+uint8_t cnt = 3;
+^
+../bsp/customer/bsp_led.c(5): warning: In file included from...
+../app\app.h(20): warning: padding struct 'app_para_t' with 1 byte to align 'tout' [-Wpadded]
+    } tout;
+      ^
+../bsp/customer/bsp_led.c(29): warning: no previous extern declaration for non-static variable 'Pixel_Buf' [-Wmissing-variable-declarations]
+uint16_t Pixel_Buf[Pixel_NUM + 2][24];//RGB灯传输数据;多于的24bit是刷新用 
+         ^
+../bsp/customer/bsp_led.c(29): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+uint16_t Pixel_Buf[Pixel_NUM + 2][24];//RGB灯传输数据;多于的24bit是刷新用 
+^
+../bsp/customer/bsp_led.c(65): warning: unused function 'ws2812_reset_load' [-Wunused-function]
+static void ws2812_reset_load(void)
+            ^
+../bsp/customer/bsp_led.c(142): warning: unused function 'ws2812_set_single_color' [-Wunused-function]
+static void ws2812_set_single_color(uint8_t led_id, uint16_t color)
+            ^
+../bsp/customer/bsp_led.c(211): warning: unused function 'ws2812_marquee_step' [-Wunused-function]
+static void ws2812_marquee_step(uint8_t color)
+            ^
+../bsp/customer/bsp_led.c(250): warning: unused function 'ws2812_middle_expand_marquee' [-Wunused-function]
+static void ws2812_middle_expand_marquee(uint16_t color)
+            ^
+../bsp/customer/bsp_led.c(270): warning: unused function 'ws2812_middle_marquee' [-Wunused-function]
+static void ws2812_middle_marquee(uint16_t color)
+            ^
+66 warnings generated.
+compiling bsp_led.c...
+linking...
+Program Size: Code=11426 RO-data=274 RW-data=20 ZI-data=1748  
+FromELF: creating hex file...
+".\Objects\code.axf" - 0 Error(s), 66 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -50,7 +438,7 @@ Package Vendor: GigaDevice
 <h2>Collection of Component Files used:</h2>
 
    * Component: ARM::CMSIS:CORE:6.1.0
-Build Time Elapsed:  00:00:00
+Build Time Elapsed:  00:00:02
 </pre>
 </body>
 </html>

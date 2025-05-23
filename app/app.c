@@ -35,7 +35,8 @@ void App_Init(void)
 
     Uart1_Init();
     Adc_Init();
-    
+    drv_common_usart0_init(115200);
+    hw_api_usart_data_init(UART_SN_0);
     Timer5_Base();
     TimerPwm_Config();
     ws2812_init();
@@ -50,8 +51,7 @@ void App_Init(void)
     drv_common_gpio_init();
     spi_send_to_qg2864_init();
     Realcheck_Init();
-    drv_common_usart0_init(115200);
-    hw_api_usart_data_init(UART_SN_0);
+
     #endif
 
     #if 0
@@ -88,7 +88,7 @@ void App_Init(void)
 }
 
 
-uint8_t flag = 0;
+
 
 void App_Handler(void)
 {
@@ -105,12 +105,11 @@ void App_Handler(void)
     #endif
 
 
-    // if(flag == 1)
-    {
-        Led_Handler();
-        flag = 0;
 
-    }
+    Led_Handler();
+    
+
+    
     
 
     
