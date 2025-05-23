@@ -27,4 +27,5 @@
   ..\lib\GD32E23x_standard_peripheral\Include\gd32e23x_wwdgt.h \
   ..\lib\GD32E23x_standard_peripheral\Include\gd32e23x_misc.h \
   ..\lib\GD32E23x_standard_peripheral\Include\gd32e23x_cmp.h \
-  ..\pro\main.h ..\bsp\systick\systick.h ..\app\app.h
+  ..\pro\main.h ..\bsp\systick\systick.h ..\app\app.h \
+  ..\bsp\Timeout\TimeOut.h

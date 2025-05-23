@@ -27,8 +27,8 @@
   ..\lib\GD32E23x_standard_peripheral\Include\gd32e23x_wwdgt.h \
   ..\lib\GD32E23x_standard_peripheral\Include\gd32e23x_misc.h \
   ..\lib\GD32E23x_standard_peripheral\Include\gd32e23x_cmp.h \
-  ..\bsp\customer\bsp_led.h ..\bsp\flash\bsp_flash.h \
-  ..\bsp\customer\bsp_oled.h ..\app\Includes.h \
+  ..\bsp\Timeout\TimeOut.h ..\bsp\customer\bsp_led.h \
+  ..\bsp\flash\bsp_flash.h ..\bsp\customer\bsp_oled.h ..\app\Includes.h \
   D:\keil_v5\ARM\ARMCLANG\Bin\..\include\stdio.h \
   D:\keil_v5\ARM\ARMCLANG\Bin\..\include\string.h \
   D:\keil_v5\ARM\ARMCLANG\Bin\..\include\math.h \

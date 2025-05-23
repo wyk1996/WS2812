@@ -29,4 +29,5 @@
   ..\lib\GD32E23x_standard_peripheral\Include\gd32e23x_cmp.h \
   ..\app\app_chargectl.h ..\app\IndependentDataType.h \
   ..\bsp\customer\customer_config.h \
-  ..\bsp\customer\customer_device_type.h ..\bsp\systick\systick.h
+  ..\bsp\customer\customer_device_type.h ..\bsp\systick\systick.h \
+  ..\app\app.h ..\bsp\Timeout\TimeOut.h

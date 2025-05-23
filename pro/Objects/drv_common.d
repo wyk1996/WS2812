@@ -37,4 +37,4 @@
   ..\bsp\customer\drv_common.h ..\app\IndependentDataType.h \
   ..\bsp\customer\bsp_led.h ..\bsp\customer\hw_api_usart.h \
   ..\bsp\customer\drv_common.h ..\app\app_common.h ..\app\app.h \
-  ..\bsp\customer\bsp_oled.h
+  ..\bsp\Timeout\TimeOut.h ..\bsp\customer\bsp_oled.h

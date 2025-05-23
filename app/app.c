@@ -29,13 +29,17 @@ app_para_t app_para;
 void App_Init(void)
 {
     systick_config();
+
+    TimeOutDet_Init();
+    
+
     Uart1_Init();
     Adc_Init();
-
+    
     Timer5_Base();
     TimerPwm_Config();
-
     ws2812_init();
+    
     #if 1
     drv_common_set_cp_pwm(0xFFFF);	
     #endif		
@@ -63,8 +67,8 @@ void App_Init(void)
     spi_config();
     #endif
    
-
     app_target_sys_para_init();
+   
 
 
     #if 0
@@ -73,6 +77,7 @@ void App_Init(void)
     printf("\r\nCK_APB1 is %d", rcu_clock_freq_get(CK_APB1));
     printf("\r\nCK_APB2 is %d", rcu_clock_freq_get(CK_APB2));
     #endif
+
     Fwdgt_Config();
     memset(&app_para, 0, sizeof(app_para_t));
 
@@ -138,6 +143,13 @@ void TIMER5_IRQHandler(void)
     if(SET == timer_interrupt_flag_get(TIMER5, TIMER_INT_FLAG_UP)){
         /* clear channel 0 interrupt bit */
         timer_interrupt_flag_clear(TIMER5, TIMER_INT_FLAG_UP);
+
+        //1ms
+        if(++app_para.timer_cnt > 50){
+            app_para.timer_cnt = 0;
+            TimeOutDet_DecHandle();
+        }
+        
 
         #if 1
         if(app_para.relay_open_flag == 1)

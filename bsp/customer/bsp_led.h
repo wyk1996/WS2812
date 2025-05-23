@@ -55,8 +55,8 @@ void ws2812_init(void);
 
 
 
-void ws2812_display_color(uint16_t color);//显示颜色
-void ws2812_display_blink_light(uint16_t blink_num, uint16_t color,uint32_t time_out);//闪烁灯模式设置
+void ws2812_display_color(uint8_t color);//显示颜色
+void ws2812_display_blink_light(uint16_t blink_num, uint8_t color,uint32_t time_out);//闪烁灯模式设置
 void ws2812_display_breathe_light(uint16_t color,uint32_t time_out);//呼吸灯模式设置
 
 

@@ -74,6 +74,7 @@
     "type_traits": "c",
     "gd32e23x_fmc.h": "c",
     "app_target.h": "c",
-    "bsp_flash.h": "c"
+    "bsp_flash.h": "c",
+    "bsp_oled.h": "c"
   }
 }
