@@ -26,7 +26,587 @@ Project File Date:  04/28/2025
 
 <h2>Output:</h2>
 *** Using Compiler 'V6.16', folder: 'D:\keil_v5\ARM\ARMCLANG\Bin'
-Build target 'Target 1'
+Rebuild target 'Target 1'
+assembling startup_gd32e23x.s...
+compiling key_touch_process.c...
+../app/gd32e23x_it.c(60): warning: function 'HardFault_Handler' could be declared with attribute 'noreturn' [-Wmissing-noreturn]
+{
+^
+1 warning generated.
+compiling gd32e23x_it.c...
+../app/app_common.c(29): warning: implicit conversion loses integer precision: 'unsigned int' to 'INT16U' (aka 'unsigned short') [-Wimplicit-int-conversion]
+                return Result/2;
+                ~~~~~~ ~~~~~~^~
+1 warning generated.
+compiling app_common.c...
+compiling main.c...
+compiling app_mainctl.c...
+../app/app.c(1): warning: In file included from...
+../app/app.h(20): warning: padding struct 'app_para_t' with 1 byte to align 'tout' [-Wpadded]
+    } tout;
+      ^
+1 warning generated.
+compiling app.c...
+../app/user_cfg.c(1): warning: In file included from...
+../app/user_cfg.h(5): warning: In file included from...
+../lib/CMSIS/GD/GD32E23x/Include\gd32e23x.h(208): warning: In file included from...
+../pro\gd32e23x_libopt.h(52): warning: In file included from...
+../lib/GD32E23x_standard_peripheral/Include\gd32e23x_timer.h(252): warning: padding size of 'timer_parameter_struct' with 3 bytes to alignment boundary [-Wpadded]
+typedef struct
+        ^
+1 warning generated.
+compiling user_cfg.c...
+../app/app_meter.c(52): warning: code will never be executed [-Wunreachable-code]
+                        meter_recv_buff[i] = hw_api_uart_dequeue(UART_SN_0);//获取接收数据
+                                             ^~~~~~~~~~~~~~~~~~~
+../app/app_meter.c(140): warning: implicit conversion changes signedness: 'int' to 'INT32U' (aka 'unsigned int') [-Wsign-conversion]
+                                    data = (recv_buf_temp[3]<<16)+(recv_buf_temp[4]<<8) + (recv_buf_temp[5]);
+                                         ~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~
+../app/app_meter.c(158): warning: implicit conversion changes signedness: 'int' to 'INT32U' (aka 'unsigned int') [-Wsign-conversion]
+                    data = (recv_buf_temp[3]<<16)+(recv_buf_temp[4]<<8) + (recv_buf_temp[5]);
+                         ~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~
+../app/app_meter.c(167): warning: implicit conversion changes signedness: 'int' to 'INT32U' (aka 'unsigned int') [-Wsign-conversion]
+                    data = (recv_buf_temp[3]<<16)+(recv_buf_temp[4]<<8) + (recv_buf_temp[5]);
+                         ~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~
+../app/app_meter.c(324): warning: default label in switch which covers all enumeration values [-Wcovered-switch-default]
+                        default:
+                        ^
+5 warnings generated.
+compiling app_meter.c...
+../app/app_realcheck.c(136): warning: default label in switch which covers all enumeration values [-Wcovered-switch-default]
+                default:
+                ^
+../app/app_realcheck.c(207): warning: cast from function call of type 'INT8U' (aka 'unsigned char') to non-matching type 'FP32' (aka 'float') [-Wbad-function-cast]
+        if(FLOAT_GREATER((FP32)get_oled_keypad_curr_flashdata(), 20.0f))        //桩最大电流大于20A
+                               ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../app\Includes.h(31): note: expanded from macro 'FLOAT_GREATER'
+#define FLOAT_GREATER(a, b) (((a) - (b)) > EPSILON)
+                               ^
+../app/app_realcheck.c(216): warning: cast from function call of type 'INT8U' (aka 'unsigned char') to non-matching type 'FP32' (aka 'float') [-Wbad-function-cast]
+                if(FLOAT_GREATER(ptr_ac_charge_info->curr, ((FP32)get_oled_keypad_curr_flashdata())*((FP32)1.1)))
+                                                                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../app\Includes.h(31): note: expanded from macro 'FLOAT_GREATER'
+#define FLOAT_GREATER(a, b) (((a) - (b)) > EPSILON)
+                                     ^
+../app/app_realcheck.c(251): warning: cast from function call of type 'INT8U' (aka 'unsigned char') to non-matching type 'FP32' (aka 'float') [-Wbad-function-cast]
+                if(FLOAT_GREATER(ptr_ac_charge_info->curr, ((FP32)get_oled_keypad_curr_flashdata()+2.0f)))
+                                                                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../app\Includes.h(31): note: expanded from macro 'FLOAT_GREATER'
+#define FLOAT_GREATER(a, b) (((a) - (b)) > EPSILON)
+                                     ^
+../app/app_realcheck.c(345): warning: implicit declaration of function 'get_flashdata_earthing' is invalid in C99 [-Wimplicit-function-declaration]
+            earthing = get_flashdata_earthing();
+                       ^
+../app/app_realcheck.c(345): warning: implicit conversion changes signedness: 'int' to 'INT32U' (aka 'unsigned int') [-Wsign-conversion]
+            earthing = get_flashdata_earthing();
+                     ~ ^~~~~~~~~~~~~~~~~~~~~~~~
+../app/app_realcheck.c(384): warning: implicit conversion increases floating-point precision: 'float' to 'double' [-Wdouble-promotion]
+        if(FLOAT_GREATER_EQUAL(app_get_input_io_simulation_value(INPUT_IO_SIM_TEMP), (FP32)ptr_ac_charge_system_para->env_temper_over))
+           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../app\Includes.h(33): note: expanded from macro 'FLOAT_GREATER_EQUAL'
+#define FLOAT_GREATER_EQUAL(a, b) (FLOAT_GREATER(a, b) || FLOAT_EQUAL(a, b))
+                                                          ^~~~~~~~~~~~~~~~~
+../app\Includes.h(30): note: expanded from macro 'FLOAT_EQUAL'
+#define FLOAT_EQUAL(a, b) (fabs((a) - (b)) < EPSILON)
+                           ~~~~ ~~~~^~~~~
+../app/app_realcheck.c(384): warning: implicit conversion increases floating-point precision: 'float' to 'double' [-Wdouble-promotion]
+        if(FLOAT_GREATER_EQUAL(app_get_input_io_simulation_value(INPUT_IO_SIM_TEMP), (FP32)ptr_ac_charge_system_para->env_temper_over))
+           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../app\Includes.h(33): note: expanded from macro 'FLOAT_GREATER_EQUAL'
+#define FLOAT_GREATER_EQUAL(a, b) (FLOAT_GREATER(a, b) || FLOAT_EQUAL(a, b))
+                                                          ^~~~~~~~~~~~~~~~~
+../app\Includes.h(30): note: expanded from macro 'FLOAT_EQUAL'
+#define FLOAT_EQUAL(a, b) (fabs((a) - (b)) < EPSILON)
+                                           ~ ^~~~~~~
+../app\Includes.h(29): note: expanded from macro 'EPSILON'
+#define EPSILON         0.000001f
+                        ^~~~~~~~~
+../app/app_realcheck.c(388): warning: implicit conversion increases floating-point precision: 'float' to 'double' [-Wdouble-promotion]
+        else if(FLOAT_LESS_EQUAL(app_get_input_io_simulation_value(INPUT_IO_SIM_TEMP), (FP32)(ptr_ac_charge_system_para->env_temper_over-10)))          //锟斤拷锟斤拷锟借定值10锟饺恢革拷
+                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../app\Includes.h(34): note: expanded from macro 'FLOAT_LESS_EQUAL'
+#define FLOAT_LESS_EQUAL(a, b) (FLOAT_LESS(a, b) || FLOAT_EQUAL(a, b))
+                                                    ^~~~~~~~~~~~~~~~~
+../app\Includes.h(30): note: expanded from macro 'FLOAT_EQUAL'
+#define FLOAT_EQUAL(a, b) (fabs((a) - (b)) < EPSILON)
+                           ~~~~ ~~~~^~~~~
+../app/app_realcheck.c(388): warning: implicit conversion increases floating-point precision: 'float' to 'double' [-Wdouble-promotion]
+        else if(FLOAT_LESS_EQUAL(app_get_input_io_simulation_value(INPUT_IO_SIM_TEMP), (FP32)(ptr_ac_charge_system_para->env_temper_over-10)))          //锟斤拷锟斤拷锟借定值10锟饺恢革拷
+                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../app\Includes.h(34): note: expanded from macro 'FLOAT_LESS_EQUAL'
+#define FLOAT_LESS_EQUAL(a, b) (FLOAT_LESS(a, b) || FLOAT_EQUAL(a, b))
+                                                    ^~~~~~~~~~~~~~~~~
+../app\Includes.h(30): note: expanded from macro 'FLOAT_EQUAL'
+#define FLOAT_EQUAL(a, b) (fabs((a) - (b)) < EPSILON)
+                                           ~ ^~~~~~~
+../app\Includes.h(29): note: expanded from macro 'EPSILON'
+#define EPSILON         0.000001f
+                        ^~~~~~~~~
+../app/app_realcheck.c(415): warning: implicit conversion increases floating-point precision: 'float' to 'double' [-Wdouble-promotion]
+                if(FLOAT_LESS_EQUAL(ptr_ac_charge_info->curr, CHARGING_MIN_CURR_FAULT))         //鍏呯數涓?灏戜??.8A
+                   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../app\Includes.h(34): note: expanded from macro 'FLOAT_LESS_EQUAL'
+#define FLOAT_LESS_EQUAL(a, b) (FLOAT_LESS(a, b) || FLOAT_EQUAL(a, b))
+                                                    ^~~~~~~~~~~~~~~~~
+../app\Includes.h(30): note: expanded from macro 'FLOAT_EQUAL'
+#define FLOAT_EQUAL(a, b) (fabs((a) - (b)) < EPSILON)
+                           ~~~~ ~~~~^~~~~
+../app/app_realcheck.c(415): warning: implicit conversion increases floating-point precision: 'float' to 'double' [-Wdouble-promotion]
+                if(FLOAT_LESS_EQUAL(ptr_ac_charge_info->curr, CHARGING_MIN_CURR_FAULT))         //鍏呯數涓?灏戜??.8A
+                   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../app\Includes.h(34): note: expanded from macro 'FLOAT_LESS_EQUAL'
+#define FLOAT_LESS_EQUAL(a, b) (FLOAT_LESS(a, b) || FLOAT_EQUAL(a, b))
+                                                    ^~~~~~~~~~~~~~~~~
+../app\Includes.h(30): note: expanded from macro 'FLOAT_EQUAL'
+#define FLOAT_EQUAL(a, b) (fabs((a) - (b)) < EPSILON)
+                                           ~ ^~~~~~~
+../app\Includes.h(29): note: expanded from macro 'EPSILON'
+#define EPSILON         0.000001f
+                        ^~~~~~~~~
+12 warnings generated.
+compiling app_realcheck.c...
+../app/app_chargectl.c(128): warning: default label in switch which covers all enumeration values [-Wcovered-switch-default]
+                        default:
+                        ^
+../app/app_chargectl.c(391): warning: implicit conversion increases floating-point precision: 'float' to 'double' [-Wdouble-promotion]
+        if(FLOAT_GREATER_EQUAL(cp_vol, AC_CP_CNOK_VOL-AC_CP_VOL_DIFF)&&FLOAT_LESS_EQUAL(cp_vol, AC_CP_CNOK_VOL+AC_CP_VOL_DIFF)) //5.2V-6.8V
+                                                                       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../app\Includes.h(34): note: expanded from macro 'FLOAT_LESS_EQUAL'
+#define FLOAT_LESS_EQUAL(a, b) (FLOAT_LESS(a, b) || FLOAT_EQUAL(a, b))
+                                                    ^~~~~~~~~~~~~~~~~
+../app\Includes.h(30): note: expanded from macro 'FLOAT_EQUAL'
+#define FLOAT_EQUAL(a, b) (fabs((a) - (b)) < EPSILON)
+                           ~~~~ ~~~~^~~~~
+../app/app_chargectl.c(391): warning: implicit conversion increases floating-point precision: 'float' to 'double' [-Wdouble-promotion]
+        if(FLOAT_GREATER_EQUAL(cp_vol, AC_CP_CNOK_VOL-AC_CP_VOL_DIFF)&&FLOAT_LESS_EQUAL(cp_vol, AC_CP_CNOK_VOL+AC_CP_VOL_DIFF)) //5.2V-6.8V
+                                                                       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../app\Includes.h(34): note: expanded from macro 'FLOAT_LESS_EQUAL'
+#define FLOAT_LESS_EQUAL(a, b) (FLOAT_LESS(a, b) || FLOAT_EQUAL(a, b))
+                                                    ^~~~~~~~~~~~~~~~~
+../app\Includes.h(30): note: expanded from macro 'FLOAT_EQUAL'
+#define FLOAT_EQUAL(a, b) (fabs((a) - (b)) < EPSILON)
+                                           ~ ^~~~~~~
+../app\Includes.h(29): note: expanded from macro 'EPSILON'
+#define EPSILON         0.000001f
+                        ^~~~~~~~~
+../app/app_chargectl.c(391): warning: implicit conversion increases floating-point precision: 'float' to 'double' [-Wdouble-promotion]
+        if(FLOAT_GREATER_EQUAL(cp_vol, AC_CP_CNOK_VOL-AC_CP_VOL_DIFF)&&FLOAT_LESS_EQUAL(cp_vol, AC_CP_CNOK_VOL+AC_CP_VOL_DIFF)) //5.2V-6.8V
+           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../app\Includes.h(33): note: expanded from macro 'FLOAT_GREATER_EQUAL'
+#define FLOAT_GREATER_EQUAL(a, b) (FLOAT_GREATER(a, b) || FLOAT_EQUAL(a, b))
+                                                          ^~~~~~~~~~~~~~~~~
+../app\Includes.h(30): note: expanded from macro 'FLOAT_EQUAL'
+#define FLOAT_EQUAL(a, b) (fabs((a) - (b)) < EPSILON)
+                           ~~~~ ~~~~^~~~~
+../app/app_chargectl.c(391): warning: implicit conversion increases floating-point precision: 'float' to 'double' [-Wdouble-promotion]
+        if(FLOAT_GREATER_EQUAL(cp_vol, AC_CP_CNOK_VOL-AC_CP_VOL_DIFF)&&FLOAT_LESS_EQUAL(cp_vol, AC_CP_CNOK_VOL+AC_CP_VOL_DIFF)) //5.2V-6.8V
+           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../app\Includes.h(33): note: expanded from macro 'FLOAT_GREATER_EQUAL'
+#define FLOAT_GREATER_EQUAL(a, b) (FLOAT_GREATER(a, b) || FLOAT_EQUAL(a, b))
+                                                          ^~~~~~~~~~~~~~~~~
+../app\Includes.h(30): note: expanded from macro 'FLOAT_EQUAL'
+#define FLOAT_EQUAL(a, b) (fabs((a) - (b)) < EPSILON)
+                                           ~ ^~~~~~~
+../app\Includes.h(29): note: expanded from macro 'EPSILON'
+#define EPSILON         0.000001f
+                        ^~~~~~~~~
+../app/app_chargectl.c(396): warning: implicit conversion increases floating-point precision: 'float' to 'double' [-Wdouble-promotion]
+        else if(FLOAT_GREATER_EQUAL(cp_vol, AC_CP_SMCN_VOL-AC_CP_VOL_DIFF)&&FLOAT_LESS_EQUAL(cp_vol, AC_CP_SMCN_VOL+AC_CP_VOL_DIFF))    //8.2V-9.8V
+                                                                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../app\Includes.h(34): note: expanded from macro 'FLOAT_LESS_EQUAL'
+#define FLOAT_LESS_EQUAL(a, b) (FLOAT_LESS(a, b) || FLOAT_EQUAL(a, b))
+                                                    ^~~~~~~~~~~~~~~~~
+../app\Includes.h(30): note: expanded from macro 'FLOAT_EQUAL'
+#define FLOAT_EQUAL(a, b) (fabs((a) - (b)) < EPSILON)
+                           ~~~~ ~~~~^~~~~
+../app/app_chargectl.c(396): warning: implicit conversion increases floating-point precision: 'float' to 'double' [-Wdouble-promotion]
+        else if(FLOAT_GREATER_EQUAL(cp_vol, AC_CP_SMCN_VOL-AC_CP_VOL_DIFF)&&FLOAT_LESS_EQUAL(cp_vol, AC_CP_SMCN_VOL+AC_CP_VOL_DIFF))    //8.2V-9.8V
+                                                                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../app\Includes.h(34): note: expanded from macro 'FLOAT_LESS_EQUAL'
+#define FLOAT_LESS_EQUAL(a, b) (FLOAT_LESS(a, b) || FLOAT_EQUAL(a, b))
+                                                    ^~~~~~~~~~~~~~~~~
+../app\Includes.h(30): note: expanded from macro 'FLOAT_EQUAL'
+#define FLOAT_EQUAL(a, b) (fabs((a) - (b)) < EPSILON)
+                                           ~ ^~~~~~~
+../app\Includes.h(29): note: expanded from macro 'EPSILON'
+#define EPSILON         0.000001f
+                        ^~~~~~~~~
+../app/app_chargectl.c(396): warning: implicit conversion increases floating-point precision: 'float' to 'double' [-Wdouble-promotion]
+        else if(FLOAT_GREATER_EQUAL(cp_vol, AC_CP_SMCN_VOL-AC_CP_VOL_DIFF)&&FLOAT_LESS_EQUAL(cp_vol, AC_CP_SMCN_VOL+AC_CP_VOL_DIFF))    //8.2V-9.8V
+                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../app\Includes.h(33): note: expanded from macro 'FLOAT_GREATER_EQUAL'
+#define FLOAT_GREATER_EQUAL(a, b) (FLOAT_GREATER(a, b) || FLOAT_EQUAL(a, b))
+                                                          ^~~~~~~~~~~~~~~~~
+../app\Includes.h(30): note: expanded from macro 'FLOAT_EQUAL'
+#define FLOAT_EQUAL(a, b) (fabs((a) - (b)) < EPSILON)
+                           ~~~~ ~~~~^~~~~
+../app/app_chargectl.c(396): warning: implicit conversion increases floating-point precision: 'float' to 'double' [-Wdouble-promotion]
+        else if(FLOAT_GREATER_EQUAL(cp_vol, AC_CP_SMCN_VOL-AC_CP_VOL_DIFF)&&FLOAT_LESS_EQUAL(cp_vol, AC_CP_SMCN_VOL+AC_CP_VOL_DIFF))    //8.2V-9.8V
+                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../app\Includes.h(33): note: expanded from macro 'FLOAT_GREATER_EQUAL'
+#define FLOAT_GREATER_EQUAL(a, b) (FLOAT_GREATER(a, b) || FLOAT_EQUAL(a, b))
+                                                          ^~~~~~~~~~~~~~~~~
+../app\Includes.h(30): note: expanded from macro 'FLOAT_EQUAL'
+#define FLOAT_EQUAL(a, b) (fabs((a) - (b)) < EPSILON)
+                                           ~ ^~~~~~~
+../app\Includes.h(29): note: expanded from macro 'EPSILON'
+#define EPSILON         0.000001f
+                        ^~~~~~~~~
+../app/app_chargectl.c(401): warning: implicit conversion increases floating-point precision: 'float' to 'double' [-Wdouble-promotion]
+        else if(FLOAT_GREATER_EQUAL(cp_vol, AC_CP_BK_VOL-AC_CP_VOL_DIFF)&&FLOAT_LESS_EQUAL(cp_vol, AC_CP_BK_VOL+AC_CP_VOL_DIFF))        //11.2V-12.8V
+                                                                          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../app\Includes.h(34): note: expanded from macro 'FLOAT_LESS_EQUAL'
+#define FLOAT_LESS_EQUAL(a, b) (FLOAT_LESS(a, b) || FLOAT_EQUAL(a, b))
+                                                    ^~~~~~~~~~~~~~~~~
+../app\Includes.h(30): note: expanded from macro 'FLOAT_EQUAL'
+#define FLOAT_EQUAL(a, b) (fabs((a) - (b)) < EPSILON)
+                           ~~~~ ~~~~^~~~~
+../app/app_chargectl.c(401): warning: implicit conversion increases floating-point precision: 'float' to 'double' [-Wdouble-promotion]
+        else if(FLOAT_GREATER_EQUAL(cp_vol, AC_CP_BK_VOL-AC_CP_VOL_DIFF)&&FLOAT_LESS_EQUAL(cp_vol, AC_CP_BK_VOL+AC_CP_VOL_DIFF))        //11.2V-12.8V
+                                                                          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../app\Includes.h(34): note: expanded from macro 'FLOAT_LESS_EQUAL'
+#define FLOAT_LESS_EQUAL(a, b) (FLOAT_LESS(a, b) || FLOAT_EQUAL(a, b))
+                                                    ^~~~~~~~~~~~~~~~~
+../app\Includes.h(30): note: expanded from macro 'FLOAT_EQUAL'
+#define FLOAT_EQUAL(a, b) (fabs((a) - (b)) < EPSILON)
+                                           ~ ^~~~~~~
+../app\Includes.h(29): note: expanded from macro 'EPSILON'
+#define EPSILON         0.000001f
+                        ^~~~~~~~~
+../app/app_chargectl.c(401): warning: implicit conversion increases floating-point precision: 'float' to 'double' [-Wdouble-promotion]
+        else if(FLOAT_GREATER_EQUAL(cp_vol, AC_CP_BK_VOL-AC_CP_VOL_DIFF)&&FLOAT_LESS_EQUAL(cp_vol, AC_CP_BK_VOL+AC_CP_VOL_DIFF))        //11.2V-12.8V
+                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../app\Includes.h(33): note: expanded from macro 'FLOAT_GREATER_EQUAL'
+#define FLOAT_GREATER_EQUAL(a, b) (FLOAT_GREATER(a, b) || FLOAT_EQUAL(a, b))
+                                                          ^~~~~~~~~~~~~~~~~
+../app\Includes.h(30): note: expanded from macro 'FLOAT_EQUAL'
+#define FLOAT_EQUAL(a, b) (fabs((a) - (b)) < EPSILON)
+                           ~~~~ ~~~~^~~~~
+../app/app_chargectl.c(401): warning: implicit conversion increases floating-point precision: 'float' to 'double' [-Wdouble-promotion]
+        else if(FLOAT_GREATER_EQUAL(cp_vol, AC_CP_BK_VOL-AC_CP_VOL_DIFF)&&FLOAT_LESS_EQUAL(cp_vol, AC_CP_BK_VOL+AC_CP_VOL_DIFF))        //11.2V-12.8V
+                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../app\Includes.h(33): note: expanded from macro 'FLOAT_GREATER_EQUAL'
+#define FLOAT_GREATER_EQUAL(a, b) (FLOAT_GREATER(a, b) || FLOAT_EQUAL(a, b))
+                                                          ^~~~~~~~~~~~~~~~~
+../app\Includes.h(30): note: expanded from macro 'FLOAT_EQUAL'
+#define FLOAT_EQUAL(a, b) (fabs((a) - (b)) < EPSILON)
+                                           ~ ^~~~~~~
+../app\Includes.h(29): note: expanded from macro 'EPSILON'
+#define EPSILON         0.000001f
+                        ^~~~~~~~~
+../app/app_chargectl.c(407): warning: implicit conversion increases floating-point precision: 'float' to 'double' [-Wdouble-promotion]
+        else if(FLOAT_GREATER_EQUAL(cp_vol, AC_CP_CNOK_NEED_VENT_VOL-AC_CP_VOL_DIFF)&&FLOAT_LESS_EQUAL(cp_vol, AC_CP_CNOK_NEED_VENT_VOL+AC_CP_VOL_DIFF))                        //3V
+                                                                                      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../app\Includes.h(34): note: expanded from macro 'FLOAT_LESS_EQUAL'
+#define FLOAT_LESS_EQUAL(a, b) (FLOAT_LESS(a, b) || FLOAT_EQUAL(a, b))
+                                                    ^~~~~~~~~~~~~~~~~
+../app\Includes.h(30): note: expanded from macro 'FLOAT_EQUAL'
+#define FLOAT_EQUAL(a, b) (fabs((a) - (b)) < EPSILON)
+                           ~~~~ ~~~~^~~~~
+../app/app_chargectl.c(407): warning: implicit conversion increases floating-point precision: 'float' to 'double' [-Wdouble-promotion]
+        else if(FLOAT_GREATER_EQUAL(cp_vol, AC_CP_CNOK_NEED_VENT_VOL-AC_CP_VOL_DIFF)&&FLOAT_LESS_EQUAL(cp_vol, AC_CP_CNOK_NEED_VENT_VOL+AC_CP_VOL_DIFF))                        //3V
+                                                                                      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../app\Includes.h(34): note: expanded from macro 'FLOAT_LESS_EQUAL'
+#define FLOAT_LESS_EQUAL(a, b) (FLOAT_LESS(a, b) || FLOAT_EQUAL(a, b))
+                                                    ^~~~~~~~~~~~~~~~~
+../app\Includes.h(30): note: expanded from macro 'FLOAT_EQUAL'
+#define FLOAT_EQUAL(a, b) (fabs((a) - (b)) < EPSILON)
+                                           ~ ^~~~~~~
+../app\Includes.h(29): note: expanded from macro 'EPSILON'
+#define EPSILON         0.000001f
+                        ^~~~~~~~~
+../app/app_chargectl.c(407): warning: implicit conversion increases floating-point precision: 'float' to 'double' [-Wdouble-promotion]
+        else if(FLOAT_GREATER_EQUAL(cp_vol, AC_CP_CNOK_NEED_VENT_VOL-AC_CP_VOL_DIFF)&&FLOAT_LESS_EQUAL(cp_vol, AC_CP_CNOK_NEED_VENT_VOL+AC_CP_VOL_DIFF))                        //3V
+                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../app\Includes.h(33): note: expanded from macro 'FLOAT_GREATER_EQUAL'
+#define FLOAT_GREATER_EQUAL(a, b) (FLOAT_GREATER(a, b) || FLOAT_EQUAL(a, b))
+                                                          ^~~~~~~~~~~~~~~~~
+../app\Includes.h(30): note: expanded from macro 'FLOAT_EQUAL'
+#define FLOAT_EQUAL(a, b) (fabs((a) - (b)) < EPSILON)
+                           ~~~~ ~~~~^~~~~
+../app/app_chargectl.c(407): warning: implicit conversion increases floating-point precision: 'float' to 'double' [-Wdouble-promotion]
+        else if(FLOAT_GREATER_EQUAL(cp_vol, AC_CP_CNOK_NEED_VENT_VOL-AC_CP_VOL_DIFF)&&FLOAT_LESS_EQUAL(cp_vol, AC_CP_CNOK_NEED_VENT_VOL+AC_CP_VOL_DIFF))                        //3V
+                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../app\Includes.h(33): note: expanded from macro 'FLOAT_GREATER_EQUAL'
+#define FLOAT_GREATER_EQUAL(a, b) (FLOAT_GREATER(a, b) || FLOAT_EQUAL(a, b))
+                                                          ^~~~~~~~~~~~~~~~~
+../app\Includes.h(30): note: expanded from macro 'FLOAT_EQUAL'
+#define FLOAT_EQUAL(a, b) (fabs((a) - (b)) < EPSILON)
+                                           ~ ^~~~~~~
+../app\Includes.h(29): note: expanded from macro 'EPSILON'
+#define EPSILON         0.000001f
+                        ^~~~~~~~~
+../app/app_chargectl.c(1): warning: In file included from...
+../app/app.h(20): warning: padding struct 'app_para_t' with 1 byte to align 'tout' [-Wpadded]
+    } tout;
+      ^
+../app/app_chargectl.c(722): warning: default label in switch which covers all enumeration values [-Wcovered-switch-default]
+                default:
+                ^
+../app/app_chargectl.c(82): warning: no previous extern declaration for non-static variable 's_oled_max_curr' [-Wmissing-variable-declarations]
+_e_oled_max_curr_type s_oled_max_curr;
+                      ^
+../app/app_chargectl.c(82): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+_e_oled_max_curr_type s_oled_max_curr;
+^
+../app/app_chargectl.c(364): warning: unused function 'charge_ctl_refresh_charge_data' [-Wunused-function]
+static void charge_ctl_refresh_charge_data(void)
+            ^
+21 warnings generated.
+compiling app_chargectl.c...
+../bsp/systick/systick.c(78): warning: implicit conversion from 'uint32_t' (aka 'unsigned int') to 'float' may lose precision [-Wimplicit-int-float-conversion]
+    SysTick->LOAD = (uint32_t)(count * count_1us);
+                               ^~~~~ ~
+../bsp/systick/systick.c(41): warning: unused variable 'count_1ms' [-Wunused-variable]
+volatile static float count_1ms = 0;
+                      ^
+2 warnings generated.
+compiling systick.c...
+compiling gd32e230c_eval.c...
+../bsp/Timeout/TimeOut.c(4): warning: no previous extern declaration for non-static variable 'InsBaseNum' [-Wmissing-variable-declarations]
+volatile clock_time_t InsBaseNum = 0;
+                      ^
+../bsp/Timeout/TimeOut.c(4): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+volatile clock_time_t InsBaseNum = 0;
+         ^
+1 warning generated.
+compiling TimeOut.c...
+compiling system_gd32e23x.c...
+../bsp/flash/bsp_flash.c(80): warning: no previous extern declaration for non-static variable 'write_data' [-Wmissing-variable-declarations]
+uint32_t write_data[4] = {0x12345678, 0x23456789, 0xAABBCCDD, 0x11223344};  // 要写入的数据
+         ^
+../bsp/flash/bsp_flash.c(80): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+uint32_t write_data[4] = {0x12345678, 0x23456789, 0xAABBCCDD, 0x11223344};  // 要写入的数据
+^
+../bsp/flash/bsp_flash.c(81): warning: no previous extern declaration for non-static variable 'read_data' [-Wmissing-variable-declarations]
+uint32_t read_data[4] = {0};  // 用于存储读取的数据
+         ^
+../bsp/flash/bsp_flash.c(81): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+uint32_t read_data[4] = {0};  // 用于存储读取的数据
+^
+../bsp/flash/bsp_flash.c(124): warning: implicitly declaring library function 'printf' with type 'int (const char *, ...)' [-Wimplicit-function-declaration]
+            printf("ooooooo\r\n");
+            ^
+../bsp/flash/bsp_flash.c(124): note: include the header <stdio.h> or explicitly provide a declaration for 'printf'
+3 warnings generated.
+compiling bsp_flash.c...
+../bsp/customer/hw_api_usart.c(9): warning: padding struct '_s_uart_rcv_buff' with 3 bytes to align 'rx_buff_ptr' [-Wpadded]
+    INT8U *rx_buff_ptr;         //<CA><D5><CA><FD><BE>ݶ<D3><C1>д洢<C7><F8>ָ<D5><EB>
+           ^
+../bsp/customer/hw_api_usart.c(7): warning: padding size of '_s_uart_rcv_buff' with 2 bytes to alignment boundary [-Wpadded]
+typedef struct {
+        ^
+../bsp/customer/hw_api_usart.c(20): warning: unused parameter 'f' [-Wunused-parameter]
+int fputc(int ch, FILE *f)
+                        ^
+../bsp/customer/hw_api_usart.c(105): warning: enumeration value 'UART_SN_MAX' not explicitly handled in switch [-Wswitch-enum]
+        switch(uart_sn)
+               ^
+../bsp/customer/hw_api_usart.c(124): warning: implicit conversion loses integer precision: 'int' to 'INT8U' (aka 'unsigned char') [-Wimplicit-int-conversion]
+                return (s_uart_rcv_buff[uart_sn].rear+s_uart_rcv_buff[uart_sn].max_len-s_uart_rcv_buff[uart_sn].front);
+                ~~~~~~  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../bsp/customer/hw_api_usart.c(128): warning: implicit conversion loses integer precision: 'int' to 'INT8U' (aka 'unsigned char') [-Wimplicit-int-conversion]
+                return s_uart_rcv_buff[uart_sn].rear-s_uart_rcv_buff[uart_sn].front;
+                ~~~~~~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../bsp/customer/hw_api_usart.c(133): warning: no previous prototype for function 'USART0_IRQHandler' [-Wmissing-prototypes]
+void USART0_IRQHandler(void)
+     ^
+../bsp/customer/hw_api_usart.c(133): note: declare 'static' if the function is not intended to be used outside of this translation unit
+void USART0_IRQHandler(void)
+^
+static 
+7 warnings generated.
+compiling hw_api_usart.c...
+../bsp/customer/drv_common.c(286): warning: 5 enumeration values not explicitly handled in switch: 'OUTPUT_IO_L_RELAY_OPEN', 'OUTPUT_IO_N_RELAY_OPEN', 'OUTPUT_IO_L_RELAY_COLSE'... [-Wswitch-enum]
+        switch(output_gpio)
+               ^
+../bsp/customer/drv_common.c(312): warning: 5 enumeration values not explicitly handled in switch: 'OUTPUT_IO_LCD_POWER_CTRL', 'OUTPUT_IO_POWER_CTRL', 'OUTPUT_IO_L_SYNNCEHIAN_CTRL'... [-Wswitch-enum]
+        switch(output_gpio)
+               ^
+2 warnings generated.
+compiling drv_common.c...
+../bsp/customer/bsp_oled.c(11): warning: no previous extern declaration for non-static variable 'asc2_1206' [-Wmissing-variable-declarations]
+uint8_t asc2_1206[95][12]={
+        ^
+../bsp/customer/bsp_oled.c(11): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+uint8_t asc2_1206[95][12]={
+^
+../bsp/customer/bsp_oled.c(298): warning: implicit conversion loses integer precision: 'int' to 'INT8U' (aka 'unsigned char') [-Wimplicit-int-conversion]
+        n=1<<m;
+         ~~^~~
+../bsp/customer/bsp_oled.c(311): warning: implicit conversion loses integer precision: 'int' to 'INT8U' (aka 'unsigned char') [-Wimplicit-int-conversion]
+        n=1<<m;
+         ~~^~~
+../bsp/customer/bsp_oled.c(9): warning: no previous extern declaration for non-static variable 'OLED_GRAM' [-Wmissing-variable-declarations]
+uint8_t OLED_GRAM[144][8];
+        ^
+../bsp/customer/bsp_oled.c(9): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+uint8_t OLED_GRAM[144][8];
+^
+4 warnings generated.
+compiling bsp_oled.c...
+../bsp/customer/bsp_meter_v9260.c(8): warning: no previous extern declaration for non-static variable 'gCuc_HEX2BCDMap' [-Wmissing-variable-declarations]
+const uint8_t  gCuc_HEX2BCDMap[] =
+               ^
+../bsp/customer/bsp_meter_v9260.c(8): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+const uint8_t  gCuc_HEX2BCDMap[] =
+      ^
+../bsp/customer/bsp_meter_v9260.c(22): warning: no previous extern declaration for non-static variable 'CrcTab' [-Wmissing-variable-declarations]
+const uint16_t CrcTab[256] =
+               ^
+../bsp/customer/bsp_meter_v9260.c(22): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+const uint16_t CrcTab[256] =
+      ^
+../bsp/customer/bsp_meter_v9260.c(104): warning: no previous extern declaration for non-static variable 'SysCtrl_Value' [-Wmissing-variable-declarations]
+const uint32_t SysCtrl_Value = SysCtrl_ValueA;//ϵͳ<BF><D8><D6>ƼĴ<E6><C6><F7>ֵ
+               ^
+../bsp/customer/bsp_meter_v9260.c(104): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+const uint32_t SysCtrl_Value = SysCtrl_ValueA;//ϵͳ<BF><D8><D6>ƼĴ<E6><C6><F7>ֵ
+      ^
+../bsp/customer/bsp_meter_v9260.c(117): warning: padding size of 'GS_RUNCODE1' with 1 bit to alignment boundary [-Wpadded]
+typedef struct
+        ^
+../bsp/customer/bsp_meter_v9260.c(157): warning: no previous extern declaration for non-static variable 'RegAddr' [-Wmissing-variable-declarations]
+uint16_t  RegAddr[] = {
+          ^
+../bsp/customer/bsp_meter_v9260.c(157): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+uint16_t  RegAddr[] = {
+^
+../bsp/customer/bsp_meter_v9260.c(293): warning: declaration shadows a variable in the global scope [-Wshadow]
+    for(uint8_t i = 0; i < length; i++) {
+                ^
+../bsp/customer/bsp_meter_v9260.c(107): note: previous declaration is here
+uint8_t i,tmp;//<C1><D9>ʱ<B1><E4><C1><BF>
+        ^
+../bsp/customer/bsp_meter_v9260.c(461): warning: declaration shadows a variable in the global scope [-Wshadow]
+    uint8_t i, ucSum = 0;
+            ^
+../bsp/customer/bsp_meter_v9260.c(107): note: previous declaration is here
+uint8_t i,tmp;//<C1><D9>ʱ<B1><E4><C1><BF>
+        ^
+../bsp/customer/bsp_meter_v9260.c(530): warning: declaration shadows a variable in the global scope [-Wshadow]
+    uint8_t i, ucSum = 0;
+            ^
+../bsp/customer/bsp_meter_v9260.c(107): note: previous declaration is here
+uint8_t i,tmp;//<C1><D9>ʱ<B1><E4><C1><BF>
+        ^
+../bsp/customer/bsp_meter_v9260.c(609): warning: no previous prototype for function 'CHKERR_Bit_scan' [-Wmissing-prototypes]
+void CHKERR_Bit_scan(void) 
+     ^
+../bsp/customer/bsp_meter_v9260.c(609): note: declare 'static' if the function is not intended to be used outside of this translation unit
+void CHKERR_Bit_scan(void) 
+^
+static 
+../bsp/customer/bsp_meter_v9260.c(232): warning: padding size of 'S_BPFPARA_Value' with 2 bytes to alignment boundary [-Wpadded]
+typedef struct {
+        ^
+../bsp/customer/bsp_meter_v9260.c(771): warning: implicit conversion loses integer precision: 'uint32_t' (aka 'unsigned int') to 'uint16_t' (aka 'unsigned short') [-Wimplicit-int-conversion]
+    result |= IntHex2BCD(hex);
+              ~~~~~~~~~~ ^~~
+../bsp/customer/bsp_meter_v9260.c(833): warning: implicit conversion loses integer precision: 'uint16_t' (aka 'unsigned short') to 'uint8_t' (aka 'unsigned char') [-Wimplicit-int-conversion]
+    result |= APIByteHEX2BCD(hex);
+              ~~~~~~~~~~~~~~ ^~~
+../bsp/customer/bsp_meter_v9260.c(870): warning: implicit conversion loses integer precision: 'uint32_t' (aka 'unsigned int') to 'uint16_t' (aka 'unsigned short') [-Wimplicit-int-conversion]
+    if(Meter_V9260_read(addr, value, Rac_Rev))
+       ~~~~~~~~~~~~~~~~ ^~~~
+../bsp/customer/bsp_meter_v9260.c(1060): warning: variable 'TempValue1' may be uninitialized when used here [-Wconditional-uninitialized]
+    return TempValue1;
+           ^~~~~~~~~~
+../bsp/customer/bsp_meter_v9260.c(868): note: initialize the variable 'TempValue1' to silence this warning
+    uint32_t TempPara,TempValue1,TempValue2;
+                                ^
+                                 = 0
+../bsp/customer/bsp_meter_v9260.c(933): warning: unannotated fall-through between switch labels [-Wimplicit-fallthrough]
+      case IAAVG:
+      ^
+../bsp/customer/bsp_meter_v9260.c(933): note: insert '__attribute__((fallthrough));' to silence this warning
+      case IAAVG:
+      ^
+      __attribute__((fallthrough)); 
+../bsp/customer/bsp_meter_v9260.c(933): note: insert 'break;' to avoid fall-through
+      case IAAVG:
+      ^
+      break; 
+../bsp/customer/bsp_meter_v9260.c(105): warning: no previous extern declaration for non-static variable 'guc_CommDelayTime' [-Wmissing-variable-declarations]
+uint8_t guc_CommDelayTime;  //<D1><D3>ʱʱ<BC><E4>
+        ^
+../bsp/customer/bsp_meter_v9260.c(105): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+uint8_t guc_CommDelayTime;  //<D1><D3>ʱʱ<BC><E4>
+^
+../bsp/customer/bsp_meter_v9260.c(106): warning: no previous extern declaration for non-static variable 'guc_CheckABCPhase_Dly' [-Wmissing-variable-declarations]
+uint8_t  guc_CheckABCPhase_Dly; //<D1><D3>ʱ<B1><EA>־λ
+         ^
+../bsp/customer/bsp_meter_v9260.c(106): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+uint8_t  guc_CheckABCPhase_Dly; //<D1><D3>ʱ<B1><EA>־λ
+^
+../bsp/customer/bsp_meter_v9260.c(107): warning: no previous extern declaration for non-static variable 'i' [-Wmissing-variable-declarations]
+uint8_t i,tmp;//<C1><D9>ʱ<B1><E4><C1><BF>
+        ^
+../bsp/customer/bsp_meter_v9260.c(107): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+uint8_t i,tmp;//<C1><D9>ʱ<B1><E4><C1><BF>
+^
+../bsp/customer/bsp_meter_v9260.c(107): warning: no previous extern declaration for non-static variable 'tmp' [-Wmissing-variable-declarations]
+uint8_t i,tmp;//<C1><D9>ʱ<B1><E4><C1><BF>
+          ^
+../bsp/customer/bsp_meter_v9260.c(107): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+uint8_t i,tmp;//<C1><D9>ʱ<B1><E4><C1><BF>
+^
+../bsp/customer/bsp_meter_v9260.c(108): warning: no previous extern declaration for non-static variable 'gul_FRQAVG_Value' [-Wmissing-variable-declarations]
+uint32_t gul_FRQAVG_Value[3]; //Ƶ<C2><CA>ƽ<BE><F9>ֵ<BC>Ĵ<E6><C6><F7>
+         ^
+../bsp/customer/bsp_meter_v9260.c(108): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+uint32_t gul_FRQAVG_Value[3]; //Ƶ<C2><CA>ƽ<BE><F9>ֵ<BC>Ĵ<E6><C6><F7>
+^
+../bsp/customer/bsp_meter_v9260.c(109): warning: no previous extern declaration for non-static variable 'gui_RefreshEvent' [-Wmissing-variable-declarations]
+uint16_t gui_RefreshEvent; //ˢ<D0><C2><CA>¼<FE>
+         ^
+../bsp/customer/bsp_meter_v9260.c(109): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+uint16_t gui_RefreshEvent; //ˢ<D0><C2><CA>¼<FE>
+^
+../bsp/customer/bsp_meter_v9260.c(153): warning: no previous extern declaration for non-static variable 'gs_MeterState' [-Wmissing-variable-declarations]
+METERSTATE gs_MeterState;
+           ^
+../bsp/customer/bsp_meter_v9260.c(153): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+METERSTATE gs_MeterState;
+^
+../bsp/customer/bsp_meter_v9260.c(176): warning: no previous extern declaration for non-static variable 'gs_RacCtrl' [-Wmissing-variable-declarations]
+ S_RacCtrl gs_RacCtrl;
+           ^
+../bsp/customer/bsp_meter_v9260.c(176): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+ S_RacCtrl gs_RacCtrl;
+ ^
+../bsp/customer/bsp_meter_v9260.c(186): warning: no previous extern declaration for non-static variable 'gs_RacPhy' [-Wmissing-variable-declarations]
+ S_RacPhy gs_RacPhy;
+          ^
+../bsp/customer/bsp_meter_v9260.c(186): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+ S_RacPhy gs_RacPhy;
+ ^
+../bsp/customer/bsp_meter_v9260.c(230): warning: no previous extern declaration for non-static variable 'gs_JbPm' [-Wmissing-variable-declarations]
+ S_JBPM gs_JbPm;                   //
+        ^
+../bsp/customer/bsp_meter_v9260.c(230): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+ S_JBPM gs_JbPm;                   //
+ ^
+../bsp/customer/bsp_meter_v9260.c(237): warning: no previous extern declaration for non-static variable 'gs_BPFPARA_Value' [-Wmissing-variable-declarations]
+ S_BPFPARA_Value gs_BPFPARA_Value; 
+                 ^
+../bsp/customer/bsp_meter_v9260.c(237): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+ S_BPFPARA_Value gs_BPFPARA_Value; 
+ ^
+../bsp/customer/bsp_meter_v9260.c(257): warning: no previous extern declaration for non-static variable 'gs_power' [-Wmissing-variable-declarations]
+ S_POWER gs_power; 
+         ^
+../bsp/customer/bsp_meter_v9260.c(257): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+ S_POWER gs_power; 
+ ^
+../bsp/customer/bsp_meter_v9260.c(267): warning: no previous extern declaration for non-static variable 'gs_UI' [-Wmissing-variable-declarations]
+S_UI gs_UI; 
+     ^
+../bsp/customer/bsp_meter_v9260.c(267): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+S_UI gs_UI; 
+^
+28 warnings generated.
+compiling bsp_meter_v9260.c...
 ../bsp/customer/bsp_led.c(18): warning: no previous extern declaration for non-static variable 'RED' [-Wmissing-variable-declarations]
 const RGB_Color_TypeDef RED      =  {255,0,0};    
                         ^
@@ -373,18 +953,15 @@ typedef struct
 ../lib/GD32E23x_standard_peripheral/Include\gd32e23x_dma.h(115): warning: padding size of 'dma_parameter_struct' with 1 byte to alignment boundary [-Wpadded]
 typedef struct
         ^
-../bsp/customer/bsp_led.c(559): warning: no previous extern declaration for non-static variable 'color' [-Wmissing-variable-declarations]
-uint8_t color = OEANGE_COLOR;
-        ^
-../bsp/customer/bsp_led.c(559): note: declare 'static' if the variable is not intended to be used outside of this translation unit
-uint8_t color = OEANGE_COLOR;
-^
-../bsp/customer/bsp_led.c(560): warning: no previous extern declaration for non-static variable 'cnt' [-Wmissing-variable-declarations]
-uint8_t cnt = 3;
-        ^
-../bsp/customer/bsp_led.c(560): note: declare 'static' if the variable is not intended to be used outside of this translation unit
-uint8_t cnt = 3;
-^
+../bsp/customer/bsp_led.c(608): warning: implicit declaration of function 'Fwdgt_Free' is invalid in C99 [-Wimplicit-function-declaration]
+    Fwdgt_Free();
+    ^
+../bsp/customer/bsp_led.c(564): warning: unused variable 'color' [-Wunused-variable]
+    uint8_t color = OEANGE_COLOR;
+            ^
+../bsp/customer/bsp_led.c(565): warning: unused variable 'cnt' [-Wunused-variable]
+    uint8_t cnt = 0;
+            ^
 ../bsp/customer/bsp_led.c(5): warning: In file included from...
 ../app\app.h(20): warning: padding struct 'app_para_t' with 1 byte to align 'tout' [-Wpadded]
     } tout;
@@ -410,12 +987,94 @@ static void ws2812_middle_expand_marquee(uint16_t color)
 ../bsp/customer/bsp_led.c(270): warning: unused function 'ws2812_middle_marquee' [-Wunused-function]
 static void ws2812_middle_marquee(uint16_t color)
             ^
-66 warnings generated.
+../bsp/customer/bsp_led.c(289): warning: unused function 'ws2812_single_led' [-Wunused-function]
+static void ws2812_single_led(uint8_t Led_id,uint16_t color)
+            ^
+68 warnings generated.
 compiling bsp_led.c...
+compiling app_target.c...
+../lib/GD32E23x_standard_peripheral/Source/gd32e23x_cmp.c(203): warning: unused parameter 'cmp_periph' [-Wunused-parameter]
+uint32_t cmp_output_level_get(cmp_enum cmp_periph)
+                                       ^
+1 warning generated.
+compiling gd32e23x_cmp.c...
+compiling gd32e23x_adc.c...
+compiling gd32e23x_dbg.c...
+compiling gd32e23x_crc.c...
+../lib/GD32E23x_standard_peripheral/Source/gd32e23x_dma.c(35): warning: In file included from...
+../lib/GD32E23x_standard_peripheral/Include\gd32e23x_dma.h(115): warning: padding size of 'dma_parameter_struct' with 1 byte to alignment boundary [-Wpadded]
+typedef struct
+        ^
+1 warning generated.
+compiling gd32e23x_dma.c...
+../lib/GD32E23x_standard_peripheral/Source/gd32e23x_exti.c(91): warning: default label in switch which covers all enumeration values [-Wcovered-switch-default]
+    default:
+    ^
+../lib/GD32E23x_standard_peripheral/Source/gd32e23x_exti.c(110): warning: default label in switch which covers all enumeration values [-Wcovered-switch-default]
+    default:
+    ^
+2 warnings generated.
+compiling gd32e23x_exti.c...
+compiling gd32e23x_fmc.c...
+compiling gd32e23x_fwdgt.c...
+compiling gd32e23x_gpio.c...
+../lib/GD32E23x_standard_peripheral/Source/gd32e23x_misc.c(72): warning: function 'nvic_system_reset' could be declared with attribute 'noreturn' [-Wmissing-noreturn]
+{
+^
+1 warning generated.
+compiling gd32e23x_misc.c...
+compiling gd32e23x_i2c.c...
+compiling gd32e23x_pmu.c...
+compiling gd32e23x_spi.c...
+../lib/GD32E23x_standard_peripheral/Source/gd32e23x_rtc.c(35): warning: In file included from...
+../lib/GD32E23x_standard_peripheral/Include\gd32e23x_rtc.h(218): warning: padding struct 'rtc_parameter_struct' with 1 byte to align 'rtc_factor_asyn' [-Wpadded]
+    uint16_t rtc_factor_asyn;                                                          /*!< RTC asynchronous prescaler value: 0x0 - 0x7F */
+             ^
+../lib/GD32E23x_standard_peripheral/Include\gd32e23x_rtc.h(245): warning: padding struct 'rtc_timestamp_struct' with 2 bytes to align 'rtc_am_pm' [-Wpadded]
+    uint32_t rtc_am_pm;                                                                /*!< RTC time-stamp AM/PM value */
+             ^
+../lib/GD32E23x_standard_peripheral/Include\gd32e23x_rtc.h(256): warning: padding struct 'rtc_tamper_struct' with 3 bytes to align 'rtc_tamper_precharge_time' [-Wpadded]
+    uint32_t rtc_tamper_precharge_time;                                                /*!< RTC tamper precharge duration if precharge feature is enabled */
+             ^
+../lib/GD32E23x_standard_peripheral/Include\gd32e23x_rtc.h(249): warning: padding size of 'rtc_tamper_struct' with 3 bytes to alignment boundary [-Wpadded]
+typedef struct
+        ^
+4 warnings generated.
+compiling gd32e23x_rtc.c...
+../lib/GD32E23x_standard_peripheral/Source/gd32e23x_rcu.c(374): warning: default label in switch which covers all enumeration values [-Wcovered-switch-default]
+    default:
+    ^
+../lib/GD32E23x_standard_peripheral/Source/gd32e23x_rcu.c(586): warning: default label in switch which covers all enumeration values [-Wcovered-switch-default]
+    default:
+    ^
+../lib/GD32E23x_standard_peripheral/Source/gd32e23x_rcu.c(659): warning: default label in switch which covers all enumeration values [-Wcovered-switch-default]
+    default:
+    ^
+../lib/GD32E23x_standard_peripheral/Source/gd32e23x_rcu.c(694): warning: default label in switch which covers all enumeration values [-Wcovered-switch-default]
+    default:
+    ^
+../lib/GD32E23x_standard_peripheral/Source/gd32e23x_rcu.c(934): warning: default label in switch which covers all enumeration values [-Wcovered-switch-default]
+    default:
+    ^
+5 warnings generated.
+compiling gd32e23x_rcu.c...
+compiling gd32e23x_syscfg.c...
+compiling gd32e23x_wwdgt.c...
+../lib/GD32E23x_standard_peripheral/Source/gd32e23x_usart.c(280): warning: default label in switch which covers all enumeration values [-Wcovered-switch-default]
+    default:
+    ^
+1 warning generated.
+compiling gd32e23x_usart.c...
+../lib/GD32E23x_standard_peripheral/Source/gd32e23x_timer.c(35): warning: In file included from...
+../lib/GD32E23x_standard_peripheral/Include\gd32e23x_timer.h(252): warning: padding size of 'timer_parameter_struct' with 3 bytes to alignment boundary [-Wpadded]
+typedef struct
+        ^
+1 warning generated.
+compiling gd32e23x_timer.c...
 linking...
-Program Size: Code=11426 RO-data=274 RW-data=20 ZI-data=1748  
+Program Size: Code=13968 RO-data=312 RW-data=8 ZI-data=1744  
 FromELF: creating hex file...
-".\Objects\code.axf" - 0 Error(s), 66 Warning(s).
+".\Objects\code.axf" - 0 Error(s), 173 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -438,7 +1097,7 @@ Package Vendor: GigaDevice
 <h2>Collection of Component Files used:</h2>
 
    * Component: ARM::CMSIS:CORE:6.1.0
-Build Time Elapsed:  00:00:02
+Build Time Elapsed:  00:00:05
 </pre>
 </body>
 </html>

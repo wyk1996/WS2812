@@ -545,7 +545,7 @@ void ws2812_init(void)
     
     ws2812_timer_pwm_init();
     ws2812_dma_init();
-    ws2812_display_color(BLACK_COLOR);
+
    
 }
 
@@ -556,10 +556,16 @@ void ws2812_init(void)
 
 
 
-uint8_t color = OEANGE_COLOR;
-uint8_t cnt = 3;
+
+
 void Led_Handler(void)
 {
+
+    uint8_t color = OEANGE_COLOR;
+    uint8_t cnt = 0;
+    
+
+
 
     if (TimeOutDet_Check(&app_para.tout.poll)) {
 
@@ -567,22 +573,38 @@ void Led_Handler(void)
         // ws2812_middle_expand_marquee(color);
        
 
-        #if 1
-        app_para.flag_vlaue = ~app_para.flag_vlaue;
 
+        #if 0
+        app_para.flag_vlaue = ~app_para.flag_vlaue;
         if (app_para.flag_vlaue) {
             ws2812_single_led(cnt,color);
         } else{
+            flag  = 0;
             ws2812_single_led(cnt,BLACK_COLOR);
         }
-        #else
-        ws2812_marquee_step(color);
         #endif
 
+
+        #if 0
+        ws2812_marquee_step(color);
+        #endif
+       
         TimeOut_Record(&app_para.tout.poll, POLL_TIME);
+        
     }
 
 
 
-
+    #if 0
+    if (++cnt > 4){
+        cnt = 0;
+    }
+    ws2812_single_led(cnt,cnt);
+    delay_1ms(250);
+    ws2812_single_led(cnt,BLACK_COLOR);
+    delay_1ms(250);
+    
+    #endif
+    Fwdgt_Free();
+    
 }
