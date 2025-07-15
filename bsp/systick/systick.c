@@ -36,10 +36,7 @@ OF SUCH DAMAGE.
 #include "systick.h"
 #include <stdint.h>
 
-volatile static uint32_t delay;
-volatile static float count_1us = 0;
-volatile static float count_1ms = 0;
-
+volatile static uint64_t delay;
 static volatile uint64_t s64_system_ticks = 0;
 static uint64_t delay_temp=0;
 
@@ -51,7 +48,6 @@ static uint64_t delay_temp=0;
 */
 void systick_config(void)
 {
-    #if 1
     /* setup systick timer for 1000Hz interrupts */
     if(SysTick_Config(SystemCoreClock / 1000U)){
         /* capture error */
@@ -60,35 +56,10 @@ void systick_config(void)
     }
     /* configure the systick handler priority */
     NVIC_SetPriority(SysTick_IRQn, 0x00U);
-    #else
-    systick_clksource_set(SYSTICK_CLKSOURCE_HCLK_DIV8);
-    count_1us = (float)SystemCoreClock/8000000;
-    count_1ms = (float)count_1us * 1000;
-    #endif
 
 
 }
 
-
-void delay_1us(uint32_t count)
-{
-    uint32_t ctl;
-    
-    /* reload the count value */
-    SysTick->LOAD = (uint32_t)(count * count_1us);
-    /* clear the current count value */
-    SysTick->VAL = 0x0000U;
-    /* enable the systick timer */
-    SysTick->CTRL = SysTick_CTRL_ENABLE_Msk;
-    /* wait for the COUNTFLAG flag set */
-    do{
-        ctl = SysTick->CTRL;
-    }while((ctl&SysTick_CTRL_ENABLE_Msk)&&!(ctl & SysTick_CTRL_COUNTFLAG_Msk));
-    /* disable the systick timer */
-    SysTick->CTRL &= ~SysTick_CTRL_ENABLE_Msk;
-    /* clear the current count value */
-    SysTick->VAL = 0x0000U;
-}
 
 /*!
     \brief      delay a time in milliseconds
@@ -96,34 +67,15 @@ void delay_1us(uint32_t count)
     \param[out] none
     \retval     none
 */
-void delay_1ms(uint32_t count)
-{
-    #if 1
-    delay = count;
+// void delay_ms(uint32_t count)
+// {
+//     #if 0
+//     delay = count;
 
-    while(0U != delay){
-    }
-    
-
-    #else
-    uint32_t ctl;
-    
-    /* reload the count value */
-    SysTick->LOAD = (uint32_t)(count * count_1ms);
-    /* clear the current count value */
-    SysTick->VAL = 0x0000U;
-    /* enable the systick timer */
-    SysTick->CTRL = SysTick_CTRL_ENABLE_Msk;
-    /* wait for the COUNTFLAG flag set */
-    do{
-        ctl = SysTick->CTRL;
-    }while((ctl&SysTick_CTRL_ENABLE_Msk)&&!(ctl & SysTick_CTRL_COUNTFLAG_Msk));
-    /* disable the systick timer */
-    SysTick->CTRL &= ~SysTick_CTRL_ENABLE_Msk;
-    /* clear the current count value */
-    SysTick->VAL = 0x0000U;
-    #endif
-}
+//     while(0U != delay){
+//     }
+//     #endif
+// }
 
 /*!
     \brief      delay decrement
@@ -131,12 +83,12 @@ void delay_1ms(uint32_t count)
     \param[out] none
     \retval     none
 */
-void delay_decrement(void)
-{
-    if(0U != delay){
-        delay--;
-    }
-}
+// void delay_decrement(void)
+// {
+//     if(0U != delay){
+//         delay--;
+//     }
+// }
 
 
 /*!

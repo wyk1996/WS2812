@@ -62,7 +62,7 @@ static void _signal_entry(void *parameter)
     tid->sp = tid->sig_ret;
     tid->sig_ret = RT_NULL;
 
-    LOG_D("switch back to: 0x%08x\n", tid->sp);
+    printf("switch back to: 0x%08x\n", tid->sp);
     tid->stat &= ~RT_THREAD_STAT_SIGNAL;
 
 #ifdef RT_USING_SMP
@@ -125,7 +125,7 @@ static void _signal_deliver(rt_thread_t tid)
                                        (void *)((char *)tid->sig_ret - 32), RT_NULL);
 
             rt_hw_interrupt_enable(level);
-            LOG_D("signal stack pointer @ 0x%08x", tid->sp);
+            printf("signal stack pointer @ 0x%08x", tid->sp);
 
             /* re-schedule */
             rt_schedule();
@@ -274,7 +274,7 @@ __done:
         {
             *si  = si_node->si;
 
-            LOG_D("sigwait: %d sig raised!", signo);
+            printf("sigwait: %d sig raised!", signo);
             if (si_prev) si_prev->list.next = si_node->list.next;
             else tid->si_list = si_node->list.next;
 
@@ -326,7 +326,7 @@ void rt_thread_handle_sig(rt_bool_t clean_state)
                 handler = tid->sig_vectors[signo];
                 rt_hw_interrupt_enable(level);
 
-                LOG_D("handle signal: %d, handler 0x%08x", signo, handler);
+                printf("handle signal: %d, handler 0x%08x", signo, handler);
                 if (handler) handler(signo);
 
                 level = rt_hw_interrupt_disable();
@@ -384,7 +384,7 @@ void rt_thread_free_sig(rt_thread_t tid)
         struct rt_slist_node *node;
         struct siginfo_node  *si_node;
 
-        LOG_D("free signal info list");
+        printf("free signal info list");
         node = &(si_list->list);
         do
         {

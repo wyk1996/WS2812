@@ -52,7 +52,7 @@ extern "C" {
 
 /* EasyFlash debug print function. Must be implement by user. */
 #ifdef PRINT_DEBUG
-#define EF_DEBUG(...) ef_log_debug(__FILE__, __LINE__, __VA_ARGS__)
+#define EF_DEBUG(...) ef_printfebug(__FILE__, __LINE__, __VA_ARGS__)
 #else
 #define EF_DEBUG(...)
 #endif

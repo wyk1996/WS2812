@@ -123,7 +123,7 @@ static void tcpclient(void *arg)
             else
             {
                 /* 在控制终端显示收到的数据 */
-                LOG_D("Received data = %s", recv_data);
+                printf("Received data = %s", recv_data);
             }
         }
 

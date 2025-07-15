@@ -104,7 +104,7 @@ static void udpserv(void *paramemter)
             recv_data[bytes_read] = '\0'; /* 把末端清零 */
 
             /* 输出接收的数据 */
-            LOG_D("Received data = %s", recv_data);
+            printf("Received data = %s", recv_data);
 
             /* 如果接收数据是exit，退出 */
             if (strcmp(recv_data, "exit") == 0)

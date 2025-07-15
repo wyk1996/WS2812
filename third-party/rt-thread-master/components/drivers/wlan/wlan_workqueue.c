@@ -46,7 +46,7 @@ rt_err_t rt_wlan_workqueue_dowork(void (*func)(void *parameter), void *parameter
     struct rt_wlan_work *wlan_work;
     rt_err_t err = RT_EOK;
 
-    LOG_D("F:%s is run", __FUNCTION__);
+    printf("F:%s is run", __FUNCTION__);
     if (func == RT_NULL)
     {
         LOG_E("F:%s L:%d func is null", __FUNCTION__, __LINE__);

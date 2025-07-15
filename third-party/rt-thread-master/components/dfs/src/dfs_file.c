@@ -46,7 +46,7 @@ int dfs_file_open(struct dfs_fd *fd, const char *path, int flags)
         return -ENOMEM;
     }
 
-    LOG_D("open file:%s", fullpath);
+    printf("open file:%s", fullpath);
 
     /* Check whether file is already open */
     if (fd_is_open(fullpath) == 0)
@@ -65,7 +65,7 @@ int dfs_file_open(struct dfs_fd *fd, const char *path, int flags)
         return -ENOENT;
     }
 
-    LOG_D("open in filesystem:%s", fs->ops->name);
+    printf("open in filesystem:%s", fs->ops->name);
     fd->fops  = fs->ops->fops; /* set file ops */
 
     /* initialize the fd item */
@@ -82,7 +82,7 @@ int dfs_file_open(struct dfs_fd *fd, const char *path, int flags)
         else
             fd->path = rt_strdup(dfs_subdir(fs->path, fullpath));
         rt_free(fullpath);
-        LOG_D("Actual file path: %s", fd->path);
+        printf("Actual file path: %s", fd->path);
     }
     else
     {

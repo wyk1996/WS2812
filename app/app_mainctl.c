@@ -46,7 +46,7 @@ static void main_change_ground_detection_handle(void)
 		   s_main_init = 1;
 	       earthing_flashData_T[0] = *(__IO INT32U*)(earthing_addr_T);
 
-		  // log_d("earthing_flashData_T[0] = 0x%x \n",earthing_flashData_T[0]);
+		  // printf("earthing_flashData_T[0] = 0x%x \n",earthing_flashData_T[0]);
     	}
 
 

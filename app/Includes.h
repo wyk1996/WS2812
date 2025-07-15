@@ -34,9 +34,9 @@
 #define FLOAT_LESS_EQUAL(a, b) (FLOAT_LESS(a, b) || FLOAT_EQUAL(a, b))
 
 #if LOG_LEVEL <= LOG_LEVEL_DEBUG
-#define log_d(format, ...) printf( format, ##__VA_ARGS__)
+//#define printf(format, ...) printf( format, ##__VA_ARGS__)
 #else
-#define log_d(format, ...)
+#define printf(format, ...)
 #endif
 
 #if 0

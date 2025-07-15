@@ -38,10 +38,6 @@ void Key_Touch_Init(void)
 {
     /* enable GPIOB clock */
     rcu_periph_clock_enable(RCU_GPIOB);
-    
-    /* configure KEY_TOUCH_PIN as input floating */
-    gpio_mode_set(KEY_TOUCH_PORT, GPIO_MODE_INPUT, GPIO_PUPD_NONE, KEY_TOUCH_PIN);
-    
     /* configure KEY_TOUCH_PIN as input pull-up */
     gpio_mode_set(KEY_TOUCH_PORT, GPIO_MODE_INPUT, GPIO_PUPD_PULLUP, KEY_TOUCH_PIN);
     gpio_output_options_set(KEY_TOUCH_PORT, GPIO_OTYPE_PP, GPIO_OSPEED_10MHZ, KEY_TOUCH_PIN);

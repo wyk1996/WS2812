@@ -486,7 +486,7 @@ void ulog_voutput(rt_uint32_t level, const char *tag, rt_bool_t newline, const c
 #ifndef ULOG_USING_SYSLOG
     RT_ASSERT(level <= LOG_LVL_DBG);
 #else
-    RT_ASSERT(LOG_PRI(level) <= LOG_DEBUG);
+    RT_ASSERT(LOG_PRI(level) <= printfEBUG);
 #endif /* ULOG_USING_SYSLOG */
 
     RT_ASSERT(tag);
@@ -649,7 +649,7 @@ void ulog_hexdump(const char *tag, rt_size_t width, rt_uint8_t *buf, rt_size_t s
         return;
     }
 #else
-    if ((LOG_MASK(LOG_DEBUG) & ulog.filter.level) == 0)
+    if ((LOG_MASK(printfEBUG) & ulog.filter.level) == 0)
     {
         return;
     }
@@ -1267,7 +1267,7 @@ int ulog_init(void)
 }
 INIT_PREV_EXPORT(ulog_init);
 
-void ulog_deinit(void)
+void uprintfeinit(void)
 {
     rt_slist_t *node;
     ulog_backend_t backend;

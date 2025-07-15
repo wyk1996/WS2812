@@ -1,0 +1,57 @@
+[Stack]
+FillEnabled=0
+OverflowWarningsEnabled=1
+WarningThreshold=90
+SpWarningsEnabled=1
+WarnLogOnly=1
+UseTrigger=1
+TriggerName=main
+LimitSize=0
+ByteLimit=50
+[DebugChecksum]
+Checksum=1555532744
+[CallStack]
+ShowArgs=0
+[Disassembly]
+MixedMode=1
+[struct_types]
+Fmt0=S_JBPM-RacBPFPARA	4	0
+Fmt1=S_JBPM-RacEGYTH	4	0
+Fmt2=S_JBPM-RacREEGYTH	4	0
+Fmt3=S_JBPM-RacSysCtrl	4	0
+Fmt4=S_JBPM-ui_Ib	4	0
+Fmt5=S_JBPM-ui_MeterC	4	0
+Fmt6=S_JBPM-ui_Un	4	0
+Fmt7=S_JBPM-ul_I1RmG	4	0
+Fmt8=S_JBPM-ul_PG	4	0
+Fmt9=S_JBPM-ul_URmG	4	0
+Fmt10=S_JBRE-RacPAC	4	0
+Fmt11=Word32-lword	3	0
+[array_types]
+Fmt0=uint32 [3]	4	0
+Fmt1=uint32 [4]	4	0
+Fmt2=uint8 [100]	4	0
+[watch_formats]
+Fmt0={W}0:RegAddr[4]	4	0
+Fmt1={W}0:RegAddr[i]	4	0
+Fmt2={W}0:SysCtrl	4	0
+Fmt3={W}0:buf	4	0
+Fmt4={W}0:buf5	3	0
+Fmt5={W}0:guc_1280msCnt	4	0
+Fmt6={W}0:gui_SystemEvent	4	0
+Fmt7={W}0:temp_i	3	0
+Fmt8={W}0:temp_p	4	0
+Fmt9={W}0:temp_u	3	0
+Fmt10={W}0:ul_pRacReg[2]	4	0
+[Log file]
+LoggingEnabled=_ 0
+LogFile=_ ""
+Category=_ 0
+[TermIOLog]
+LoggingEnabled=_ 0
+LogFile=_ ""
+[Breakpoints]
+Count=0
+[Aliases]
+Count=0
+SuppressDialog=0

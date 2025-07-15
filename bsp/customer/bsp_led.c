@@ -6,27 +6,26 @@
 
 
 #if 1
-// #define CODE_1       (59)        //1码定时器计数次数
-// #define CODE_0       (29)        //0码定时器计数次数
-#define CODE_1       (50)           //1码定时器计数次数
-#define CODE_0       (20)           //0码定时器计数次数
+#define CODE_1       (59)           //1码定时器计数次数
+#define CODE_0       (29)           //0码定时器计数次数
 #define Pixel_NUM    6              //LED数量宏定义，这里我使用一个LED，（单词pixel为像素的意思）
-#define vlaue_led    24 * 3
+#define vlaue_led    24 * 4
 
 
 #if 1
 const RGB_Color_TypeDef RED      =  {255,0,0};    
 const RGB_Color_TypeDef GREEN    =  {0, 255, 0};
 const RGB_Color_TypeDef BLUE     =  {0, 0, 255};
+const RGB_Color_TypeDef YELLOW   =  {255, 255, 0};
 const RGB_Color_TypeDef SKY      =  {0, 255, 255};
 const RGB_Color_TypeDef MAGENTA  =  {255, 0, 255};
-const RGB_Color_TypeDef YELLOW   =  {255, 255, 0};
+
 const RGB_Color_TypeDef WHITE    =  {255, 255, 255};
 const RGB_Color_TypeDef BLACK    =  {0, 0, 0};
 const RGB_Color_TypeDef OEANGE   =  {152, 251, 152};
 #endif
 
-uint16_t Pixel_Buf[Pixel_NUM + 2][24];//RGB灯传输数据;多于的24bit是刷新用 
+uint16_t Pixel_Buf[Pixel_NUM + 4][24];//RGB灯传输数据;多于的24bit是刷新用 
 
 
 
@@ -51,6 +50,7 @@ static void ws2812_rgb_set_color_buf(uint8_t LedId,RGB_Color_TypeDef Color)
 {
     uint8_t i; 
     if(LedId > Pixel_NUM-1)return; //avoid overflow 防止写入ID大于LED总数
+    LedId += 3;
     
     for(i=0;i<8;i++)   Pixel_Buf[LedId][i]   =  ((Color.G & (1 << (7 -i)))? (CODE_1):CODE_0 );//数组某一行0~7转化存放G
     for(i=8;i<16;i++)  Pixel_Buf[LedId][i]   =  ((Color.R & (1 << (15-i)))? (CODE_1):CODE_0 );//数组某一行8~15转化存放R
@@ -124,7 +124,8 @@ static void ws2812_set_color(RGB_Color_TypeDef color)
 参数：color：定义的枚举颜色
 */
 void ws2812_display_color(uint8_t color)
-{
+{   
+
     switch (color) {
         case RED_COLOR:ws2812_set_color(RED);break;
         case GREEN_COLOR:ws2812_set_color(GREEN);break;  
@@ -137,6 +138,7 @@ void ws2812_display_color(uint8_t color)
         case WHITE_COLOR:ws2812_set_color(WHITE);break;
         default:ws2812_set_color(BLACK);break;
     }
+
 }
 
 static void ws2812_set_single_color(uint8_t led_id, uint16_t color)
@@ -151,112 +153,37 @@ static void ws2812_set_single_color(uint8_t led_id, uint16_t color)
 }
 
 
-#if 0
-//跑马灯由左到右
-void ws2812_marquee(uint16_t color, uint32_t delay_ms)
-{
-    RGB_Color_TypeDef color_type = ws2812_return_color_type(color);
-    RGB_Color_TypeDef black_type = ws2812_return_color_type(BLACK_COLOR);
-
-    for (uint8_t i = 0; i < Pixel_NUM; i++) {
-        // 先全部熄灭
-        for (uint8_t j = 0; j < Pixel_NUM; j++) {
-            ws2812_rgb_set_color_buf(j-1, black_type);
-        }
-        // 点亮当前灯
-        ws2812_rgb_set_color_buf(i-1, color_type);
-        ws2812_rgb_send_array();
-        delay_1ms(delay_ms);
-    }
-    // 最后全部熄灭
-    for (uint8_t j = 0; j < Pixel_NUM; j++) {
-        ws2812_rgb_set_color_buf(j-1, black_type);
-    }
-    ws2812_rgb_send_array();
-}
-
-//跑马灯由右到左
-void ws2812_marqueeyyy(uint16_t color)
-// void ws2812_marqueeyyy(uint16_t color, uint32_t delay_ms)
-{
-    RGB_Color_TypeDef color_type = ws2812_return_color_type(color);
-    RGB_Color_TypeDef black_type = ws2812_return_color_type(BLACK_COLOR);
-
-    for (uint8_t i = Pixel_NUM; i > 0; i--) {
-        // 先全部熄灭
-        for (uint8_t j = Pixel_NUM; j > 0; j--) {
-            ws2812_rgb_set_color_buf(j+1, black_type);
-        }
-        // 点亮当前灯
-        ws2812_rgb_set_color_buf(i+1, color_type);
-        ws2812_rgb_send_array();
-        // delay_1ms(delay_ms);
-    }
-    // 最后全部熄灭
-    for (uint8_t j = Pixel_NUM; j > 0; j--) {
-        ws2812_rgb_set_color_buf(j+1, black_type);
-    }
-    ws2812_rgb_send_array();
-}
-#endif
-
-#if 1
-volatile uint8_t marquee_step = 0; // 跑马灯步进
-volatile uint8_t marquee_dir = 0;  // 方向，0左到右，1右到左
-#else
-volatile uint8_t marquee_dir = 1;  // 方向，0左到右，1右到左
-volatile uint8_t marquee_step = 5; // 跑马灯步进
-#endif
-
-static void ws2812_marquee_step(uint8_t color)
-{
-    RGB_Color_TypeDef color_type = ws2812_return_color_type(color);
-    RGB_Color_TypeDef black_type = ws2812_return_color_type(BLACK_COLOR);
-
-    // 先全部熄灭
-    for (uint8_t i = 0; i < 5; i++) {
-        ws2812_rgb_set_color_buf(i, black_type);
-    }
-    // 点亮当前步
-    if (marquee_step < 5)
-        ws2812_rgb_set_color_buf(marquee_step, color_type);
-
-    ws2812_rgb_send_array();
-
-    // 步进
-    if (marquee_dir == 0) {
-        marquee_step++;
-        if (marquee_step > 4) {
-            marquee_step = 0;
-        }
-    } else {
-        #if 1
-        if (marquee_step == 0) {
-            marquee_dir = 1;
-            marquee_step = 5;
-        } else {
-            marquee_step--;
-        }
-        #endif
-    }
-}
 
 
 
 
-uint16_t temp[Pixel_NUM] = {BLACK_COLOR,BLACK_COLOR,BLACK_COLOR,BLACK_COLOR,BLACK_COLOR};
-uint8_t conut = 0;
+
+
 // 中间向两边扩散的蓝色流水灯
-static void ws2812_middle_expand_marquee(uint16_t color)
+static void ws2812_middle_expand_marquee(uint8_t color)
 {
+    static uint8_t temp[Pixel_NUM] = {BLACK_COLOR,BLACK_COLOR,BLACK_COLOR,BLACK_COLOR,BLACK_COLOR};
+    static uint8_t conut = 0;
+    #if 0
     switch(conut)
     {
         case 0:temp[0] = BLACK_COLOR,temp[1] = BLACK_COLOR,temp[2] = BLACK_COLOR,temp[3] = BLACK_COLOR,temp[4] = BLACK_COLOR;break;
         case 1:temp[0] = BLACK_COLOR,temp[1] = BLACK_COLOR,temp[2] = color,temp[3] = BLACK_COLOR,temp[4] = BLACK_COLOR;break;
-        case 2:temp[0] = BLACK_COLOR,temp[1] = color,temp[2] = BLACK_COLOR,temp[3] = color,temp[4] = BLACK_COLOR;break;
-        case 3:temp[0] = color,temp[1] = BLACK_COLOR,temp[2] = BLACK_COLOR,temp[3] = BLACK_COLOR,temp[4] = color;break;
+        case 2:temp[0] = BLACK_COLOR,temp[1] = color,temp[2] = color,temp[3] = color,temp[4] = BLACK_COLOR;break;
+        case 3:temp[0] = color,temp[1] = color,temp[2] = color,temp[3] = color,temp[4] = color;break;
         default:return;
     }
+    #else
+    temp[0] = YELLOW_COLOR;
+    switch(conut)
+    {
+        case 0:temp[1] = BLACK_COLOR,temp[2] = BLACK_COLOR,temp[3] = BLACK_COLOR,temp[4] = BLACK_COLOR;break;
+        case 1:temp[1] = BLACK_COLOR,temp[2] = color,temp[3] = BLACK_COLOR,temp[4] = BLACK_COLOR;break;
+        case 2:temp[1] = color,temp[2] = color,temp[3] = color,temp[4] = BLACK_COLOR;break;
+        case 3:temp[1] = color,temp[2] = color,temp[3] = color,temp[4] = color;break;
+        default:return;
+    }
+    #endif
     conut ++;
     conut &= 0x03;
     for (uint8_t i = 0; i < Pixel_NUM; i++) {
@@ -267,18 +194,121 @@ static void ws2812_middle_expand_marquee(uint16_t color)
 
 
 // 两边向中间扩散的蓝色流水灯
-static void ws2812_middle_marquee(uint16_t color)
+static void ws2812_middle_marquee(uint8_t color)
 {
+    static uint8_t temp[5] = {BLACK_COLOR,BLACK_COLOR,BLACK_COLOR,BLACK_COLOR,BLACK_COLOR};
+    static uint8_t conut = 0;
+    #if 1
     switch(conut)
     {
         case 0:temp[0] = BLACK_COLOR,temp[1] = BLACK_COLOR,temp[2] = BLACK_COLOR,temp[3] = BLACK_COLOR,temp[4] = BLACK_COLOR;break;
         case 1:temp[0] = color,temp[1] = BLACK_COLOR,temp[2] = BLACK_COLOR,temp[3] = BLACK_COLOR,temp[4] = color;break;
-        case 2:temp[0] = BLACK_COLOR,temp[1] = color,temp[2] = BLACK_COLOR,temp[3] = color,temp[4] = BLACK_COLOR;break;
-        case 3:temp[0] = BLACK_COLOR,temp[1] = BLACK_COLOR,temp[2] = color,temp[3] = BLACK_COLOR,temp[4] = BLACK_COLOR;break;
+        case 2:temp[0] = color,temp[1] = color,temp[2] = BLACK_COLOR,temp[3] = color,temp[4] = color;break;
+        case 3:temp[0] = color,temp[1] = color,temp[2] = color,temp[3] = color,temp[4] = color;break;
         default:return;
     }
+    #else
+    temp[0] = YELLOW_COLOR;
+    switch(conut)
+    {
+        case 0:temp[1] = BLACK_COLOR,temp[2] = BLACK_COLOR,temp[3] = BLACK_COLOR,temp[4] = BLACK_COLOR;break;
+        case 1:temp[1] = BLACK_COLOR,temp[2] = BLACK_COLOR,temp[3] = BLACK_COLOR,temp[4] = color;break;
+        case 2:temp[1] = color,temp[2] = BLACK_COLOR,temp[3] = color,temp[4] = color;break;
+        case 3:temp[1] = color,temp[2] = color,temp[3] = color,temp[4] = color;break;
+        default:return;
+    }
+    #endif
     conut ++;
     conut &= 0x03;
+    for (uint8_t i = 0; i < 5; i++) {
+        ws2812_rgb_set_color_buf(i, ws2812_return_color_type(temp[i]));
+    }
+    ws2812_rgb_send_array();
+}
+
+//从下到上的流水灯
+static void dwon_up_waterfall_light(uint8_t color)
+{
+    static uint8_t temp[Pixel_NUM] = {BLACK_COLOR,BLACK_COLOR,BLACK_COLOR,BLACK_COLOR,BLACK_COLOR};
+    static uint8_t conut = 0;
+    #if 0
+    switch(conut)
+    {
+        case 0:temp[0] = BLACK_COLOR,temp[1] = BLACK_COLOR,temp[2] = BLACK_COLOR,temp[3] = BLACK_COLOR,temp[4] = BLACK_COLOR;break;
+        case 1:temp[0] = color,temp[1] = BLACK_COLOR,temp[2] = BLACK_COLOR,temp[3] = BLACK_COLOR,temp[4] = BLACK_COLOR;break;
+        case 2:temp[0] = color,temp[1] = color,temp[2] = BLACK_COLOR,temp[3] = BLACK_COLOR,temp[4] = BLACK_COLOR;break;
+        case 3:temp[0] = color,temp[1] = color,temp[2] = color,temp[3] = BLACK_COLOR,temp[4] = BLACK_COLOR;break;
+        case 4:temp[0] = color,temp[1] = color,temp[2] = color,temp[3] = color,temp[4] = BLACK_COLOR;break;  
+        case 5:temp[0] = color,temp[1] = color,temp[2] = color,temp[3] = color,temp[4] = color;break;  
+        default:return;
+    }
+
+    if(++conut > 5){
+        conut = 0;
+    }
+
+    #else
+    temp[0] = YELLOW_COLOR;
+    switch(conut)
+    {
+        case 0:temp[1] = BLACK_COLOR,temp[2] = BLACK_COLOR,temp[3] = BLACK_COLOR,temp[4] = BLACK_COLOR;break;
+        case 1:temp[1] = color,temp[2] = BLACK_COLOR,temp[3] = BLACK_COLOR,temp[4] = BLACK_COLOR;break;
+        case 2:temp[1] = color,temp[2] = color,temp[3] = BLACK_COLOR,temp[4] = BLACK_COLOR;break;
+        case 3:temp[1] = color,temp[2] = color,temp[3] = color,temp[4] = BLACK_COLOR;break;
+        case 4:temp[1] = color,temp[2] = color,temp[3] = color,temp[4] = color;break;  
+        default:return;
+    }
+    #endif
+    if(++conut > 4){
+        conut = 0;
+    }
+
+    conut &= 0x07;
+    for (uint8_t i = 0; i < 5; i++) {
+        ws2812_rgb_set_color_buf(i, ws2812_return_color_type(temp[i]));
+    }
+    ws2812_rgb_send_array();
+
+}
+
+//从上到下的流水灯
+static void up_dwon_waterfall_light(uint8_t color)
+{
+    static uint8_t temp[Pixel_NUM] = {BLACK_COLOR,BLACK_COLOR,BLACK_COLOR,BLACK_COLOR,BLACK_COLOR};
+    static uint8_t conut = 0;
+    #if 0
+    switch(conut)
+    {
+        case 0:temp[0] = BLACK_COLOR,temp[1] = BLACK_COLOR,temp[2] = BLACK_COLOR,temp[3] = BLACK_COLOR,temp[4] = BLACK_COLOR;break;
+        case 1:temp[0] = BLACK_COLOR,temp[1] = BLACK_COLOR,temp[2] = BLACK_COLOR,temp[3] = BLACK_COLOR,temp[4] = color;break;
+        case 2:temp[0] = BLACK_COLOR,temp[1] = BLACK_COLOR,temp[2] = BLACK_COLOR,temp[3] = color,temp[4] = color;break;
+        case 3:temp[0] = BLACK_COLOR,temp[1] = BLACK_COLOR,temp[2] = color,temp[3] = color,temp[4] = color;break;
+        case 4:temp[0] = BLACK_COLOR,temp[1] = color,temp[2] = color,temp[3] = color,temp[4] = color;break;  
+        case 5:temp[0] = color,temp[1] = color,temp[2] = color,temp[3] = color,temp[4] = color;break;  
+        default:return;
+    }
+
+    if(++conut > 5){
+        conut = 0;
+    }
+
+    #else
+    temp[0] = YELLOW_COLOR;
+    switch(conut)
+    {
+        case 0:temp[1] = BLACK_COLOR,temp[2] = BLACK_COLOR,temp[3] = BLACK_COLOR,temp[4] = BLACK_COLOR;break;
+        case 1:temp[1] = BLACK_COLOR,temp[2] = BLACK_COLOR,temp[3] = BLACK_COLOR,temp[4] = color;break;
+        case 2:temp[1] = BLACK_COLOR,temp[2] = BLACK_COLOR,temp[3] = color,temp[4] = color;break;
+        case 3:temp[1] = BLACK_COLOR,temp[2] = color,temp[3] = color,temp[4] = color;break;
+        case 4:temp[1] = color,temp[2] = color,temp[3] = color,temp[4] = color;break;  
+        default:return;
+    }
+    if(++conut > 4){
+        conut = 0;
+    }
+    #endif
+ 
+    conut &= 0x07;
     for (uint8_t i = 0; i < Pixel_NUM; i++) {
         ws2812_rgb_set_color_buf(i, ws2812_return_color_type(temp[i]));
     }
@@ -288,10 +318,11 @@ static void ws2812_middle_marquee(uint16_t color)
 //单个灯珠点亮
 static void ws2812_single_led(uint8_t Led_id,uint16_t color)
 {
+    uint8_t temp[Pixel_NUM] = {BLACK_COLOR,BLACK_COLOR,BLACK_COLOR,BLACK_COLOR,BLACK_COLOR,BLACK_COLOR};
     #if 1
-    if(Led_id > 5)return;
+    if(Led_id > Pixel_NUM)return;
     temp[Led_id] = color;
-    for (uint8_t i = 0; i < 5; i++) {
+    for (uint8_t i = 0; i < Pixel_NUM; i++) {
         ws2812_rgb_set_color_buf(i, ws2812_return_color_type(temp[i]));
     }
     ws2812_rgb_send_array();
@@ -409,51 +440,7 @@ static uint32_t color_change_brigh(uint32_t rgb, float k)
 }
 #endif
 
-/*
-功能：亮度一致，所有的灯珠同时闪烁
-参数：blink_num：闪烁的次数
-参数：color：        闪烁的颜色
-参数：time_out：ms
-*/
-void ws2812_display_blink_light(uint16_t blink_num, uint8_t color,uint32_t time_out)
-{
-    if(blink_num > 0xFFFE)
-    {
-        return;
-    }
-    
-    for(uint16_t i = 0;i < blink_num;i++)
-    {
-        ws2812_display_color(color);
-        delay_1ms(time_out);
-        ws2812_display_color(BLACK_COLOR);
-        delay_1ms(time_out);
-    }
-}
 
-
-/*
-功能：亮度渐变色，全部灯珠同时呼吸渐变
-参数：color：        闪烁的颜色
-参数：time_out：呼吸频率ms
-*/
-void ws2812_display_breathe_light(uint16_t color,uint32_t time_out)
-{
-    RGB_Color_TypeDef breathe_type = {0};
-    RGB_Color_TypeDef color_type = ws2812_return_color_type(color);
- 
-    // 亮度递增
-    for (int i = 0; i <= 128; i += 3) {
-    // 计算当前亮度下的颜色值
-    breathe_type.R = (color_type.R * i) / 255;
-    breathe_type.G = (color_type.G * i) / 255;
-    breathe_type.B = (color_type.B * i) / 255;
- 
-    ws2812_set_color(breathe_type);
-    delay_1ms(time_out);
-    }
-    gpio_bit_reset(LED_PWM_OUTPUT_PORT,LED_PWM_OUTPUT_PIN);
-}
 #endif
 
 
@@ -487,10 +474,9 @@ static void ws2812_timer_pwm_init(void)
     /* TINER14_CH0 输出配置 */
     timer_channel_output_config(TIMER0, TIMER_CH_3, &timer_ocintpara);
     timer_channel_output_mode_config(TIMER0, TIMER_CH_3, TIMER_OC_MODE_PWM0);
-    
     timer_channel_output_pulse_value_config(TIMER0, TIMER_CH_3, 0);
-    
     timer_channel_output_shadow_config(TIMER0, TIMER_CH_3, TIMER_OC_SHADOW_DISABLE);
+   
     timer_primary_output_config(TIMER0, ENABLE);
 
     timer_dma_transfer_config(TIMER0, TIMER_DMACFG_DMATA_CH3CV, TIMER_DMACFG_DMATC_1TRANSFER);
@@ -526,7 +512,6 @@ static void ws2812_dma_init(void)
     dma_memory_to_memory_disable(DMA_CH4);//存储器到存储器传输禁止
     /* enable DMA channel1 */
     dma_channel_enable(DMA_CH4);//使能dma通道4
-
 }
 
 
@@ -556,55 +541,56 @@ void ws2812_init(void)
 
 
 
-
+static int led_cnt = 0;
+static int led_cnt1 = 0;
 
 void Led_Handler(void)
 {
 
-    uint8_t color = OEANGE_COLOR;
-    uint8_t cnt = 0;
+    
+    
     
 
 
 
     if (TimeOutDet_Check(&app_para.tout.poll)) {
 
-        // ws2812_middle_marquee(color);
-        // ws2812_middle_expand_marquee(color);
-       
+        // ws2812_middle_marquee(YELLOW_COLOR);
+        // ws2812_middle_expand_marquee(BLUE_COLOR);
 
+        // up_dwon_waterfall_light(BLUE_COLOR);
+        // dwon_up_waterfall_light(BLUE_COLOR);
 
         #if 0
-        app_para.flag_vlaue = ~app_para.flag_vlaue;
-        if (app_para.flag_vlaue) {
-            ws2812_single_led(cnt,color);
+        led_cnt = ~led_cnt;
+        if (led_cnt) {
+            ws2812_single_led(led_cnt1,YELLOW_COLOR);
         } else{
-            flag  = 0;
-            ws2812_single_led(cnt,BLACK_COLOR);
+          
+            ws2812_single_led(led_cnt1,BLACK_COLOR);
         }
         #endif
 
+        // ws2812_single_led(led_cnt, YELLOW_COLOR);
+        
 
-        #if 0
-        ws2812_marquee_step(color);
-        #endif
-       
-        TimeOut_Record(&app_para.tout.poll, POLL_TIME);
+        TimeOut_Record(&app_para.tout.poll, 250);
         
     }
 
+    ws2812_display_color(YELLOW_COLOR);
 
 
     #if 0
-    if (++cnt > 4){
-        cnt = 0;
-    }
-    ws2812_single_led(cnt,cnt);
-    delay_1ms(250);
-    ws2812_single_led(cnt,BLACK_COLOR);
-    delay_1ms(250);
+
+    ws2812_single_led(0,YELLOW_COLOR);
+    delay_ms(250);
+    ws2812_single_led(0,BLACK_COLOR);
+    delay_ms(250);
+  
+
     
     #endif
-    Fwdgt_Free();
-    
+    // Fwdgt_Free();
+
 }

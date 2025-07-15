@@ -42,6 +42,8 @@
  extern "C" {
 #endif
 
+
+
 /* define GD32E23x */
 #if !defined (GD32E23x)
  #define GD32E23x

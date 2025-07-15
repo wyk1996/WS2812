@@ -690,7 +690,7 @@ int at_recvfrom(int socket, void *mem, size_t len, int flags, struct sockaddr *f
             }
             else
             {
-                LOG_D("received data exit, current socket (%d) is closed by remote.", socket);
+                printf("received data exit, current socket (%d) is closed by remote.", socket);
                 result = 0;
                 goto __exit;
             }

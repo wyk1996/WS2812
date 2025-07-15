@@ -45,7 +45,7 @@ static void rt_wlan_prot_event_handle(struct rt_wlan_device *wlan, rt_wlan_dev_e
     rt_wlan_prot_event_handler handler;
     rt_wlan_prot_event_t prot_event;
 
-    LOG_D("F:%s L:%d event:%d", __FUNCTION__, __LINE__, event);
+    printf("F:%s L:%d event:%d", __FUNCTION__, __LINE__, event);
 
     wlan_prot = wlan->prot;
     handler = RT_NULL;
@@ -54,43 +54,43 @@ static void rt_wlan_prot_event_handle(struct rt_wlan_device *wlan, rt_wlan_dev_e
     {
     case RT_WLAN_DEV_EVT_INIT_DONE:
     {
-        LOG_D("L%d event: INIT_DONE", __LINE__);
+        printf("L%d event: INIT_DONE", __LINE__);
         prot_event = RT_WLAN_PROT_EVT_INIT_DONE;
         break;
     }
     case RT_WLAN_DEV_EVT_CONNECT:
     {
-        LOG_D("L%d event: CONNECT", __LINE__);
+        printf("L%d event: CONNECT", __LINE__);
         prot_event = RT_WLAN_PROT_EVT_CONNECT;
         break;
     }
     case RT_WLAN_DEV_EVT_DISCONNECT:
     {
-        LOG_D("L%d event: DISCONNECT", __LINE__);
+        printf("L%d event: DISCONNECT", __LINE__);
         prot_event = RT_WLAN_PROT_EVT_DISCONNECT;
         break;
     }
     case RT_WLAN_DEV_EVT_AP_START:
     {
-        LOG_D("L%d event: AP_START", __LINE__);
+        printf("L%d event: AP_START", __LINE__);
         prot_event = RT_WLAN_PROT_EVT_AP_START;
         break;
     }
     case RT_WLAN_DEV_EVT_AP_STOP:
     {
-        LOG_D("L%d event: AP_STOP", __LINE__);
+        printf("L%d event: AP_STOP", __LINE__);
         prot_event = RT_WLAN_PROT_EVT_AP_STOP;
         break;
     }
     case RT_WLAN_DEV_EVT_AP_ASSOCIATED:
     {
-        LOG_D("L%d event: AP_ASSOCIATED", __LINE__);
+        printf("L%d event: AP_ASSOCIATED", __LINE__);
         prot_event = RT_WLAN_PROT_EVT_AP_ASSOCIATED;
         break;
     }
     case RT_WLAN_DEV_EVT_AP_DISASSOCIATED:
     {
-        LOG_D("L%d event: AP_DISASSOCIATED", __LINE__);
+        printf("L%d event: AP_DISASSOCIATED", __LINE__);
         prot_event = RT_WLAN_PROT_EVT_AP_DISASSOCIATED;
         break;
     }
@@ -173,7 +173,7 @@ rt_err_t rt_wlan_prot_attach_dev(struct rt_wlan_device *wlan, const char *prot_n
     if (prot != RT_NULL &&
             (rt_strcmp(prot->name, prot_name) == 0))
     {
-        LOG_D("prot is register");
+        printf("prot is register");
         return RT_EOK;
     }
 

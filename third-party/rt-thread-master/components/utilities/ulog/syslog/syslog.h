@@ -31,7 +31,7 @@ extern "C" {
 #define LOG_WARNING 4   /* warning conditions */
 #define LOG_NOTICE  5   /* normal but significant condition */
 #define LOG_INFO    6   /* informational */
-#define LOG_DEBUG   7   /* debug-level messages */
+#define printfEBUG   7   /* debug-level messages */
 
 #define LOG_PRIMASK 0x07
 
@@ -42,7 +42,7 @@ extern "C" {
 #define LOG_KERN        (0<<3)  /* kernel messages */
 #define LOG_USER        (1<<3)  /* random user-level messages */
 #define LOG_MAIL        (2<<3)  /* mail system */
-#define LOG_DAEMON      (3<<3)  /* system daemons */
+#define printfAEMON      (3<<3)  /* system daemons */
 #define LOG_AUTH        (4<<3)  /* security/authorization messages */
 #define LOG_SYSLOG      (5<<3)  /* messages generated internally by syslogd */
 #define LOG_LPR         (6<<3)  /* line printer subsystem */

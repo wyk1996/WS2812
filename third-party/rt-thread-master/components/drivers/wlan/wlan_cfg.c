@@ -170,10 +170,10 @@ rt_err_t rt_wlan_cfg_cache_refresh(void)
     /* get config */
     data = ((rt_uint8_t *)head) + sizeof(struct cfg_save_info_head);
     crc = rt_wlan_cal_crc((rt_uint8_t *)data, len - sizeof(struct cfg_save_info_head));
-    LOG_D("head->magic:0x%08x  RT_WLAN_CFG_MAGIC:0x%08x", head->magic, RT_WLAN_CFG_MAGIC);
-    LOG_D("head->len:%d len:%d", head->len, len);
-    LOG_D("head->num:%d num:%d", head->num, (len - sizeof(struct cfg_save_info_head)) / sizeof(struct rt_wlan_cfg_info));
-    LOG_D("hred->crc:0x%04x crc:0x%04x", head->crc, crc);
+    printf("head->magic:0x%08x  RT_WLAN_CFG_MAGIC:0x%08x", head->magic, RT_WLAN_CFG_MAGIC);
+    printf("head->len:%d len:%d", head->len, len);
+    printf("head->num:%d num:%d", head->num, (len - sizeof(struct cfg_save_info_head)) / sizeof(struct rt_wlan_cfg_info));
+    printf("hred->crc:0x%04x crc:0x%04x", head->crc, crc);
     /* check */
     if ((head->magic != RT_WLAN_CFG_MAGIC) ||
             (head->len != len) ||

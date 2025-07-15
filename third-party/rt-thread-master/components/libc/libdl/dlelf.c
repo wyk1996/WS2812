@@ -40,7 +40,7 @@ rt_err_t dlmodule_load_shared_object(struct rt_dlmodule* module, void *module_pt
         if (phdr[index].p_type != PT_LOAD)
             continue;
 
-        LOG_D("LOAD segment: %d, 0x%p, 0x%08x", index, phdr[index].p_vaddr, phdr[index].p_memsz);
+        printf("LOAD segment: %d, 0x%p, 0x%08x", index, phdr[index].p_vaddr, phdr[index].p_memsz);
 
         if (phdr[index].p_memsz < phdr[index].p_filesz)
         {
@@ -84,7 +84,7 @@ rt_err_t dlmodule_load_shared_object(struct rt_dlmodule* module, void *module_pt
     }
 
     module_size = vend_addr - vstart_addr;
-    LOG_D("module size: %d, vstart_addr: 0x%p", module_size, vstart_addr);
+    printf("module size: %d, vstart_addr: 0x%p", module_size, vstart_addr);
     if (module_size == 0)
     {
         rt_kprintf("Module: size error\n");
@@ -145,7 +145,7 @@ rt_err_t dlmodule_load_shared_object(struct rt_dlmodule* module, void *module_pt
         {
             Elf32_Sym *sym = &symtab[ELF32_R_SYM(rel->r_info)];
 
-            LOG_D("relocate symbol %s shndx %d", strtab + sym->st_name, sym->st_shndx);
+            printf("relocate symbol %s shndx %d", strtab + sym->st_name, sym->st_shndx);
 
             if ((sym->st_shndx != SHT_NULL) ||(ELF_ST_BIND(sym->st_info) == STB_LOCAL))
             {
@@ -158,7 +158,7 @@ rt_err_t dlmodule_load_shared_object(struct rt_dlmodule* module, void *module_pt
             {
                 Elf32_Addr addr;
 
-                LOG_D("relocate symbol: %s", strtab + sym->st_name);
+                printf("relocate symbol: %s", strtab + sym->st_name);
                 /* need to resolve symbol in kernel symbol table */
                 addr = dlmodule_symbol_find((const char *)(strtab + sym->st_name));
                 if (addr == 0)
@@ -292,7 +292,7 @@ rt_err_t dlmodule_load_relocated_object(struct rt_dlmodule* module, void *module
             rt_memcpy(ptr,
                       (rt_uint8_t *)elf_module + shdr[index].sh_offset,
                       shdr[index].sh_size);
-            LOG_D("load text 0x%x, size %d", ptr, shdr[index].sh_size);
+            printf("load text 0x%x, size %d", ptr, shdr[index].sh_size);
             ptr += shdr[index].sh_size;
         }
 
@@ -303,7 +303,7 @@ rt_err_t dlmodule_load_relocated_object(struct rt_dlmodule* module, void *module
                       (rt_uint8_t *)elf_module + shdr[index].sh_offset,
                       shdr[index].sh_size);
             rodata_addr = (rt_uint32_t)ptr;
-            LOG_D("load rodata 0x%x, size %d, rodata 0x%x", ptr, 
+            printf("load rodata 0x%x, size %d, rodata 0x%x", ptr, 
                 shdr[index].sh_size, *(rt_uint32_t *)data_addr);
             ptr += shdr[index].sh_size;
         }
@@ -315,7 +315,7 @@ rt_err_t dlmodule_load_relocated_object(struct rt_dlmodule* module, void *module
                       (rt_uint8_t *)elf_module + shdr[index].sh_offset,
                       shdr[index].sh_size);
             data_addr = (rt_uint32_t)ptr;
-            LOG_D("load data 0x%x, size %d, data 0x%x", ptr, 
+            printf("load data 0x%x, size %d, data 0x%x", ptr, 
                 shdr[index].sh_size, *(rt_uint32_t *)data_addr);
             ptr += shdr[index].sh_size;
         }
@@ -325,7 +325,7 @@ rt_err_t dlmodule_load_relocated_object(struct rt_dlmodule* module, void *module
         {
             rt_memset(ptr, 0, shdr[index].sh_size);
             bss_addr = (rt_uint32_t)ptr;
-            LOG_D("load bss 0x%x, size %d", ptr, shdr[index].sh_size);
+            printf("load bss 0x%x, size %d", ptr, shdr[index].sh_size);
         }
     }
 
@@ -359,7 +359,7 @@ rt_err_t dlmodule_load_relocated_object(struct rt_dlmodule* module, void *module
         {
             Elf32_Sym *sym = &symtab[ELF32_R_SYM(rel->r_info)];
 
-            LOG_D("relocate symbol: %s", strtab + sym->st_name);
+            printf("relocate symbol: %s", strtab + sym->st_name);
 
             if (sym->st_shndx != STN_UNDEF)
             {
@@ -372,21 +372,21 @@ rt_err_t dlmodule_load_relocated_object(struct rt_dlmodule* module, void *module
                                                   shdr[sym->st_shndx].sh_name), ELF_RODATA, 8) == 0)
                     {
                         /* relocate rodata section */
-                        LOG_D("rodata");
+                        printf("rodata");
                         addr = (Elf32_Addr)(rodata_addr + sym->st_value);
                     }
                     else if (rt_strncmp((const char *)
                                         (shstrab + shdr[sym->st_shndx].sh_name), ELF_BSS, 5) == 0)
                     {
                         /* relocate bss section */
-                        LOG_D("bss");
+                        printf("bss");
                         addr = (Elf32_Addr)bss_addr + sym->st_value;
                     }
                     else if (rt_strncmp((const char *)(shstrab + shdr[sym->st_shndx].sh_name),
                                         ELF_DATA, 6) == 0)
                     {
                         /* relocate data section */
-                        LOG_D("data");
+                        printf("data");
                         addr = (Elf32_Addr)data_addr + sym->st_value;
                     }
 
@@ -415,14 +415,14 @@ rt_err_t dlmodule_load_relocated_object(struct rt_dlmodule* module, void *module
 
                 if (ELF32_R_TYPE(rel->r_info) != R_ARM_V4BX)
                 {
-                    LOG_D("relocate symbol: %s", strtab + sym->st_name);
+                    printf("relocate symbol: %s", strtab + sym->st_name);
 
                     /* need to resolve symbol in kernel symbol table */
                     addr = dlmodule_symbol_find((const char *)(strtab + sym->st_name));
                     if (addr != (Elf32_Addr)RT_NULL)
                     {
                         dlmodule_relocate(module, rel, addr);
-                        LOG_D("symbol addr 0x%x", addr);
+                        printf("symbol addr 0x%x", addr);
                     }
                     else
                         LOG_E("Module: can't find %s in kernel symbol table",

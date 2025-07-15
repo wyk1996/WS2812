@@ -22,7 +22,7 @@
 #endif
 
 /* log pseudo device */
-static struct rt_device _log_device;
+static struct rt_device _printfevice;
 
 static rt_device_t _traceout_device = RT_NULL;
 
@@ -370,7 +370,7 @@ static rt_err_t _log_control(rt_device_t dev, int cmd, void *arg)
 }
 
 #ifdef RT_USING_DEVICE_OPS
-const static struct rt_device_ops log_device_ops = 
+const static struct rt_device_ops printfevice_ops = 
 {
     RT_NULL,
     RT_NULL,
@@ -383,25 +383,25 @@ const static struct rt_device_ops log_device_ops =
 
 int log_trace_init(void)
 {
-    rt_memset(&_log_device, 0x00, sizeof(_log_device));
+    rt_memset(&_printfevice, 0x00, sizeof(_printfevice));
 
-    _log_device.type = RT_Device_Class_Char;
+    _printfevice.type = RT_Device_Class_Char;
 #ifdef RT_USING_DEVICE_OPS
-    _log_device.ops     = &log_device_ops;
+    _printfevice.ops     = &printfevice_ops;
 #else
-    _log_device.init    = RT_NULL;
-    _log_device.open    = RT_NULL;
-    _log_device.close   = RT_NULL;
-    _log_device.read    = RT_NULL;
-    _log_device.write   = _log_write;
-    _log_device.control = _log_control;
+    _printfevice.init    = RT_NULL;
+    _printfevice.open    = RT_NULL;
+    _printfevice.close   = RT_NULL;
+    _printfevice.read    = RT_NULL;
+    _printfevice.write   = _log_write;
+    _printfevice.control = _log_control;
 #endif
 
     /* no indication and complete callback */
-    _log_device.rx_indicate = RT_NULL;
-    _log_device.tx_complete = RT_NULL;
+    _printfevice.rx_indicate = RT_NULL;
+    _printfevice.tx_complete = RT_NULL;
 
-    rt_device_register(&_log_device, "log", RT_DEVICE_FLAG_STREAM | RT_DEVICE_FLAG_RDWR);
+    rt_device_register(&_printfevice, "log", RT_DEVICE_FLAG_STREAM | RT_DEVICE_FLAG_RDWR);
 
 	/* set console as default device */
 	_traceout_device = rt_console_get_device();
@@ -441,5 +441,5 @@ rt_err_t log_trace_set_device(const char *device_name)
 
     return RT_EOK;
 }
-FINSH_FUNCTION_EXPORT_ALIAS(log_trace_set_device, log_device, set device of log trace);
+FINSH_FUNCTION_EXPORT_ALIAS(log_trace_set_device, printfevice, set device of log trace);
 

@@ -274,7 +274,7 @@ err_t ppp_connect(ppp_pcb *pcb, u16_t holdoff) {
     return ERR_ALREADY;
   }
 
-  PPPDEBUG(LOG_DEBUG, ("ppp_connect[%d]: holdoff=%d\n", pcb->netif->num, holdoff));
+  PPPDEBUG(printfEBUG, ("ppp_connect[%d]: holdoff=%d\n", pcb->netif->num, holdoff));
 
   magic_randomize();
 
@@ -303,7 +303,7 @@ err_t ppp_listen(ppp_pcb *pcb) {
     return ERR_ALREADY;
   }
 
-  PPPDEBUG(LOG_DEBUG, ("ppp_listen[%d]\n", pcb->netif->num));
+  PPPDEBUG(printfEBUG, ("ppp_listen[%d]\n", pcb->netif->num));
 
   magic_randomize();
 
@@ -366,7 +366,7 @@ ppp_close(ppp_pcb *pcb, u8_t nocarrier)
    * take a little longer time, but is a safer choice from FSM point of view.
    */
   if (nocarrier && pcb->phase == PPP_PHASE_RUNNING) {
-    PPPDEBUG(LOG_DEBUG, ("ppp_close[%d]: carrier lost -> lcp_lowerdown\n", pcb->netif->num));
+    PPPDEBUG(printfEBUG, ("ppp_close[%d]: carrier lost -> lcp_lowerdown\n", pcb->netif->num));
     lcp_lowerdown(pcb);
     /* forced link termination, this will force link protocol to disconnect. */
     link_terminated(pcb);
@@ -374,7 +374,7 @@ ppp_close(ppp_pcb *pcb, u8_t nocarrier)
   }
 
   /* Disconnect */
-  PPPDEBUG(LOG_DEBUG, ("ppp_close[%d]: kill_link -> lcp_close\n", pcb->netif->num));
+  PPPDEBUG(printfEBUG, ("ppp_close[%d]: kill_link -> lcp_close\n", pcb->netif->num));
   /* LCP soft close request. */
   lcp_close(pcb, "User request");
   return ERR_OK;
@@ -397,7 +397,7 @@ err_t ppp_free(ppp_pcb *pcb) {
     return ERR_CONN;
   }
 
-  PPPDEBUG(LOG_DEBUG, ("ppp_free[%d]\n", pcb->netif->num));
+  PPPDEBUG(printfEBUG, ("ppp_free[%d]\n", pcb->netif->num));
 
   netif_remove(pcb->netif);
 
@@ -726,7 +726,7 @@ ppp_pcb *ppp_new(struct netif *pppif, const struct link_callbacks *callbacks, vo
 
 /** Initiate LCP open request */
 void ppp_start(ppp_pcb *pcb) {
-  PPPDEBUG(LOG_DEBUG, ("ppp_start[%d]\n", pcb->netif->num));
+  PPPDEBUG(printfEBUG, ("ppp_start[%d]\n", pcb->netif->num));
 
   /* Clean data not taken care by anything else, mostly shared data. */
 #if PPP_STATS_SUPPORT
@@ -745,12 +745,12 @@ void ppp_start(ppp_pcb *pcb) {
   new_phase(pcb, PPP_PHASE_ESTABLISH);
   lcp_open(pcb);
   lcp_lowerup(pcb);
-  PPPDEBUG(LOG_DEBUG, ("ppp_start[%d]: finished\n", pcb->netif->num));
+  PPPDEBUG(printfEBUG, ("ppp_start[%d]: finished\n", pcb->netif->num));
 }
 
 /** Called when link failed to setup */
 void ppp_link_failed(ppp_pcb *pcb) {
-  PPPDEBUG(LOG_DEBUG, ("ppp_link_failed[%d]\n", pcb->netif->num));
+  PPPDEBUG(printfEBUG, ("ppp_link_failed[%d]\n", pcb->netif->num));
   new_phase(pcb, PPP_PHASE_DEAD);
   pcb->err_code = PPPERR_OPEN;
   pcb->link_status_cb(pcb, pcb->err_code, pcb->ctx_cb);
@@ -758,7 +758,7 @@ void ppp_link_failed(ppp_pcb *pcb) {
 
 /** Called when link is normally down (i.e. it was asked to end) */
 void ppp_link_end(ppp_pcb *pcb) {
-  PPPDEBUG(LOG_DEBUG, ("ppp_link_end[%d]\n", pcb->netif->num));
+  PPPDEBUG(printfEBUG, ("ppp_link_end[%d]\n", pcb->netif->num));
   new_phase(pcb, PPP_PHASE_DEAD);
   if (pcb->err_code == PPPERR_NONE) {
     pcb->err_code = PPPERR_CONNECT;
@@ -994,9 +994,9 @@ err_t ppp_write(ppp_pcb *pcb, struct pbuf *p) {
 }
 
 void ppp_link_terminated(ppp_pcb *pcb) {
-  PPPDEBUG(LOG_DEBUG, ("ppp_link_terminated[%d]\n", pcb->netif->num));
+  PPPDEBUG(printfEBUG, ("ppp_link_terminated[%d]\n", pcb->netif->num));
   pcb->link_cb->disconnect(pcb, pcb->link_ctx_cb);
-  PPPDEBUG(LOG_DEBUG, ("ppp_link_terminated[%d]: finished.\n", pcb->netif->num));
+  PPPDEBUG(printfEBUG, ("ppp_link_terminated[%d]: finished.\n", pcb->netif->num));
 }
 
 
@@ -1010,7 +1010,7 @@ void ppp_link_terminated(ppp_pcb *pcb) {
  */
 void new_phase(ppp_pcb *pcb, int p) {
   pcb->phase = p;
-  PPPDEBUG(LOG_DEBUG, ("ppp phase changed[%d]: phase=%d\n", pcb->netif->num, pcb->phase));
+  PPPDEBUG(printfEBUG, ("ppp phase changed[%d]: phase=%d\n", pcb->netif->num, pcb->phase));
 #if PPP_NOTIFY_PHASE
   if (pcb->notify_phase_cb != NULL) {
     pcb->notify_phase_cb(pcb, p, pcb->ctx_cb);
@@ -1161,7 +1161,7 @@ int sifup(ppp_pcb *pcb) {
   pcb->err_code = PPPERR_NONE;
   netif_set_link_up(pcb->netif);
 
-  PPPDEBUG(LOG_DEBUG, ("sifup[%d]: err_code=%d\n", pcb->netif->num, pcb->err_code));
+  PPPDEBUG(printfEBUG, ("sifup[%d]: err_code=%d\n", pcb->netif->num, pcb->err_code));
   pcb->link_status_cb(pcb, pcb->err_code, pcb->ctx_cb);
   return 1;
 }
@@ -1184,7 +1184,7 @@ int sifdown(ppp_pcb *pcb) {
     /* make sure the netif link callback is called */
     netif_set_link_down(pcb->netif);
   }
-  PPPDEBUG(LOG_DEBUG, ("sifdown[%d]: err_code=%d\n", pcb->netif->num, pcb->err_code));
+  PPPDEBUG(printfEBUG, ("sifdown[%d]: err_code=%d\n", pcb->netif->num, pcb->err_code));
   return 1;
 }
 
@@ -1269,7 +1269,7 @@ int sif6up(ppp_pcb *pcb) {
   pcb->err_code = PPPERR_NONE;
   netif_set_link_up(pcb->netif);
 
-  PPPDEBUG(LOG_DEBUG, ("sif6up[%d]: err_code=%d\n", pcb->netif->num, pcb->err_code));
+  PPPDEBUG(printfEBUG, ("sif6up[%d]: err_code=%d\n", pcb->netif->num, pcb->err_code));
   pcb->link_status_cb(pcb, pcb->err_code, pcb->ctx_cb);
   return 1;
 }
@@ -1292,7 +1292,7 @@ int sif6down(ppp_pcb *pcb) {
     /* make sure the netif link callback is called */
     netif_set_link_down(pcb->netif);
   }
-  PPPDEBUG(LOG_DEBUG, ("sif6down[%d]: err_code=%d\n", pcb->netif->num, pcb->err_code));
+  PPPDEBUG(printfEBUG, ("sif6down[%d]: err_code=%d\n", pcb->netif->num, pcb->err_code));
   return 1;
 }
 #endif /* PPP_IPV6_SUPPORT */
@@ -1352,7 +1352,7 @@ ccp_set(ppp_pcb *pcb, u8_t isopen, u8_t isup, u8_t receive_method, u8_t transmit
   LWIP_UNUSED_ARG(isup);
   pcb->ccp_receive_method = receive_method;
   pcb->ccp_transmit_method = transmit_method;
-  PPPDEBUG(LOG_DEBUG, ("ccp_set[%d]: is_open=%d, is_up=%d, receive_method=%u, transmit_method=%u\n",
+  PPPDEBUG(printfEBUG, ("ccp_set[%d]: is_open=%d, is_up=%d, receive_method=%u, transmit_method=%u\n",
            pcb->netif->num, isopen, isup, receive_method, transmit_method));
 }
 

@@ -72,7 +72,7 @@ int sal_init(void)
     
     if (init_ok)
     {
-        LOG_D("Socket Abstraction Layer is already initialized.");
+        printf("Socket Abstraction Layer is already initialized.");
         return 0;
     }
 

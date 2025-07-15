@@ -27,7 +27,8 @@
   ..\lib\GD32E23x_standard_peripheral\Include\gd32e23x_wwdgt.h \
   ..\lib\GD32E23x_standard_peripheral\Include\gd32e23x_misc.h \
   ..\lib\GD32E23x_standard_peripheral\Include\gd32e23x_cmp.h \
-  ..\app\IndependentDataType.h ..\bsp\systick\systick.h \
+  ..\app\IndependentDataType.h ..\app\app.h ..\bsp\Timeout\TimeOut.h \
+  ..\bsp\systick\systick.h \
   D:\keil_v5\ARM\ARMCLANG\Bin\..\include\stdio.h \
   ..\bsp\customer\hw_api_usart.h ..\app\Includes.h \
   D:\keil_v5\ARM\ARMCLANG\Bin\..\include\string.h \
@@ -36,4 +37,5 @@
   ..\bsp\customer\customer_config.h \
   ..\bsp\customer\customer_device_type.h \
   ..\bsp\customer\customer_device_type.h ..\bsp\customer\drv_common.h \
-  ..\app\IndependentDataType.h ..\bsp\customer\bsp_led.h
+  ..\app\IndependentDataType.h ..\bsp\customer\bsp_led.h \
+  ..\bsp\customer\bsp_meter_v9260.h

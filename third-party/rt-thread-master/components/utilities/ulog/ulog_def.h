@@ -8,8 +8,8 @@
  * 2018-08-25     armink       the first version
  */
 
-#ifndef _ULOG_DEF_H_
-#define _ULOG_DEF_H_
+#ifndef _UprintfEF_H_
+#define _UprintfEF_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -32,7 +32,7 @@ extern "C" {
 #endif /* ULOG_USING_SYSLOG */
 
 /* compatible for rtdbg */
-#undef LOG_D
+#undef printf
 #undef LOG_I
 #undef LOG_W
 #undef LOG_E
@@ -71,9 +71,9 @@ extern "C" {
 #endif /* !defined(LOG_LVL) */
 
 #if (LOG_LVL >= LOG_LVL_DBG) && (ULOG_OUTPUT_LVL >= LOG_LVL_DBG)
-    #define ulog_d(TAG, ...)           ulog_output(LOG_LVL_DBG, TAG, RT_TRUE, __VA_ARGS__)
+    #define uprintf(TAG, ...)           ulog_output(LOG_LVL_DBG, TAG, RT_TRUE, __VA_ARGS__)
 #else
-    #define ulog_d(TAG, ...)
+    #define uprintf(TAG, ...)
 #endif /* (LOG_LVL >= LOG_LVL_DBG) && (ULOG_OUTPUT_LVL >= LOG_LVL_DBG) */
 
 #if (LOG_LVL >= LOG_LVL_INFO) && (ULOG_OUTPUT_LVL >= LOG_LVL_INFO)
@@ -123,7 +123,7 @@ extern "C" {
 #undef log_e
 #undef log_w
 #undef log_i
-#undef log_d
+#undef printf
 #undef log_v
 #undef ELOG_LVL_ASSERT
 #undef ELOG_LVL_ERROR
@@ -135,8 +135,8 @@ extern "C" {
 #define log_e                          LOG_E
 #define log_w                          LOG_W
 #define log_i                          LOG_I
-#define log_d                          LOG_D
-#define log_v                          LOG_D
+#define printf                          printf
+#define log_v                          printf
 #define log_raw                        LOG_RAW
 #define log_hex                        LOG_HEX    
 #define ELOG_LVL_ASSERT                LOG_LVL_ASSERT
@@ -209,4 +209,4 @@ typedef struct ulog_backend *ulog_backend_t;
 }
 #endif
 
-#endif /* _ULOG_DEF_H_ */
+#endif /* _UprintfEF_H_ */

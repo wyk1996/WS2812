@@ -1,5 +1,5 @@
 #include "hw_api_usart.h"
-
+#include "drv_common.h"
 
 
 
@@ -23,6 +23,9 @@ int fputc(int ch, FILE *f)
     while(RESET == usart_flag_get(USART1, USART_FLAG_TBE));
     return ch;
 }
+
+
+
 
 //清除串口数据
 void hw_api_uart_clear_rcv_data(_e_uart_sn uart_sn)
@@ -129,6 +132,14 @@ INT8U hw_api_uart_get_recv_data_len(_e_uart_sn uart_sn)
 	}
 }
 
+#define USART0_TX_BUF_SIZE 128
+static uint8_t usart0_tx_buf[USART0_TX_BUF_SIZE];
+static volatile uint16_t usart0_tx_len = 0;
+static volatile uint16_t usart0_tx_cnt = 0;
+
+
+
+
 //串口0中断服务函数
 void USART0_IRQHandler(void)
 {
@@ -149,6 +160,11 @@ void USART0_IRQHandler(void)
 		usart_interrupt_flag_clear(USART0, USART_INT_FLAG_RBNE);  
 	}
 }
+
+
+
+
+
 
 #if 0
 //串口1中断服务函数

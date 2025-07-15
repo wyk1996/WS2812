@@ -6,7 +6,7 @@
  * Change Logs:
  * Date           Author       Notes
  * 2016-11-12     Bernard      The first version
- * 2018-05-25     armink       Add simple API, such as LOG_D, LOG_E
+ * 2018-05-25     armink       Add simple API, such as printf, LOG_E
  */
 
 /*
@@ -24,7 +24,7 @@
  * #include <rtdbg.h>          // must after of DEBUG_ENABLE or some other options
  *
  * Then in your C/C++ file, you can use LOG_X macro to print out logs:
- * LOG_D("this is a debug log!");
+ * printf("this is a debug log!");
  * LOG_E("this is a error log!");
  *
  * If you want to use different color for different kinds log, you can
@@ -146,9 +146,9 @@
 #endif /* DBG_ENABLE */
 
 #if (DBG_LEVEL >= DBG_LOG)
-#define LOG_D(fmt, ...)      dbg_log_line("D", 0, fmt, ##__VA_ARGS__)
+#define printf(fmt, ...)      dbg_log_line("D", 0, fmt, ##__VA_ARGS__)
 #else
-#define LOG_D(...)
+#define printf(...)
 #endif
 
 #if (DBG_LEVEL >= DBG_INFO)

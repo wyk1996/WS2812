@@ -113,7 +113,7 @@ at_response_t at_resp_set_info(at_response_t resp, rt_size_t buf_size, rt_size_t
         resp->buf = (char *) rt_realloc(resp->buf, buf_size);
         if (!resp->buf)
         {
-            LOG_D("No memory for realloc response buffer size(%d).", buf_size);
+            printf("No memory for realloc response buffer size(%d).", buf_size);
             return RT_NULL;
         }
     }
@@ -712,7 +712,7 @@ static void client_parser(at_client_t client)
             }
             else
             {
-//                log_d("unrecognized line: %.*s", client->cur_recv_len, client->recv_buffer);
+//                printf("unrecognized line: %.*s", client->cur_recv_len, client->recv_buffer);
             }
         }
     }

@@ -1229,14 +1229,14 @@ static void ipv6cp_up(fsm *f) {
 	 * Set LL addresses
 	 */
 	if (!sif6addr(f->pcb, go->ourid, ho->hisid)) {
-	    PPPDEBUG(LOG_DEBUG, ("sif6addr failed"));
+	    PPPDEBUG(printfEBUG, ("sif6addr failed"));
 	    ipv6cp_close(f->pcb, "Interface configuration failed");
 	    return;
 	}
 
 	/* bring the interface up for IPv6 */
 	if (!sif6up(f->pcb)) {
-	    PPPDEBUG(LOG_DEBUG, ("sif6up failed (IPV6)"));
+	    PPPDEBUG(printfEBUG, ("sif6up failed (IPV6)"));
 	    ipv6cp_close(f->pcb, "Interface configuration failed");
 	    return;
 	}

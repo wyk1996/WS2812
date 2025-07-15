@@ -726,20 +726,20 @@ static void lcp_resetci(fsm *f) {
 #endif /* EAP_SUPPORT */
     }
 
-    PPPDEBUG(LOG_DEBUG, ("ppp: auth protocols:"));
+    PPPDEBUG(printfEBUG, ("ppp: auth protocols:"));
 #if PAP_SUPPORT
-    PPPDEBUG(LOG_DEBUG, (" PAP=%d", ao->neg_upap));
+    PPPDEBUG(printfEBUG, (" PAP=%d", ao->neg_upap));
 #endif /* PAP_SUPPORT */
 #if CHAP_SUPPORT
-    PPPDEBUG(LOG_DEBUG, (" CHAP=%d CHAP_MD5=%d", ao->neg_chap, !!(ao->chap_mdtype&MDTYPE_MD5)));
+    PPPDEBUG(printfEBUG, (" CHAP=%d CHAP_MD5=%d", ao->neg_chap, !!(ao->chap_mdtype&MDTYPE_MD5)));
 #if MSCHAP_SUPPORT
-    PPPDEBUG(LOG_DEBUG, (" CHAP_MS=%d CHAP_MS2=%d", !!(ao->chap_mdtype&MDTYPE_MICROSOFT), !!(ao->chap_mdtype&MDTYPE_MICROSOFT_V2)));
+    PPPDEBUG(printfEBUG, (" CHAP_MS=%d CHAP_MS2=%d", !!(ao->chap_mdtype&MDTYPE_MICROSOFT), !!(ao->chap_mdtype&MDTYPE_MICROSOFT_V2)));
 #endif /* MSCHAP_SUPPORT */
 #endif /* CHAP_SUPPORT */
 #if EAP_SUPPORT
-    PPPDEBUG(LOG_DEBUG, (" EAP=%d", ao->neg_eap));
+    PPPDEBUG(printfEBUG, (" EAP=%d", ao->neg_eap));
 #endif /* EAP_SUPPORT */
-    PPPDEBUG(LOG_DEBUG, ("\n"));
+    PPPDEBUG(printfEBUG, ("\n"));
 
 #endif /* PPP_AUTH_SUPPORT */
 

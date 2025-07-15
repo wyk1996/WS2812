@@ -571,7 +571,7 @@ accept_function(void *arg, struct tcp_pcb *newpcb, err_t err)
   setup_tcp(newconn);
 
   /* handle backlog counter */
-  tcp_backlog_delayed(newpcb);
+  tcp_backprintfelayed(newpcb);
 
   if (sys_mbox_trypost(&conn->acceptmbox, newconn) != ERR_OK) {
     /* When returning != ERR_OK, the pcb is aborted in tcp_process(),

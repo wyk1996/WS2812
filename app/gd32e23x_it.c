@@ -98,7 +98,6 @@ void HardFault_Handler(void)
 void SysTick_Handler(void)
 {
     #if 1
-    delay_decrement();
     delay_increment();
     #endif
 }

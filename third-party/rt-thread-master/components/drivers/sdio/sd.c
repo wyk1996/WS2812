@@ -739,7 +739,7 @@ remove_card:
     host->card = RT_NULL;
 err:
 
-    LOG_D("init SD card failed!");
+    printf("init SD card failed!");
 
     return err;
 }

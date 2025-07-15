@@ -7,43 +7,23 @@
 
 
 
-
-
-
 #define OLED_CMD  0	
 #define OLED_DATA 1
 
 #define LCD_POWER_CTL_PORT                                  GPIOB
 #define LCD_POWER_CTL_PIN                                   GPIO_PIN_6
-
-#define LCD_POWER_CTL_ON                                    gpio_bit_set(LCD_POWER_CTL_PORT, LCD_POWER_CTL_PIN)	// LCD电源控制
+// LCD电源控制
+#define LCD_POWER_CTL_ON                                    gpio_bit_set(LCD_POWER_CTL_PORT, LCD_POWER_CTL_PIN)	
 #define LCD_POWER_CTL_OFF                                   gpio_bit_reset(LCD_POWER_CTL_PORT, LCD_POWER_CTL_PIN)
 
+#define SPI_POWER_H                                         gpio_bit_write(LCD_POWER_CTL_PORT, LCD_POWER_CTL_PIN, SET)
+#define SPI_POWER_L                                         gpio_bit_write(LCD_POWER_CTL_PORT, LCD_POWER_CTL_PIN, RESET)
 
-// #define SPI_POWER_H        gpio_bit_write(GPIOF, GPIO_PIN_0, SET)
-// #define SPI_POWER_L        gpio_bit_write(GPIOF, GPIO_PIN_0, RESET)
+#define SPI_RES_H                                           gpio_bit_write(GPIOB, GPIO_PIN_12, SET)
+#define SPI_RES_L                                           gpio_bit_write(GPIOB, GPIO_PIN_12, RESET)
 
-#define SPI_POWER_H        gpio_bit_write(LCD_POWER_CTL_PORT, LCD_POWER_CTL_PIN, SET)
-#define SPI_POWER_L        gpio_bit_write(LCD_POWER_CTL_PORT, LCD_POWER_CTL_PIN, RESET)
-
-#if 0
-#define SPI_NSS_H        gpio_bit_write(GPIOA, GPIO_PIN_10, SET)
-#define SPI_NSS_L        gpio_bit_write(GPIOA, GPIO_PIN_10, RESET)
-#endif
-
-// #define SPI_RES_H        gpio_bit_write(GPIOA, GPIO_PIN_9, SET)
-// #define SPI_RES_L        gpio_bit_write(GPIOA, GPIO_PIN_9, RESET)
-
-#define SPI_RES_H        gpio_bit_write(GPIOB, GPIO_PIN_12, SET)
-#define SPI_RES_L        gpio_bit_write(GPIOB, GPIO_PIN_12, RESET)
-
-
-
-// #define SPI_DC_H        gpio_bit_write(GPIOA, GPIO_PIN_0, SET)
-// #define SPI_DC_L        gpio_bit_write(GPIOA, GPIO_PIN_0, RESET)
-
-#define SPI_DC_H        gpio_bit_write(GPIOB, GPIO_PIN_14, SET)
-#define SPI_DC_L        gpio_bit_write(GPIOB, GPIO_PIN_14, RESET)
+#define SPI_DC_H                                            gpio_bit_write(GPIOB, GPIO_PIN_14, SET)
+#define SPI_DC_L                                            gpio_bit_write(GPIOB, GPIO_PIN_14, RESET)
 
 
 
@@ -85,6 +65,7 @@ void spi_config_send_data(INT8U data);
 void spi_send_to_qg2864_init(void)  ;
 void oled_time_handle(void);
 void Oled_Handler(void);
+
     
 #endif
 

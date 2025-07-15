@@ -43,7 +43,7 @@
 
 static char log_buf[RT_CONSOLEBUF_SIZE];
 
-void sfud_log_debug(const char *file, const long line, const char *format, ...);
+void sfud_printfebug(const char *file, const long line, const char *format, ...);
 
 static rt_err_t rt_sfud_control(rt_device_t dev, int cmd, void *args) {
     RT_ASSERT(dev != RT_NULL);
@@ -237,7 +237,7 @@ static void retry_delay_100us(void) {
  * @param format output format
  * @param ... args
  */
-void sfud_log_debug(const char *file, const long line, const char *format, ...) {
+void sfud_printfebug(const char *file, const long line, const char *format, ...) {
     va_list args;
 
     /* args point to the first variable parameter */

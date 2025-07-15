@@ -347,7 +347,7 @@ static u_char pppACCMMask[] = {
 static void
 pppRecvWakeup(int pd)
 {
-  PPPDEBUG(LOG_DEBUG, ("pppRecvWakeup: unit %d\n", pd));
+  PPPDEBUG(printfEBUG, ("pppRecvWakeup: unit %d\n", pd));
   if (pppControl[pd].openFlag != 0) {
     sio_read_abort(pppControl[pd].fd);
   }
@@ -358,7 +358,7 @@ pppRecvWakeup(int pd)
 void
 pppLinkTerminated(int pd)
 {
-  PPPDEBUG(LOG_DEBUG, ("pppLinkTerminated: unit %d\n", pd));
+  PPPDEBUG(printfEBUG, ("pppLinkTerminated: unit %d\n", pd));
 
 #if PPPOE_SUPPORT
   if (pppControl[pd].ethif) {
@@ -373,7 +373,7 @@ pppLinkTerminated(int pd)
 #endif /* PPP_INPROC_OWNTHREAD */
     pc = &pppControl[pd];
 
-    PPPDEBUG(LOG_DEBUG, ("pppLinkTerminated: unit %d: linkStatusCB=%p errCode=%d\n", pd, pc->linkStatusCB, pc->errCode));
+    PPPDEBUG(printfEBUG, ("pppLinkTerminated: unit %d: linkStatusCB=%p errCode=%d\n", pd, pc->linkStatusCB, pc->errCode));
     if (pc->linkStatusCB) {
       pc->linkStatusCB(pc->linkStatusCtx, pc->errCode ? pc->errCode : PPPERR_PROTOCOL, NULL);
     }
@@ -381,13 +381,13 @@ pppLinkTerminated(int pd)
     pc->openFlag = 0;/**/
 #endif /* PPPOS_SUPPORT */
   }
-  PPPDEBUG(LOG_DEBUG, ("pppLinkTerminated: finished.\n"));
+  PPPDEBUG(printfEBUG, ("pppLinkTerminated: finished.\n"));
 }
 
 void
 pppLinkDown(int pd)
 {
-  PPPDEBUG(LOG_DEBUG, ("pppLinkDown: unit %d\n", pd));
+  PPPDEBUG(printfEBUG, ("pppLinkDown: unit %d\n", pd));
 
 #if PPPOE_SUPPORT
   if (pppControl[pd].ethif) {
@@ -405,17 +405,17 @@ pppLinkDown(int pd)
 static void
 pppStart(int pd)
 {
-  PPPDEBUG(LOG_DEBUG, ("pppStart: unit %d\n", pd));
+  PPPDEBUG(printfEBUG, ("pppStart: unit %d\n", pd));
   lcp_lowerup(pd);
   lcp_open(pd); /* Start protocol */
-  PPPDEBUG(LOG_DEBUG, ("pppStart: finished\n"));
+  PPPDEBUG(printfEBUG, ("pppStart: finished\n"));
 }
 
 /** LCP close request */
 static void
 pppStop(int pd)
 {
-  PPPDEBUG(LOG_DEBUG, ("pppStop: unit %d\n", pd));
+  PPPDEBUG(printfEBUG, ("pppStop: unit %d\n", pd));
   lcp_close(pd, "User request");
 }
 
@@ -423,7 +423,7 @@ pppStop(int pd)
 static void
 pppHup(int pd)
 {
-  PPPDEBUG(LOG_DEBUG, ("pppHupCB: unit %d\n", pd));
+  PPPDEBUG(printfEBUG, ("pppHupCB: unit %d\n", pd));
   lcp_lowerdown(pd);
   link_terminated(pd);
 }
@@ -664,12 +664,12 @@ pppClose(int pd)
   PPPControl *pc = &pppControl[pd];
   int st = 0;
 
-  PPPDEBUG(LOG_DEBUG, ("pppClose() called\n"));
+  PPPDEBUG(printfEBUG, ("pppClose() called\n"));
 
   /* Disconnect */
 #if PPPOE_SUPPORT
   if(pc->ethif) {
-    PPPDEBUG(LOG_DEBUG, ("pppClose: unit %d kill_link -> pppStop\n", pd));
+    PPPDEBUG(printfEBUG, ("pppClose: unit %d kill_link -> pppStop\n", pd));
     pc->errCode = PPPERR_USER;
     /* This will leave us at PHASE_DEAD. */
     pppStop(pd);
@@ -677,7 +677,7 @@ pppClose(int pd)
 #endif /* PPPOE_SUPPORT */
   {
 #if PPPOS_SUPPORT
-    PPPDEBUG(LOG_DEBUG, ("pppClose: unit %d kill_link -> pppStop\n", pd));
+    PPPDEBUG(printfEBUG, ("pppClose: unit %d kill_link -> pppStop\n", pd));
     pc->errCode = PPPERR_USER;
     /* This will leave us at PHASE_DEAD. */
     pppStop(pd);
@@ -694,7 +694,7 @@ pppClose(int pd)
 void
 pppSigHUP(int pd)
 {
-  PPPDEBUG(LOG_DEBUG, ("pppSigHUP: unit %d sig_hup -> pppHupCB\n", pd));
+  PPPDEBUG(printfEBUG, ("pppSigHUP: unit %d sig_hup -> pppHupCB\n", pd));
   pppHup(pd);
 }
 
@@ -1355,7 +1355,7 @@ sifup(int pd)
       pc->if_up = 1;
       pc->errCode = PPPERR_NONE;
 
-      PPPDEBUG(LOG_DEBUG, ("sifup: unit %d: linkStatusCB=%p errCode=%d\n", pd, pc->linkStatusCB, pc->errCode));
+      PPPDEBUG(printfEBUG, ("sifup: unit %d: linkStatusCB=%p errCode=%d\n", pd, pc->linkStatusCB, pc->errCode));
       if (pc->linkStatusCB) {
         pc->linkStatusCB(pc->linkStatusCtx, pc->errCode, &pc->addrs);
       }
@@ -1397,7 +1397,7 @@ sifdown(int pd)
     /* make sure the netif status callback is called */
     netif_set_down(&pc->netif);
     netif_remove(&pc->netif);
-    PPPDEBUG(LOG_DEBUG, ("sifdown: unit %d: linkStatusCB=%p errCode=%d\n", pd, pc->linkStatusCB, pc->errCode));
+    PPPDEBUG(printfEBUG, ("sifdown: unit %d: linkStatusCB=%p errCode=%d\n", pd, pc->linkStatusCB, pc->errCode));
     if (pc->linkStatusCB) {
       pc->linkStatusCB(pc->linkStatusCtx, PPPERR_CONNECT, NULL);
     }
@@ -1692,7 +1692,7 @@ pppInput(void *arg)
           PPPDEBUG(LOG_INFO, ("pppInput[%d]: %s len=%d\n", pd, protp->name, nb->len));
           nb = pppSingleBuf(nb);
           (*protp->input)(pd, nb->payload, nb->len);
-          PPPDEBUG(LOG_DETAIL, ("pppInput[%d]: packet processed\n", pd));
+          PPPDEBUG(printfETAIL, ("pppInput[%d]: packet processed\n", pd));
           goto out;
         }
       }
@@ -1785,7 +1785,7 @@ pppInProc(PPPControlRx *pcrx, u_char *s, int l)
   u_char escaped;
   SYS_ARCH_DECL_PROTECT(lev);
 
-  PPPDEBUG(LOG_DEBUG, ("pppInProc[%d]: got %d bytes\n", pcrx->pd, l));
+  PPPDEBUG(printfEBUG, ("pppInProc[%d]: got %d bytes\n", pcrx->pd, l));
   while (l-- > 0) {
     curChar = *s++;
 

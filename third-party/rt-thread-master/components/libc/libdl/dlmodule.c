@@ -159,7 +159,7 @@ static void _dlmodule_thread_entry(void* parameter)
     /* set status of module */
     module->stat = RT_DLMODULE_STAT_RUNNING;
 
-    LOG_D("run main entry: 0x%p with %s",
+    printf("run main entry: 0x%p with %s",
         module->entry_addr,
         module->cmd_line);
 
@@ -466,7 +466,7 @@ struct rt_dlmodule* dlmodule_load(const char* filename)
     /* set the name of module */
     _dlmodule_set_name(module, filename);
 
-    LOG_D("rt_module_load: %.*s", RT_NAME_MAX, module->parent.name);
+    printf("rt_module_load: %.*s", RT_NAME_MAX, module->parent.name);
 
     if (elf_module->e_type == ET_REL)
     {

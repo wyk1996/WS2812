@@ -34,7 +34,7 @@ static INT8U  s_stop_conut = 0;
 
 #endif
 #define THERMISTOR_SDNT1608X103_MIN	(-40)
-#define THERMISTOR_SDNT1608X103_MAX	(115)
+#define THERMISTOR_SDNT1608X103_MAX	(125)
 
 #define CHECK_SCP_FAULT_TIME		600		 // 600s
 #define CHARGING_MIN_CURR_FAULT  0.8f 
@@ -42,37 +42,39 @@ static INT8U  s_stop_conut = 0;
 static const FP32 table_thermistor_SDNT1608X103[THERMISTOR_SDNT1608X103_MAX-THERMISTOR_SDNT1608X103_MIN+1]=
 {
  //-40~~-31
- 1799230, 1681160, 1575680, 1472630, 1376710, 1286750, 1205040, 1127250, 1053530, 990190,
+ 352760, 330100, 308770, 289370, 271290, 254100, 238090, 223390, 209860, 196990,
  //-30~~-21
- 928050, 870860, 816830, 766970, 717380, 676150, 635280, 595120, 561660, 528860,
+ 185630, 173770, 163390, 153600, 144370, 135920, 127980, 120620, 113500, 106380,
  //-20~~-11
- 497560, 468620, 440310, 416420, 392680, 368920, 349200, 329730, 311180, 293830,
+ 100350, 94710, 89460, 84480, 79770, 75440, 71230, 67400, 63760, 60270,
  //-10~~-1
- 276800, 262270, 247920, 234560, 221940, 209510, 198820, 188310, 178210, 169340,
+ 57100, 54020, 51210, 48510, 45940, 43600, 41350, 39270, 37230, 35370,
  //0~~9
- 160090, 151780, 144530, 137240, 130320, 123750, 117260, 111680, 105670, 100580,
+ 33570, 31890, 30420, 28320, 26770, 25580, 24330, 23020, 21920, 20920,
  //10~~19
- 95690, 91070, 86510, 82560, 78620, 74750, 71250, 68040, 64800, 62090,
+ 20140, 19210, 18290, 17430, 16610, 15870, 15110, 14430, 13770, 13140,
  //20~~29
- 58930, 56240, 53740, 51540, 48990, 47000, 44730, 42960, 41090, 39120,
+ 12560, 11990, 11450, 10950, 10350, 10000, 9570, 9160, 8770, 8390,
  //30~~39
- 37590, 35820, 34310, 32990, 31620, 30230, 28950, 27760, 26620, 25520,
+ 8040, 7700, 7380, 7060, 6780, 6500, 6230, 5980, 5730, 5500,
  //40~~49
- 24470, 23470, 22530, 21630, 20760, 19940, 19160, 18400, 17680, 16990,
+ 5290, 5080, 4870, 4680, 4500, 4330, 4160, 4000, 3850, 3710,
  //50~~59
- 16340, 15710, 15110, 14540, 13990, 13470, 12960, 12480, 12020, 11590,
+ 3570, 3430, 3310, 3180, 3070, 2960, 2850, 2740, 2650, 2550,
  //60~~69
- 11120, 10720, 10330, 9960, 9610, 9270, 8940, 8630, 8330, 8040,
+ 2460, 2370, 2290, 2210, 2130, 2060, 1990, 1992, 1850, 1790,
  //70~~79
- 7760, 7500, 7240, 6990, 6760, 6530, 6310, 6100, 5900, 5710,
+ 1730, 1670, 1620, 1570, 1520, 1470, 1420, 1370, 1330, 1290,
  //80~~89
- 5520, 5330, 5160, 5010, 4840, 4690, 4540, 4400, 4260, 4130,
+ 1250, 1210, 1170, 1130, 1090, 1060, 1030, 1000, 970, 940,
  //90~~99
- 4000, 3870, 3750, 3640, 3520, 3420, 3320, 3210, 3120, 3030,
+ 910, 880, 860, 830, 810, 780, 760, 740, 720, 700,
  //100~~109
- 2940, 2850, 2770, 2690, 2610, 2540, 2470, 2400, 2330, 2260,
- //110~~115
- 2200, 2140, 2080, 2020, 1960, 1910
+ 680, 650, 630, 610, 600, 580, 560, 550, 530, 520,
+ //110~~119
+ 500, 490, 480, 460, 450, 440, 430, 420, 410, 400,
+ //120~~125 
+ 390, 380, 370, 360, 350, 340
 };
 
 static FP32 app_thermistor_temperature_get(FP32 res)
@@ -105,30 +107,39 @@ FP32 app_get_input_io_simulation_value(_e_input_io_simulation_typedef io_simulat
 			temp_value = s_input_io_simulation_value[INPUT_IO_SIM_TEMP];
 			break;
 		case INPUT_IO_SIM_short_L:
+
 			temp_value = s_input_io_simulation_value[INPUT_IO_SIM_short_L];
 			break;
 		case INPUT_IO_SIM_short_N:
+
 			temp_value = s_input_io_simulation_value[INPUT_IO_SIM_short_N];
 			break;
 		case INPUT_IO_SIM_board_version:
+
 			temp_value = s_input_io_simulation_value[INPUT_IO_SIM_board_version];
 			break;
 		case INPUT_IO_SIM_l_conglutination:
+
 			temp_value = s_input_io_simulation_value[INPUT_IO_SIM_l_conglutination];
 			break;
 		case INPUT_IO_SIM_n_conglutination:
+
 			temp_value = s_input_io_simulation_value[INPUT_IO_SIM_n_conglutination];
 			break;
 		case INPUT_IO_SIM_charging_pile_tempdetection:
+	
 			temp_value = s_input_io_simulation_value[INPUT_IO_SIM_charging_pile_tempdetection];
 			break;
 		case INPUT_IO_SIM_relay_tempdetection:
+	
 			temp_value = s_input_io_simulation_value[INPUT_IO_SIM_relay_tempdetection];
 			break;
 		case INPUT_IO_SIM_reservation_1:
+
 			temp_value = s_input_io_simulation_value[INPUT_IO_SIM_reservation_1];
 			break;
 		case INPUT_IO_SIM_negative_CP:
+
 			temp_value = s_input_io_simulation_value[INPUT_IO_SIM_negative_CP];
 			break;	
 		case INPUT_IO_SIM_MAX:
@@ -137,6 +148,7 @@ FP32 app_get_input_io_simulation_value(_e_input_io_simulation_typedef io_simulat
 
 			break;
 	}
+
 	return temp_value;
 }
 
@@ -148,12 +160,22 @@ static void detection_alloc_input_port(void)
 static void detection_adc_input(void)
 {
     s_input_io_simulation_value[INPUT_IO_SIM_forward_CP] = drv_common_cp_vol_get();
+	s_input_io_simulation_value[INPUT_IO_SIM_negative_CP] = drv_common_diode_vol_get();
+	s_input_io_simulation_value[INPUT_IO_SIM_l_conglutination] = drv_common_synncehianL_vol_get();
+	s_input_io_simulation_value[INPUT_IO_SIM_l_conglutination] = drv_common_synncehianN_vol_get();
 	#if 1
 	s_input_io_simulation_value[INPUT_IO_SIM_EARTH] = drv_common_earth_vol_get();
-	s_input_io_simulation_value[INPUT_IO_SIM_TEMP] = app_thermistor_temperature_get((330000/drv_common_temperature_vol_get())-100000);
+	//3.3/(Vadc / R1604)-R1604 == 3.3*R1604
+	s_input_io_simulation_value[INPUT_IO_SIM_TEMP] = app_thermistor_temperature_get((6600/drv_common_temperature_vol_get())-2000);
+	s_input_io_simulation_value[INPUT_IO_SIM_charging_pile_tempdetection] = app_thermistor_temperature_get((33000/drv_common_temp_environment_vol_get())-10000);
 	#endif
 	// delay_ms(500);
-	// log_d("s_input_io_simulation_value[INPUT_IO_SIM_forward_CP] = %f \n",s_input_io_simulation_value[INPUT_IO_SIM_forward_CP]);
+	// printf("s_input_io_simulation_value[INPUT_IO_SIM_forward_CP] = %f \r\n",s_input_io_simulation_value[INPUT_IO_SIM_forward_CP]);
+	// printf("INPUT_IO_SIM_EARTH = %f \n",s_input_io_simulation_value[INPUT_IO_SIM_EARTH]);
+	// printf("INPUT_IO_SIM_TEMP = %f \n",s_input_io_simulation_value[INPUT_IO_SIM_TEMP]);
+	// printf("INPUT_IO_SIM_charging_pile_tempdetection = %f \n",s_input_io_simulation_value[INPUT_IO_SIM_charging_pile_tempdetection]);
+	// printf("INPUT_IO_SIM_negative_CP = %f \n",s_input_io_simulation_value[INPUT_IO_SIM_negative_CP]);
+	// printf("INPUT_IO_SIM_l_conglutination = %f \n",s_input_io_simulation_value[INPUT_IO_SIM_l_conglutination]);
 }
 
 void detection_charge_fault(void)
@@ -210,7 +232,7 @@ void detection_charge_fault(void)
 	if(FLOAT_GREATER((FP32)ptr_ac_charge_system_para->curr_max, 20.0f))	//桩最大电流大于20A
 #endif
 	{
-		// log_d("ddddd\r\n");
+		// printf("ddddd\r\n");
 		//if(FLOAT_GREATER(ptr_ac_charge_info->curr, ((FP32)ptr_ac_charge_system_para->curr_max)*((FP32)1.1)))
 		#if((CUSTOMER_SELECT == CUSTOMER_JYC_GB_A01_FC01_ONEKEY_16A))
 		if(FLOAT_GREATER(ptr_ac_charge_info->curr, ((FP32)get_oled_keypad_curr_flashdata())*((FP32)1.1)))
@@ -219,7 +241,6 @@ void detection_charge_fault(void)
 		if(FLOAT_GREATER(ptr_ac_charge_info->curr, ((FP32)ptr_ac_charge_system_para->curr_max)*((FP32)1.1)))
 		#endif
 		{
-			// log_d("ccccc\r\n");
 			if(s_ocp_fault_flag==TRUE)
 			{
 				
@@ -254,7 +275,6 @@ void detection_charge_fault(void)
 		if(FLOAT_GREATER(ptr_ac_charge_info->curr, ((FP32)ptr_ac_charge_system_para->curr_max+2.0f)))
 	#endif
 		{
-			// log_d("bbbbbb\r\n");
 			if(s_ocp_fault_flag==TRUE)
 			{
 				
@@ -509,12 +529,12 @@ if(AC_CHARGE_STATE_CHARGING == ptr_ac_charge_info->charge_state)
 //电表数据获取
 static void meter_value_get(void)
 {
-	#if 0
+	#if 1
 	_t_ac_charge_info* ptr_ac_charge_info;
-	_t_bl0939_info* ptr_meter_info;
+	_t_v9260s_info* ptr_meter_info;
 
 	ptr_ac_charge_info = app_chargectl_get_charge_info();
-    ptr_meter_info = app_bl0939_get_meter_info();
+    ptr_meter_info = app_v9260s_get_meter_info();
 
 	ptr_ac_charge_info->vol = ptr_meter_info->voltage;
     ptr_ac_charge_info->curr = ptr_meter_info->current;
@@ -533,11 +553,16 @@ void Realcheck_Init(void)
 void Realcheck_Handler(void)
 {
     detection_alloc_input_port();
+	meter_value_get();
+
 	#if 1
     detection_adc_input();
 	#endif
+
+	#if 0
     detection_charge_fault();
-	meter_value_get();
+	#endif
+	
 }
 
 

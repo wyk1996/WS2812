@@ -46,8 +46,8 @@
 #define LOG_NOTICE    (PPP_DEBUG | LWIP_DBG_LEVEL_WARNING)
 #define LOG_WARNING   (PPP_DEBUG | LWIP_DBG_LEVEL_WARNING)
 #define LOG_INFO      (PPP_DEBUG)
-#define LOG_DETAIL    (PPP_DEBUG)
-#define LOG_DEBUG     (PPP_DEBUG)
+#define printfETAIL    (PPP_DEBUG)
+#define printfEBUG     (PPP_DEBUG)
 
 #if PPP_DEBUG
 

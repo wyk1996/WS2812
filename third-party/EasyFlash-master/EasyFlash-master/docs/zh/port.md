@@ -126,7 +126,7 @@ void ef_port_env_unlock(void)
 在定义`PRINT_DEBUG`宏后，打印调试日志信息。
 
 ```C
-void ef_log_debug(const char *file, const long line, const char *format, ...)
+void ef_printfebug(const char *file, const long line, const char *format, ...)
 ```
 
 |参数                                    |描述|
@@ -149,7 +149,7 @@ void ef_log_info(const char *format, ...)
 
 ### 4.9 无格式打印信息
 
-该方法输出无固定格式的打印信息，为`ef_print_env`方法所用（如果不使用`ef_print_env`则可以忽略）。而`ef_log_debug`及`ef_log_info`可以输出带指定前缀及格式的打印日志信息。
+该方法输出无固定格式的打印信息，为`ef_print_env`方法所用（如果不使用`ef_print_env`则可以忽略）。而`ef_printfebug`及`ef_log_info`可以输出带指定前缀及格式的打印日志信息。
 
 ```C
 void ef_print(const char *format, ...)

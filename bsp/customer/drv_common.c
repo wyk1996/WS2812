@@ -16,24 +16,6 @@
 //串口0初始化
 void drv_common_usart0_init(INT32U baud_rate)
 {
-	/* enable USART clock */
-    rcu_periph_clock_enable(RCU_USART0);
-
-    /* USART configure */
-    usart_deinit(USART0);
-    usart_word_length_set(USART0, USART_WL_8BIT);
-    usart_stop_bit_set(USART0, USART_STB_1BIT);
-    usart_parity_config(USART0, USART_PM_NONE);
-    usart_baudrate_set(USART0, baud_rate);
-    usart_receive_config(USART0, USART_RECEIVE_ENABLE);
-    usart_transmit_config(USART0, USART_TRANSMIT_ENABLE);
-
-    usart_enable(USART0);
-
-	nvic_irq_enable(USART0_IRQn,0);//涓?鏂?閰嶇疆
-
-	usart_interrupt_enable(USART0 , USART_INT_RBNE);
-
 	/* enable COM GPIO clock */
     rcu_periph_clock_enable(RCU_GPIOA);
 
@@ -50,6 +32,26 @@ void drv_common_usart0_init(INT32U baud_rate)
     /* configure USART Rx as alternate function push-pull */
     gpio_mode_set(GPIOA, GPIO_MODE_AF, GPIO_PUPD_PULLUP, GPIO_PIN_10);
     gpio_output_options_set(GPIOA, GPIO_OTYPE_PP, GPIO_OSPEED_10MHZ, GPIO_PIN_10);
+
+	/* enable USART clock */
+    rcu_periph_clock_enable(RCU_USART0);
+
+    /* USART configure */
+    usart_deinit(USART0);
+    usart_word_length_set(USART0, USART_WL_9BIT);
+    usart_stop_bit_set(USART0, USART_STB_1BIT);
+    usart_parity_config(USART0, USART_PM_ODD);
+    usart_baudrate_set(USART0, baud_rate);
+    usart_receive_config(USART0, USART_RECEIVE_ENABLE);
+    usart_transmit_config(USART0, USART_TRANSMIT_ENABLE);
+
+    usart_enable(USART0);
+
+	nvic_irq_enable(USART0_IRQn,0);//涓?鏂?閰嶇疆
+
+	usart_interrupt_enable(USART0 , USART_INT_RBNE);
+
+	
 }
 #if 0
 //串口1初始化
@@ -94,6 +96,7 @@ void drv_common_usart1_init(INT32U baud_rate)
 
 
 //串口0发送函数
+#if 1
 void drv_common_usart0_send(INT8U *p_buff, INT16U data_len)
 {
 	INT16U i=0;
@@ -104,7 +107,7 @@ void drv_common_usart0_send(INT8U *p_buff, INT16U data_len)
 		i++;		
     }
 }
-
+#endif
 
 // 串口发送字符串函数
 void usart_send_string(const char *str)
@@ -178,6 +181,7 @@ INT16U adc_channel_sample(INT8U channel)
  
 	for(i = 0; i< ADC_SAMP_COUNTS; i++)
 	{
+		adc_resolution_config(ADC_RESOLUTION_12B);
 		/* ADC regular channel config */
 		adc_regular_channel_config(0U, channel, ADC_SAMPLETIME_7POINT5);
 		/* ADC software trigger enable */
@@ -192,7 +196,7 @@ INT16U adc_channel_sample(INT8U channel)
 			 
 		if(i == (ADC_SAMP_COUNTS/2))
 		{
-			delay_ms(2);
+			delay_ms(1);
 		}
 	}
 
@@ -205,37 +209,96 @@ FP32 drv_common_cp_vol_get(void)
 {   
     INT16U cp_adc_v;
     FP32 cp_vol;
-    cp_adc_v= adc_channel_sample(ADC_CHANNEL_1);
-
+    cp_adc_v= adc_channel_sample(ADC_CHANNEL_0);
+	
     cp_vol = (FP32)AC_CP_ADC_VREF*cp_adc_v;
-
-    return (cp_vol*86.0f/20.0f+0.65f);
+	// printf("cp_vol_AD = %f\r\n", cp_vol);
+    return (cp_vol*161.0f/39.0f + 0.2f);
 }
 
-//获取接地电压值
+//获取接地电压值  输入没接地电压是0.6-1.1v   输入接地电压是0.6v    
 FP32 drv_common_earth_vol_get(void)
 {   
     INT16U earth_adc_v;
     FP32 earth_vol;
 	
-    earth_adc_v= adc_channel_sample(ADC_CHANNEL_4);
+    earth_adc_v= adc_channel_sample(ADC_CHANNEL_9);
     earth_vol = (FP32)AC_CP_ADC_VREF*earth_adc_v;
 
 	return earth_vol;
 }
 
-//获取温度电压值
+//获取继电器温度电压值
 FP32 drv_common_temperature_vol_get(void)
 {   
     INT16U temp_adc_v;
     FP32 temp_vol;
 	
-    temp_adc_v= adc_channel_sample(ADC_CHANNEL_9);
+    temp_adc_v= adc_channel_sample(ADC_CHANNEL_7);
     temp_vol = (FP32)AC_CP_ADC_VREF*temp_adc_v;
-
+	// printf("temp_vol = %f\r\n", temp_vol);
 	return temp_vol;
 }
 
+//获取继环境度电压值
+FP32 drv_common_temp_environment_vol_get(void)
+{   
+    INT16U temp_adc_v;
+    FP32 temp_vol;
+	
+    temp_adc_v= adc_channel_sample(ADC_CHANNEL_6);
+    temp_vol = (FP32)AC_CP_ADC_VREF*temp_adc_v;
+	// printf("temp_vol = %f\r\n", temp_vol);
+	return temp_vol;
+}
+//获取车端二极管电压
+FP32 drv_common_diode_vol_get(void)
+{
+	INT16U diode_adc_v;
+    FP32 diode_vol;
+	
+    diode_adc_v= adc_channel_sample(ADC_CHANNEL_1);
+    diode_vol = (FP32)AC_CP_ADC_VREF*diode_adc_v;
+	// printf("diode_vol = %f\r\n", diode_vol);
+
+	return ((diode_vol/15)*61.0f+0.2f);
+}
+
+//获取继电器L相粘连电压
+FP32 drv_common_synncehianL_vol_get(void)
+{
+	INT16U synncehian_adc_v;
+    FP32 synncehian_vol;
+
+	synncehian_adc_v= adc_channel_sample(ADC_CHANNEL_4);
+    synncehian_vol = (FP32)AC_CP_ADC_VREF*synncehian_adc_v;
+	// printf("synncehianL_vol = %f\r\n", synncehian_vol);
+	return (synncehian_vol*161.0f/39.0f + 0.2f);
+}
+
+//获取继电器N相粘连电压
+FP32 drv_common_synncehianN_vol_get(void)
+{
+	INT16U synncehian_adc_v;
+    FP32 synncehian_vol;
+
+	synncehian_adc_v= adc_channel_sample(ADC_CHANNEL_5);
+    synncehian_vol = (FP32)AC_CP_ADC_VREF*synncehian_adc_v;
+	// printf("synncehianN_vol = %f\r\n", synncehian_vol);
+	return (synncehian_vol*161.0f/39.0f + 0.2f);
+}
+
+//获取输出短路电压
+FP32 drv_common_short_vol_get(void)
+{
+	INT16U short_adc_v;
+    FP32 short_vol;
+
+	short_adc_v= adc_channel_sample(ADC_CHANNEL_3);
+    short_vol = (FP32)AC_CP_ADC_VREF*short_adc_v;
+	printf("diode_vol = %f\r\n", short_vol);
+	return (short_vol*161.0f/39.0f + 0.2f);
+}
 
 //gpio初始化
 void drv_common_gpio_init(void)
@@ -243,6 +306,11 @@ void drv_common_gpio_init(void)
 	rcu_periph_clock_enable(RCU_GPIOB);
 	rcu_periph_clock_enable(RCU_GPIOA);
 	rcu_periph_clock_enable(RCU_GPIOF);
+
+	gpio_mode_set(GPIOA, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO_PIN_8);
+	gpio_output_options_set(GPIOA, GPIO_OTYPE_PP, GPIO_OSPEED_50MHZ, GPIO_PIN_8);
+	gpio_bit_set(GPIOA, GPIO_PIN_8);
+
 	//继电器
 	gpio_mode_set(RELAY_L_CTRL_GPIO_PORT, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, RELAY_L_CTRL_PIN);
 	gpio_output_options_set(RELAY_L_CTRL_GPIO_PORT, GPIO_OTYPE_PP, GPIO_OSPEED_50MHZ, RELAY_L_CTRL_PIN);
@@ -261,13 +329,33 @@ void drv_common_gpio_init(void)
 	//5V电源控制
 	gpio_mode_set(POWER_CTL_PORT, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, POWER_CTL_PIN);
 	gpio_output_options_set(POWER_CTL_PORT, GPIO_OTYPE_PP, GPIO_OSPEED_50MHZ, POWER_CTL_PIN);
-	POWER_CTL_OFF;
+	POWER_CTL_ON;
 
 
 	//短路检测引脚
 	gpio_mode_set(Out_Short_DET_PORT, GPIO_MODE_INPUT, GPIO_PUPD_PULLUP, Out_Short_DET_PIN);
 	gpio_output_options_set(Out_Short_DET_PORT, GPIO_OTYPE_PP, GPIO_OSPEED_50MHZ, Out_Short_DET_PIN);
 	Out_Short_DET_ON;
+	//B漏输入检测
+	#if 0
+	gpio_mode_set(RCD_DETECT_PORT, GPIO_MODE_INPUT, GPIO_PUPD_PULLUP, RCD_DETECT_PIN);
+	gpio_output_options_set(RCD_DETECT_PORT, GPIO_OTYPE_PP, GPIO_OSPEED_50MHZ, RCD_DETECT_PIN);
+	#endif
+	//B漏校零
+	gpio_mode_set(RCD_ZERO_CALI_PORT, GPIO_MODE_OUTPUT, GPIO_PUPD_PULLUP, RCD_ZERO_CALI_PIN);
+	gpio_output_options_set(RCD_ZERO_CALI_PORT, GPIO_OTYPE_PP, GPIO_OSPEED_50MHZ, RCD_ZERO_CALI_PIN);
+	gpio_bit_reset(RCD_ZERO_CALI_PORT, RCD_ZERO_CALI_PIN);
+	//B漏校准
+	#if 0
+	gpio_mode_set(RCD_CALIBRATION_PORT, GPIO_MODE_OUTPUT, GPIO_PUPD_PULLUP, RCD_CALIBRATION_PIN);
+	gpio_output_options_set(RCD_CALIBRATION_PORT, GPIO_OTYPE_PP, GPIO_OSPEED_50MHZ, RCD_CALIBRATION_PIN);
+	gpio_bit_reset(RCD_CALIBRATION_PORT, RCD_CALIBRATION_PIN);
+	#endif
+	//B漏自检
+	gpio_mode_set(RCD_TEST_PORT, GPIO_MODE_OUTPUT, GPIO_PUPD_PULLUP, RCD_TEST_PIN);
+	gpio_output_options_set(RCD_TEST_PORT, GPIO_OTYPE_PP, GPIO_OSPEED_50MHZ, RCD_TEST_PIN);
+	gpio_bit_reset(RCD_TEST_PORT, RCD_TEST_PIN);
+
 
 
 	#if 0
@@ -297,7 +385,9 @@ void drv_common_set_gpio_status(_e_output_io_digital_typedef output_gpio, _e_gpi
 		case OUTPUT_IO_N_SYNNCEHIAN_CTRL:
 			gpio_bit_write(RELAY_N_SYNNCEHIAN_PORT, RELAY_N_SYNNCEHIAN_PIN, (FlagStatus)gpio_status);
 			break;
-		
+		case OUTPUT_IO_CP_HIGLT_OFF:
+			gpio_bit_write(GPIOA, GPIO_PIN_8, (FlagStatus)gpio_status);
+			break;
 			
 		
 		default:
@@ -305,26 +395,7 @@ void drv_common_set_gpio_status(_e_output_io_digital_typedef output_gpio, _e_gpi
 	}
 }
 
-//翻转gpio电平
-void drv_common_toggle_gpio_status(_e_output_io_digital_typedef output_gpio)
-{
 
-	switch(output_gpio)
-	{
-		case OUTPUT_IO_L_RELAY_OPEN:
-		case OUTPUT_IO_N_RELAY_OPEN:
-			gpio_bit_toggle(RELAY_L_CTRL_GPIO_PORT, RELAY_L_CTRL_PIN);
-			gpio_bit_toggle(RELAY_N_CTRL_GPIO_PORT, RELAY_N_CTRL_PIN);
-			break;
-		case OUTPUT_IO_L_RELAY_COLSE:
-		case OUTPUT_IO_N_RELAY_COLSE:
-			gpio_bit_reset(RELAY_L_CTRL_GPIO_PORT, RELAY_L_CTRL_PIN);
-			gpio_bit_reset(RELAY_N_CTRL_GPIO_PORT, RELAY_N_CTRL_PIN);
-			break;
-		default:
-			break;
-	}
-}
 
 
 
@@ -339,47 +410,46 @@ void drv_common_set_cp_pwm(INT16U maxcurr)
 
 	if(maxcurr==0)
 	{
-		// log_d("aaaa\r\n");
+		// printf("aaaa\r\n");
 		u32duty = 0;
 	}
 	else if(maxcurr==5)	// 5表示需要数字通信
 	{
-		// log_d("bbbb\r\n");
+		// printf("bbbb\r\n");
 		u32duty = 5*k;
 	}
 	else if(maxcurr >= 0xFFFF)	// 0xFFFF表示直接输出12V
 	{
-		// log_d("cccc\r\n");
-		u32duty = 100/k;
+		// printf("cccc\r\n");
+		u32duty = 100*k;
 	}
 	else if(maxcurr < 5)
 	{
-		// log_d("dddd\r\n");
+		// printf("dddd\r\n");
 		return;
 	}
 	else if(maxcurr <= 51)
 	{
-		// log_d("eeee\r\n");
+		// printf("eeee\r\n");
 		u32duty = (1000*maxcurr/6)*k/100;
 	}
 	else if(maxcurr <= 63)
 	{
-		// log_d("ffff\r\n");
+		// printf("ffff\r\n");
 		u32duty = (40*maxcurr + 6400)*k/100;
 	}
 	else
 	{
-		// log_d("gggg\r\n");
+		// printf("gggg\r\n");
 		u32duty = 90*k;
 	}
 
 	if (u32duty > 1000) {
         u32duty = 1000;
-		// log_d("aaaaa\r\n");
+		// printf("hhhhh\r\n");
     }
 	#if 1
-	// log_d("maxcurr11 = %d\r\n", maxcurr);
-	// log_d("u32duty = %d\r\n", u32duty);
+	// printf("u32duty = %d\r\n", u32duty);
 	timer_channel_output_pulse_value_config(TIMER0, TIMER_CH_0, u32duty);
 	#endif
 }

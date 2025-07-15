@@ -31,11 +31,11 @@ void ulog_example(void)
     {
 #ifndef ULOG_USING_SYSLOG
         /* output different level log by LOG_X API */
-        LOG_D("LOG_D(%d): RT-Thread is an open source IoT operating system from China.", count);
+        printf("printf(%d): RT-Thread is an open source IoT operating system from China.", count);
         LOG_I("LOG_I(%d): RT-Thread is an open source IoT operating system from China.", count);
         LOG_W("LOG_W(%d): RT-Thread is an open source IoT operating system from China.", count);
         LOG_E("LOG_E(%d): RT-Thread is an open source IoT operating system from China.", count);
-        ulog_d("test", "ulog_d(%d): RT-Thread is an open source IoT operating system from China.", count);
+        uprintf("test", "uprintf(%d): RT-Thread is an open source IoT operating system from China.", count);
         ulog_i("test", "ulog_i(%d): RT-Thread is an open source IoT operating system from China.", count);
         ulog_w("test", "ulog_w(%d): RT-Thread is an open source IoT operating system from China.", count);
         ulog_e("test", "ulog_e(%d): RT-Thread is an open source IoT operating system from China.", count);
@@ -67,11 +67,11 @@ void ulog_example(void)
 #else
         /* output different priority log by syslog API */
         syslog(LOG_INFO, "syslog(%d) LOG_INFO: RT-Thread is an open source IoT operating system from China.", count);
-        syslog(LOG_DEBUG, "syslog(%d) LOG_DEBUG: RT-Thread is an open source IoT operating system from China.", count);
+        syslog(printfEBUG, "syslog(%d) printfEBUG: RT-Thread is an open source IoT operating system from China.", count);
         syslog(LOG_WARNING, "syslog(%d) LOG_WARNING: RT-Thread is an open source IoT operating system from China.", count);
         syslog(LOG_ERR, "syslog(%d) LOG_ERR: RT-Thread is an open source IoT operating system from China.", count);
         syslog(LOG_INFO | LOG_MAIL, "syslog(%d) LOG_INFO | LOG_MAIL: RT-Thread is an open source IoT operating system from China.", count);
-        syslog(LOG_DEBUG | LOG_DAEMON, "syslog(%d) LOG_DEBUG | LOG_DAEMON: RT-Thread is an open source IoT operating system from China.", count);
+        syslog(printfEBUG | printfAEMON, "syslog(%d) printfEBUG | printfAEMON: RT-Thread is an open source IoT operating system from China.", count);
         syslog(LOG_WARNING | LOG_AUTH, "syslog(%d) LOG_WARNING | LOG_AUTH: RT-Thread is an open source IoT operating system from China.", count);
         syslog(LOG_ERR | LOG_SYSLOG, "syslog(%d) LOG_ERR | LOG_SYSLOG: RT-Thread is an open source IoT operating system from China.", count);
 

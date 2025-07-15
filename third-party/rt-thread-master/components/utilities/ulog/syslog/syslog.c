@@ -74,7 +74,7 @@ void openlog(const char *ident, int option, int facility)
         local_facility = LOG_USER;
     }
     /* output all level log */
-    setlogmask(LOG_UPTO(LOG_DEBUG));
+    setlogmask(LOG_UPTO(printfEBUG));
 
     is_open = RT_TRUE;
 
@@ -127,7 +127,7 @@ void syslog(int priority, const char *format, ...)
  */
 void closelog(void)
 {
-    ulog_deinit();
+    uprintfeinit();
 
     is_open = RT_FALSE;
 }
@@ -179,7 +179,7 @@ RT_WEAK rt_size_t syslog_formater(char *log_buf, int level, const char *tag, rt_
     int fmt_result;
 
     RT_ASSERT(log_buf);
-    RT_ASSERT(LOG_PRI(level) <= LOG_DEBUG);
+    RT_ASSERT(LOG_PRI(level) <= printfEBUG);
     RT_ASSERT(tag);
     RT_ASSERT(format);
 

@@ -616,7 +616,7 @@ static void ppp_log_write(int level, char *buf) {
     LWIP_UNUSED_ARG(buf);
     PPPDEBUG(level, ("%s\n", buf) );
 #if 0
-    if (log_to_fd >= 0 && (level != LOG_DEBUG || debug)) {
+    if (log_to_fd >= 0 && (level != printfEBUG || debug)) {
 	int n = strlen(buf);
 
 	if (n > 0 && buf[n-1] == '\n')
@@ -695,7 +695,7 @@ void ppp_dbglog(const char *fmt, ...) {
     va_list pvar;
 
     va_start(pvar, fmt);
-    ppp_logit(LOG_DEBUG, fmt, pvar);
+    ppp_logit(printfEBUG, fmt, pvar);
     va_end(pvar);
 }
 

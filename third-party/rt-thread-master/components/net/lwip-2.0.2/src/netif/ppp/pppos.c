@@ -469,7 +469,7 @@ pppos_input(ppp_pcb *ppp, u8_t *s, int l)
   u8_t escaped;
   PPPOS_DECL_PROTECT(lev);
 
-  PPPDEBUG(LOG_DEBUG, ("pppos_input[%d]: got %d bytes\n", ppp->netif->num, l));
+  PPPDEBUG(printfEBUG, ("pppos_input[%d]: got %d bytes\n", ppp->netif->num, l));
   while (l-- > 0) {
     cur_char = *s++;
 

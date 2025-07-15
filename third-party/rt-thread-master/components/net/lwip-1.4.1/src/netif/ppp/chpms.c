@@ -150,7 +150,7 @@ ChallengeResponse( u_char *challenge, /* IN   8 octets */
   BCOPY(pwHash, ZPasswordHash, 16);
 
 #if 0
-  log_packet(ZPasswordHash, sizeof(ZPasswordHash), "ChallengeResponse - ZPasswordHash", LOG_DEBUG);
+  log_packet(ZPasswordHash, sizeof(ZPasswordHash), "ChallengeResponse - ZPasswordHash", printfEBUG);
 #endif
 
   DesEncrypt(challenge, ZPasswordHash +  0, response + 0);
@@ -158,7 +158,7 @@ ChallengeResponse( u_char *challenge, /* IN   8 octets */
   DesEncrypt(challenge, ZPasswordHash + 14, response + 16);
 
 #if 0
-  log_packet(response, 24, "ChallengeResponse - response", LOG_DEBUG);
+  log_packet(response, 24, "ChallengeResponse - response", printfEBUG);
 #endif
 }
 

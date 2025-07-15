@@ -134,10 +134,10 @@
             <RunIndependent>0</RunIndependent>
             <UpdateFlashBeforeDebugging>1</UpdateFlashBeforeDebugging>
             <Capability>1</Capability>
-            <DriverSelection>4103</DriverSelection>
+            <DriverSelection>4102</DriverSelection>
           </Flash1>
           <bUseTDR>1</bUseTDR>
-          <Flash2>BIN\CMSIS_AGDI_V8M.DLL</Flash2>
+          <Flash2>BIN\UL2V8M.DLL</Flash2>
           <Flash3>"" ()</Flash3>
           <Flash4></Flash4>
           <pFcarmOut></pFcarmOut>
@@ -336,7 +336,7 @@
             <v6WtE>0</v6WtE>
             <v6Rtti>0</v6Rtti>
             <VariousControls>
-              <MiscControls></MiscControls>
+              <MiscControls>-Wno-covered-switch-default</MiscControls>
               <Define>GD32E230</Define>
               <Undefine></Undefine>
               <IncludePath>..\app;..\pro;..\bsp\gd32e230c_eval;..\bsp\systick;..\lib\CMSIS\GD\GD32E23x\Include;..\lib\GD32E23x_standard_peripheral\Include;..\bsp\system_gd32e23x;..\lib\GD32E23x_standard_peripheral\Source;..\lib\CMSIS\GD\GD32E23x\Source;..\lib\CMSIS\GD\GD32E23x\Source\ARM;..\lib\CMSIS;..\bsp\Timeout;..\bsp\uart_decoder;..\bsp\flash;..\bsp\customer</IncludePath>

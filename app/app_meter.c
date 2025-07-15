@@ -1,113 +1,40 @@
 #include "app_meter.h"
 #include "IndependentDataType.h"
+#include "app.h"
 #include "systick.h"
 #include <stdio.h>
 #include "hw_api_usart.h"
+#include "bsp_meter_v9260.h"
 
 
-static INT8U recv_buf_temp[OLED_RX_MAX_LEN] = {0};
+static INT8U recv_buf_temp[OLED_RX_MAX_LEN] = {0,};
 
 
-static void meter_9260_read(void)
-{
-    INT8U meter_recv_buff[100]={0x00}, i=0, j =0,recv_count = 0,recv_nub = 0;
-
-    if (!hw_api_uart_check_seqeue_empty(UART_SN_0))//检查接收队列是否为空
-	{
-	// log_i("------- ok ok \n");
-	
 
 
-		recv_nub = hw_api_uart_get_recv_data_len(UART_SN_0);//获取接收数据长度
-      
-        if( recv_nub < 7)
-			#if 1
-			return;
-			#endif
 
 
-			#if 0
-			for(i=0; i<recv_nub; i++)
-			{
-				meter_recv_buff[i] = hw_api_uart_dequeue(UART_SN_0);
-				log_d("\r");
-				log_d("meter_recv_buff[%d] = 0x%x", i, meter_recv_buff[i]);
-				log_d("\n");
-			}
-			drv_common_usart0_send(meter_recv_buff, recv_nub);	
-			#endif
-			
-
-        for(i=0; i<100; i++)
-        {
-			if(TRUE == hw_api_uart_check_seqeue_empty(UART_SN_0))//检查接收队列是否为空
-			{
-				// log_i("------- ok ok \n");
-				break;
-			}
-			{
-				break;
-			}
-			
-			meter_recv_buff[i] = hw_api_uart_dequeue(UART_SN_0);//获取接收数据
-
-            #if 0
-            log_i("meter_recv_buff[%d] = 0x%x", i, meter_recv_buff[i]);
-            #endif
 
 
-			
-			if((meter_recv_buff[i] == OLED_HELD_0)&&(recv_count == 0)) 
-				{
-					
-				  recv_count = 1;  ///OLED_HELD_0
-				  delay_1ms(2);
-				  
-			    }
-
-			if((recv_count == 1)&&(meter_recv_buff[i] == OLED_HELD_1)&&(meter_recv_buff[i-1] == OLED_HELD_0))
-				{
-			
-				 recv_count = 2;  ///OLED_HELD_1
-				 memset(recv_buf_temp, 0, sizeof(recv_buf_temp));
-				 recv_buf_temp[0] = OLED_HELD_0;
-				 recv_buf_temp[1] = OLED_HELD_1;
-				 j =2;
-				// log_i("ok ok \n");
-				
-
-			   }
-			else if(recv_count == 2)
-				{
-				  
-                    recv_buf_temp[j] = meter_recv_buff[i];
-				    j++;
-				}
-			else
-				{
-			       if(j>10)
-				   	break;
-
-			    }
-
-
-		}
-    }
-}
 
 static void meter_9260_receive_number_handle(void)
 {
-    INT8U nub=0,curr =0 ;
-    char str[10] = {0};
-    static INT32U  s_oled_energy =0;
-    static INT8U  s_start_charge =0;
-    static INT8U  s_oled_curr =0;
+    // INT8U nub=0,curr =0 ;
+    // char str[10] = {0};
+	// static uint32_t  s_start_charge =0;
+    // static INT32U  s_oled_energy =0;
+   
+    // static INT8U  s_oled_curr =0;
 
-    INT32U data=0 ;
+    // INT32U data=0 ;
  
-    _e_oled_send_type sta;
-    static INT8U cnt =0;
-    if((recv_buf_temp[0] ==OLED_HELD_0)&&(recv_buf_temp[1] ==OLED_HELD_1))
+    // _e_oled_send_type sta;
+    // static INT8U cnt =0;
+
+	// sprintf(str,"%d.%d",(char)(s_start_charge),(char)(s_start_charge)); 
+	// OLED_ShowString(50,0,str,12);
+	#if 0
+    if((recv_buf_temp[0] ==0)&&(recv_buf_temp[1] ==0))
    	{
 
 		nub = (recv_buf_temp[0] +recv_buf_temp[1]+recv_buf_temp[2]+recv_buf_temp[5])&0xff ;
@@ -329,20 +256,23 @@ static void meter_9260_receive_number_handle(void)
 		}
 
     }
+	#endif
 }
-
-
-
-
-
 
 
 void Meter_parameter_update(void)
 {
-    meter_9260_read();
+	#if 1
+	Meter_V9260_read_energyevel(PAAVG, 1);
+	Meter_V9260_read_currentevel(IAAVG, 1);
+	app_para.oled_ulavlue =  Meter_V9260_read_ulevel(UAVG, 1);
+	#endif
+
+	#if 1
     meter_9260_receive_number_handle();
-	
+	#endif
 }
+
 
 
 

@@ -9,9 +9,8 @@
 
 
 
-#define OLED_HELD_0		                                0x55
-#define OLED_HELD_1		                                0xA5
-#define OLED_RX_MAX_LEN	                                50
+
+#define OLED_RX_MAX_LEN	                                9
 
 
 typedef enum

@@ -33,6 +33,7 @@ OF SUCH DAMAGE.
 */
 
 #include "gd32e23x_spi.h"
+#include <stdio.h>
 
 /* SPI/I2S parameter initialization mask */
 #define SPI_INIT_MASK                        ((uint32_t)0x00003040U)  /*!< SPI0 parameter initialization mask */

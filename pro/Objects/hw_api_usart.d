@@ -37,4 +37,5 @@
   ..\bsp\customer\customer_device_type.h \
   ..\bsp\customer\customer_device_type.h ..\app\IndependentDataType.h \
   ..\bsp\customer\drv_common.h ..\app\IndependentDataType.h \
-  ..\bsp\customer\bsp_led.h ..\bsp\customer\hw_api_usart.h
+  ..\bsp\customer\bsp_led.h ..\bsp\customer\hw_api_usart.h \
+  ..\bsp\customer\drv_common.h

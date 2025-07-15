@@ -210,7 +210,7 @@ tcp_listen_closed(struct tcp_pcb *pcb)
  * @param pcb the connection pcb which is not fully accepted yet
  */
 void
-tcp_backlog_delayed(struct tcp_pcb* pcb)
+tcp_backprintfelayed(struct tcp_pcb* pcb)
 {
   LWIP_ASSERT("pcb != NULL", pcb != NULL);
   if ((pcb->flags & TF_BACKLOGPEND) == 0) {
@@ -224,7 +224,7 @@ tcp_backlog_delayed(struct tcp_pcb* pcb)
 
 /** @ingroup tcp_raw
  * A delayed-accept a connection is accepted (or closed/aborted): decreases
- * the number of outstanding connections after calling tcp_backlog_delayed().
+ * the number of outstanding connections after calling tcp_backprintfelayed().
  *
  * ATTENTION: the caller is responsible for calling tcp_backlog_accepted()
  * or else the backlog feature will get out of sync!

@@ -27,4 +27,5 @@
   ..\lib\GD32E23x_standard_peripheral\Include\gd32e23x_usart.h \
   ..\lib\GD32E23x_standard_peripheral\Include\gd32e23x_wwdgt.h \
   ..\lib\GD32E23x_standard_peripheral\Include\gd32e23x_misc.h \
-  ..\lib\GD32E23x_standard_peripheral\Include\gd32e23x_cmp.h
+  ..\lib\GD32E23x_standard_peripheral\Include\gd32e23x_cmp.h \
+  D:\keil_v5\ARM\ARMCLANG\Bin\..\include\stdio.h

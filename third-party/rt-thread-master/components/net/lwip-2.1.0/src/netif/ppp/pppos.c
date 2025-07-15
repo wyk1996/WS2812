@@ -486,7 +486,7 @@ pppos_input(ppp_pcb *ppp, u8_t *s, int l)
   LWIP_ASSERT_CORE_LOCKED();
 #endif
 
-  PPPDEBUG(LOG_DEBUG, ("pppos_input[%d]: got %d bytes\n", ppp->netif->num, l));
+  PPPDEBUG(printfEBUG, ("pppos_input[%d]: got %d bytes\n", ppp->netif->num, l));
   while (l-- > 0) {
     cur_char = *s++;
 

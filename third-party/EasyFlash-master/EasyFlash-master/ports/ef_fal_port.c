@@ -157,7 +157,7 @@ void ef_port_env_unlock(void) {
  * @param ... args
  *
  */
-void ef_log_debug(const char *file, const long line, const char *format, ...) {
+void ef_printfebug(const char *file, const long line, const char *format, ...) {
 
 #ifdef PRINT_DEBUG
 

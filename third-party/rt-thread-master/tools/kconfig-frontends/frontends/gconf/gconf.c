@@ -426,7 +426,7 @@ gboolean on_window1_delete_event(GtkWidget * widget, GdkEvent * event,
 					     GTK_WINDOW(main_wnd),
 					     (GtkDialogFlags)
 					     (GTK_DIALOG_MODAL |
-					      GTK_DIALOG_DESTROY_WITH_PARENT),
+					      GTK_DIAprintfESTROY_WITH_PARENT),
 					     GTK_STOCK_OK,
 					     GTK_RESPONSE_YES,
 					     GTK_STOCK_NO,
@@ -657,7 +657,7 @@ void on_introduction1_activate(GtkMenuItem * menuitem, gpointer user_data)
 	    "the dependencies, which you can then match by examining other options.");
 
 	dialog = gtk_message_dialog_new(GTK_WINDOW(main_wnd),
-					GTK_DIALOG_DESTROY_WITH_PARENT,
+					GTK_DIAprintfESTROY_WITH_PARENT,
 					GTK_MESSAGE_INFO,
 					GTK_BUTTONS_CLOSE, "%s", intro_text);
 	g_signal_connect_swapped(GTK_OBJECT(dialog), "response",
@@ -675,7 +675,7 @@ void on_about1_activate(GtkMenuItem * menuitem, gpointer user_data)
 	      "Based on the source code from Roman Zippel.\n");
 
 	dialog = gtk_message_dialog_new(GTK_WINDOW(main_wnd),
-					GTK_DIALOG_DESTROY_WITH_PARENT,
+					GTK_DIAprintfESTROY_WITH_PARENT,
 					GTK_MESSAGE_INFO,
 					GTK_BUTTONS_CLOSE, "%s", about_text);
 	g_signal_connect_swapped(GTK_OBJECT(dialog), "response",
@@ -694,7 +694,7 @@ void on_license1_activate(GtkMenuItem * menuitem, gpointer user_data)
 	      "visit http://www.fsf.org/licenses/licenses.html\n");
 
 	dialog = gtk_message_dialog_new(GTK_WINDOW(main_wnd),
-					GTK_DIALOG_DESTROY_WITH_PARENT,
+					GTK_DIAprintfESTROY_WITH_PARENT,
 					GTK_MESSAGE_INFO,
 					GTK_BUTTONS_CLOSE, "%s", license_text);
 	g_signal_connect_swapped(GTK_OBJECT(dialog), "response",

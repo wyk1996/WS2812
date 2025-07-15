@@ -36,4 +36,5 @@
   ..\bsp\customer\customer_device_type.h ..\app\IndependentDataType.h \
   ..\bsp\customer\drv_common.h ..\app\IndependentDataType.h \
   ..\bsp\customer\bsp_led.h ..\bsp\customer\hw_api_usart.h \
-  ..\app\app_common.h ..\app\app_realcheck.h ..\app\key_touch_process.h
+  ..\app\app_common.h ..\app\app_realcheck.h ..\app\key_touch_process.h \
+  ..\app\app.h ..\bsp\Timeout\TimeOut.h

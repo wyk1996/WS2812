@@ -445,11 +445,11 @@ void             tcp_poll    (struct tcp_pcb *pcb, tcp_poll_fn poll, u8_t interv
 #define          tcp_backlog_set(pcb, new_backlog) do { \
   LWIP_ASSERT("pcb->state == LISTEN (called for wrong pcb?)", (pcb)->state == LISTEN); \
   ((struct tcp_pcb_listen *)(pcb))->backlog = ((new_backlog) ? (new_backlog) : 1); } while(0)
-void             tcp_backlog_delayed(struct tcp_pcb* pcb);
+void             tcp_backprintfelayed(struct tcp_pcb* pcb);
 void             tcp_backlog_accepted(struct tcp_pcb* pcb);
 #else  /* TCP_LISTEN_BACKLOG */
 #define          tcp_backlog_set(pcb, new_backlog)
-#define          tcp_backlog_delayed(pcb)
+#define          tcp_backprintfelayed(pcb)
 #define          tcp_backlog_accepted(pcb)
 #endif /* TCP_LISTEN_BACKLOG */
 #define          tcp_accepted(pcb) do { LWIP_UNUSED_ARG(pcb); } while(0) /* compatibility define, not needed any more */

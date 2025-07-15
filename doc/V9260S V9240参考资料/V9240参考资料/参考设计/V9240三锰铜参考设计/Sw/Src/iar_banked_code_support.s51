@@ -1,0 +1,237 @@
+/*******************************************************************************
+ *
+ * Functions to make banked CALL and RET.
+ *
+ * The register holding current code bank:
+ *
+ *   ?CBANK
+ *
+ * Should be defined to IAR XLINK Linker with:
+ *
+ *   -D?CBANK=xx
+ *
+ * The functions needed are BCALL_XX, BRET_XX and BDISPATCH_XX where XX must 
+ * correspond to the value set to the symbol ?CBANK_MASK. (Default is FF). 
+ * Included in the product is implementations which uses bank masks:
+ *  - FF (default, no masking will be performed on ?CBANK)
+ *  - 30 (Used by for example TI's CC2430 device)
+ *  - 03 (Used by for example Silabs C8051F12X/13X devices)
+ *  - 07 (Used by ????)
+ *
+ * Should your device be using any other bank mask, please create your own 
+ * BCALL_XX, BRET_XX and BDISPATCH_XX functions that deals with your specific 
+ * bank mask.	
+ *
+ * Copyright 2004-2005,2008 IAR Systems. All rights reserved.
+ *
+ * $Revision: 4460 $
+ *
+ ******************************************************************************/
+
+#include <..\src\lib\iar_common.h>
+
+
+	MODULE	?BANKED_CODE_SUPPORT
+
+#if ( __CODE_MODEL__ == __CM_BANKED__)
+	EXTERN  ?CBANK
+	EXTERN  ?RESET_CODE_BANK
+	REQUIRE ?RESET_CODE_BANK
+        EXTERNS_FOR_ALL_DPTR_SYMBOLS()
+
+
+;=============================================================================
+; 03 Mask support routines begins
+;=============================================================================
+
+;-----------------------------------------------------------------------------
+;
+;       Function: ?BCALL_03
+;
+;       Description: Saves the caller bank on stack, Switches to bank defined
+;                    by A register and jumps to the banked function A:DPTR.
+;
+;       Register input:
+;               DPTR:  16-bit function address
+;               A:     8-bit page address
+;
+;       Stack:
+;
+;           +--------+
+;           | ?CBANK | <-- SP end
+;           + - - - -+
+;           |  retH  | <-- SP begin
+;           + - - - -+
+;           |  retL  |
+;           + - - - -+
+;   CFA --> | xxxxxx |
+;           +--------+
+;
+;               16-bit return address
+;
+;       Register output:
+;               DPTR:  16-bit function-address
+;               A  = 0
+;
+;       Stack usage: 1
+;-----------------------------------------------------------------------------
+	RSEG	CSTART:CODE:NOROOT
+    cfi BLOCK ?BCALL_03 USING cfi_common
+	PUBLIC  ?BCALL_03
+    cfi NOFUNCTION
+    cfi A undefined
+    cfi CFA_MACHINE MACHINE_SP - 2
+
+?BCALL_03:
+	MOV   B, A
+	MOV   A, ?CBANK   ; read current PSBANK
+	CLR	C;
+	SUBB A,#1					;add by Vango
+	ANL   A, #0x03    ; mask COBANK-bank bits so that we get the IFBANK
+	PUSH  A           ; store return bank (bank number (IFBANK) only)
+    cfi CFA_MACHINE MACHINE_SP - 3
+
+	MOV   A, ?CBANK   ; read current PSBANK
+        CLR	C;;add by Vango
+	SUBB A,#1	
+	ANL   A, #0xFC    ; mask IFBANK bits
+	ORL   A, B        ; add new bank number (in B-reg) to PSBANK
+	
+        CLR	C;
+	ADD A,#1	;add by Vango
+	MOV   ?CBANK, A   ; set new bank
+
+	CLR   A
+	JMP   @A+DPTR     ; jump into the new bank
+
+
+;-----------------------------------------------------------------------------
+;
+;       Function: ?BRET_03
+;
+;       Description: Return from banked function.
+;                    Leaves current function, Switched bank and returns to
+;                    function that called ?BCALL_03.
+;
+;                    NOTE: This function will be jumped to.
+;
+;       Register input:
+;               None
+;
+;       Stack input:
+;
+;               +------------+ <-- SP
+;               |  RET bank  |
+;               + - - - - - -+
+;               |  RET High  |
+;               + - - - - - -+
+;               |  RET Low   |
+;               +------------+
+;
+;               24-bit return address
+;
+;       Register output:
+;               DPTR:  16-bit function-address
+;               A  = 0
+;
+;       Stack usage: 3
+;               Stack: 16-bit return address
+;-----------------------------------------------------------------------------
+   PUBLIC  ?BRET_03
+
+?BRET_03:
+    cfi CFA_MACHINE MACHINE_SP - 3
+
+	/*MOV   B, ?CBANK   ; get current bank
+    
+        
+	ANL   B, #0xFC    ; mask bank bits
+
+	POP   A           ; pop bank number
+	ORL   A, B        ; add the PSBANK bits
+				;add by Vango
+	MOV   ?CBANK, A   ; set new bank*/
+       	POP   A           ; pop bank number
+        MOV   B,  A
+        MOV   A, ?CBANK   ; get current bank
+        CLR	C;;add by Vango
+	SUBB A,#1	
+        ANL   A, #0xFC    ; mask bank bits
+        ORL   A, B        ; add the PSBANK bits
+	CLR	C;
+	ADD A,#1					;add by Vango
+	MOV   ?CBANK, A   ; set new bank
+        
+    cfi   CFA_MACHINE MACHINE_SP - 2
+
+	RET
+
+;-----------------------------------------------------------------------------
+;
+;	Function: ?BDISPATCH_03
+;
+;	Description: Pushes current bank number, and reads function address
+; 	from relay function into ?CBANK and onto stack and RET's
+;
+;	Register input:
+;
+;	Stack: +1
+;
+;	Register output: A = ?
+;			 B = ?
+;			 DPTR = 16-bit function adress
+;
+;	Stack usage:	PUSH	A
+;-----------------------------------------------------------------------------
+	PUBLIC	?BDISPATCH_03
+    cfi CFA_MACHINE MACHINE_SP - 4
+
+?BDISPATCH_03:
+#if (__NUMBER_OF_DPTRS__ > 1)
+	SELECT_DPTR0()
+#endif
+	POP	DPH
+    cfi CFA_MACHINE MACHINE_SP - 3
+	POP	DPL
+    cfi CFA_MACHINE MACHINE_SP - 2
+
+        MOV     A, ?CBANK
+        CLR	C;;add by Vango
+	SUBB A,#1	
+        ANL     A, #0x03
+	PUSH	A
+    cfi CFA_MACHINE MACHINE_SP - 3
+
+	CLR	A
+	MOVC	A, @A+DPTR
+	PUSH	A
+    cfi CFA_MACHINE MACHINE_SP - 4
+	MOV	A, #1
+	MOVC	A, @A+DPTR
+	PUSH	A
+    cfi CFA_MACHINE MACHINE_SP - 5
+	MOV	A, #2
+	MOVC	A, @A+DPTR
+
+        ANL     A, #0x03
+        MOV     B, A
+				MOV	A, ?CBANK
+				CLR	C;
+				SUBB A,#1					;add by Vango
+        ANL     A, #0xFC
+        ORL     A, B
+        ADD A,#1					;add by Vango
+	MOV   ?CBANK, A   ; set new bank
+
+	RET	
+   cfi ENDBLOCK ?BCALL_03
+
+;=============================================================================
+; 03 Mask support routines ends
+;=============================================================================
+
+	ENDMOD	
+	
+#endif
+	END
+

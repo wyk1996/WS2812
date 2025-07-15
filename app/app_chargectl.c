@@ -1,13 +1,9 @@
 #include "app.h"
+#include "Includes.h"
 #include "systick.h"
 #include "app_realcheck.h"
 #include "app_chargectl.h"
 #include "hw_api_usart.h"
-
-
-
-
-
 
 
 //CP连接OK的判断电压值-欧标需要通风
@@ -25,7 +21,7 @@
 
 #if(CUSTOMER_CHARGE_STANDARD_SELECT==CUSTOMER_CHARGE_STANDARD_OB)
 	// CP判断的回差  欧标规定是1.0V
-	#define AC_CP_VOL_DIFF		1.0f
+	#define AC_CP_VOL_DIFF		1.2f
 #else
 	// 默认为国标0.8V
 	#define AC_CP_VOL_DIFF		0.8f
@@ -130,7 +126,7 @@ INT8U get_oled_keypad_curr_flashdata(void)
 				break;
 		}
 		
-		// log_d("max_curr22 = %d\r\n",max_curr);//10
+		// printf("max_curr22 = %d\r\n",max_curr);//10
     return  max_curr;
 }
 
@@ -387,7 +383,8 @@ static void ac_charge_cp_status_get(void)
 	FP32 cp_vol;
 
 	cp_vol = app_get_input_io_simulation_value(INPUT_IO_SIM_forward_CP);
-
+	// printf("cp_vol1 = %f\r\n", cp_vol);
+	delay_ms(100);
 	if(FLOAT_GREATER_EQUAL(cp_vol, AC_CP_CNOK_VOL-AC_CP_VOL_DIFF)&&FLOAT_LESS_EQUAL(cp_vol, AC_CP_CNOK_VOL+AC_CP_VOL_DIFF))	//5.2V-6.8V
 	{
 		s_ac_charge_info.cp_state = AC_CP_CONNECTOK;
@@ -416,12 +413,28 @@ static void ac_charge_cp_status_get(void)
 	}
 }
 
+static uint8_t s2_flag = 0;
+static uint8_t s2_cnt = 0;
+static uint8_t s2_on_flag = 0;
+
 //充电流程处理
 void app_charge_ctl_handle(void)
 {
 
 	_e_ac_charge_err ac_charge_err=AC_CHARGE_ERR_OK;
+	// delay_ms(100);
+	printf("charge_state = %d\r\n", s_ac_charge_info.charge_state);
+	printf("cp_state = %d\r\n", s_ac_charge_info.cp_state);
+	printf("s2_on_flag = %d\r\n", s2_on_flag);
+	if(s2_on_flag){
+		s_ac_charge_info.charge_state = AC_CHARGE_STATE_IDLE_GUN_NOLINK;
 
+		if(s_ac_charge_info.cp_state == AC_CP_BREAK || s_ac_charge_info.cp_state == AC_CP_ERR){
+	 		s2_on_flag = 0;
+		}		
+	}
+
+	if(s2_on_flag) return;
 
 	switch(s_ac_charge_info.charge_state)
 	{
@@ -436,16 +449,17 @@ void app_charge_ctl_handle(void)
 
 			    #if((CUSTOMER_SELECT == CHENGGONG_JYC_GD_A01_NONE_16A_KEYPAD)||(CUSTOMER_SELECT == NENGSHENG_K046_23110007_JYC_GD_A02_NONE_16A_KEYPAD)\
 					||(CUSTOMER_SELECT == CUSTOMER_JYC_GB_A10L_NONE_NONE_32A)||(CUSTOMER_SELECT == JYC_K046_24030002_JYC_GB_A10L_MS523_BL0939_32A))
-				//log_d("\n waiting for keypad start ...\n");
+				//printf("\n waiting for keypad start ...\n");
 
 				
 				#else
 				s_ac_charge_info.charge_state = AC_CHARGE_STATE_START_PREPARE;
 				#endif
 				//drv_common_set_cp_pwm(AC_MAX_CURRENT);			//发出pwm
+				
 			#if((CUSTOMER_SELECT == CUSTOMER_JYC_GB_A01_FC01_ONEKEY_16A))
-				drv_common_set_cp_pwm(get_oled_keypad_curr_flashdata());			//发出pwm
-				// log_d("111111\r\n");
+				app_para.cp_flag = 1;
+				drv_common_set_cp_pwm(get_oled_keypad_curr_flashdata());//发出pwm
 			#else
 		     	drv_common_set_cp_pwm(AC_MAX_CURRENT);
 			#endif
@@ -469,13 +483,14 @@ void app_charge_ctl_handle(void)
 
 			    s_check_err_nub ++;
 				if(s_check_err_nub >3)
-					{
+				{
 					s_check_err_nub = 0;
-					// log_d("charge ctl prepare err==%d\n", ac_charge_err);
+					// printf("charge ctl prepare err==%d\n", ac_charge_err);
 					drv_common_set_cp_pwm(0xFFFF);
-					// log_d("2222222\r\n");
+					app_para.cp_flag = 0;
+					drv_common_set_gpio_status(OUTPUT_IO_CP_HIGLT_OFF, SET);
 					s_ac_charge_info.charge_state = AC_CHARGE_STATE_STOP_ACT;
-					}
+				}
 			}
 			else 
 			{
@@ -496,8 +511,14 @@ void app_charge_ctl_handle(void)
 					    	s_cp_6v_start_flag = FALSE;
 							s_ac_charge_info.charge_state = AC_CHARGE_STATE_CHARGING;
 							#if 1
-							app_para.relay_open_flag = TRUE;	//继电器开标志位
-							// drv_common_set_gpio_status(OUTPUT_IO_RELAY_CTRL, GPIO_STATUS_SET);	//开继电器
+							// app_para.relay_open_flag = TRUE;	//继电器开标志位
+							
+							// if(app_para.relay_open_flag == 0){
+								
+								// gpio_bit_set(RELAY_N_CTRL_GPIO_PORT, RELAY_N_CTRL_PIN);
+								// gpio_bit_set(RELAY_L_CTRL_GPIO_PORT, RELAY_L_CTRL_PIN);   
+							// }
+							app_para.flag_vlaue = 1;
 							#endif
 							//初始化充电参数
 							s_charge_end_flag = TRUE;	
@@ -516,8 +537,14 @@ void app_charge_ctl_handle(void)
 					    	s_cp_6v_start_flag = FALSE;
 							s_ac_charge_info.charge_state = AC_CHARGE_STATE_CHARGING;
 							#if 1
-							app_para.relay_open_flag = TRUE;	//继电器开标志位
-							// drv_common_set_gpio_status(OUTPUT_IO_RELAY_CTRL, GPIO_STATUS_SET);	//开继电器
+							// app_para.relay_open_flag = TRUE;	//继电器开标志位
+							// if(app_para.relay_open_flag == 0){
+							
+								// gpio_bit_set(RELAY_N_CTRL_GPIO_PORT, RELAY_N_CTRL_PIN);
+								// gpio_bit_set(RELAY_L_CTRL_GPIO_PORT, RELAY_L_CTRL_PIN);   
+							// }
+				
+							app_para.flag_vlaue = 1;
 							#endif
 							
 							//初始化充电参数
@@ -551,14 +578,15 @@ void app_charge_ctl_handle(void)
 					{
 					//	drv_common_set_cp_pwm(AC_MAX_CURRENT);						
 				    #if((CUSTOMER_SELECT == CUSTOMER_JYC_GB_A01_FC01_ONEKEY_16A))
-				       drv_common_set_cp_pwm(get_oled_keypad_curr_flashdata());			//发出pwm
-					//    log_d("3333333\r\n");
+				       drv_common_set_cp_pwm(get_oled_keypad_curr_flashdata());	//发出pwm
+					   app_para.cp_flag = 1;
+			
 			        #else
 		     	       drv_common_set_cp_pwm(AC_MAX_CURRENT);
 			        #endif
 						s_send_pwm_again_flag = FALSE;
 					}
-
+					
 
 				}
 				else if((get_os_ticks_ms()-s_ac_charge_info.prepare_start_time)>=PREPARE_CHARGE_CLOSE_PWM_TIME)
@@ -566,8 +594,10 @@ void app_charge_ctl_handle(void)
 
 			     	if(s_send_pwm_again_flag==FALSE)
 					{
-						drv_common_set_cp_pwm(0xFFFF);		
-						// log_d("444444\r\n");
+						drv_common_set_cp_pwm(0xFFFF);
+						drv_common_set_gpio_status(OUTPUT_IO_CP_HIGLT_OFF, SET);
+						app_para.cp_flag = 0;		
+
 						s_send_pwm_again_flag = TRUE;
 					}
 
@@ -593,9 +623,11 @@ void app_charge_ctl_handle(void)
 				//s_ac_charge_info.charge_state = AC_CHARGE_STATE_STOP_ACT;
 				
 				#if 1
-				drv_common_toggle_gpio_status(OUTPUT_IO_L_RELAY_COLSE);	//关继电器
 				app_para.relay_open_flag = FALSE;	//继电器开标志位
-				// drv_common_set_gpio_status(OUTPUT_IO_RELAY_CTRL, GPIO_STATUS_RESET);	//关继电器
+				gpio_bit_reset(RELAY_N_CTRL_GPIO_PORT, RELAY_N_CTRL_PIN);
+                gpio_bit_reset(RELAY_L_CTRL_GPIO_PORT, RELAY_L_CTRL_PIN);
+				app_para.flag_vlaue = 0;
+				
 				#endif
 				
 				//drv_common_set_cp_pwm(0xFFFF);											//关pwm
@@ -612,7 +644,9 @@ void app_charge_ctl_handle(void)
 							{
 								s_ac_charge_info.charge_state = AC_CHARGE_STATE_STOP_ACT;
 								drv_common_set_cp_pwm(0xFFFF);
-								// log_d("555555\r\n");
+								app_para.cp_flag = 0;
+								drv_common_set_gpio_status(OUTPUT_IO_CP_HIGLT_OFF, SET);
+
 							}
 						}
 						else		//FALSE
@@ -620,6 +654,21 @@ void app_charge_ctl_handle(void)
 						    s_ac_charge_info.detect_cp_9v_to_6v_flag = FALSE;
 							s_ac_charge_info.s2_open_flag = TRUE;
 							s_ac_charge_info.s2_open_time = get_os_ticks_s();
+
+							// app_para.flag_vlaue = 0;
+
+							if(s2_flag == 0){
+								s2_flag = 1;
+								s2_cnt++;
+							}
+
+							if(s2_cnt > 5){
+								s2_cnt = 0;
+								s2_on_flag = 1;
+							}
+
+
+
 						}
 				   	}
 				   else if((s_ac_charge_info.cp_state==AC_CP_BREAK)||(s_ac_charge_info.cp_state==AC_CP_ERR))
@@ -634,7 +683,9 @@ void app_charge_ctl_handle(void)
 							  s_ac_charge_info.detect_cp_9v_to_6v_flag = FALSE;
 							  s_ac_charge_info.charge_state = AC_CHARGE_STATE_STOP_ACT;
 							  drv_common_set_cp_pwm(0xFFFF);	
-							//   log_d("66666\r\n");
+							  app_para.cp_flag = 0;
+							  drv_common_set_gpio_status(OUTPUT_IO_CP_HIGLT_OFF, SET);
+
 							}
 					  	}
 					  else
@@ -659,7 +710,9 @@ void app_charge_ctl_handle(void)
 			    	s_ac_charge_info.detect_cp_9v_to_6v_flag = FALSE;
 				    s_ac_charge_info.charge_state = AC_CHARGE_STATE_STOP_ACT;
 				    drv_common_set_cp_pwm(0xFFFF);
-					// log_d("777777\r\n");
+					app_para.cp_flag = 0;
+					drv_common_set_gpio_status(OUTPUT_IO_CP_HIGLT_OFF, SET);
+
 
 				}
 
@@ -671,8 +724,19 @@ void app_charge_ctl_handle(void)
 		    	{
 				    s_ac_charge_info.s2_open_flag = FALSE;
 					#if 1
-					app_para.relay_open_flag = TRUE;	//继电器开标志位
-					// drv_common_set_gpio_status(OUTPUT_IO_RELAY_CTRL, GPIO_STATUS_SET);
+					if(app_para.relay_open_flag == 0){
+						
+						gpio_bit_set(RELAY_N_CTRL_GPIO_PORT, RELAY_N_CTRL_PIN);
+						gpio_bit_set(RELAY_L_CTRL_GPIO_PORT, RELAY_L_CTRL_PIN);   
+					}
+				
+					app_para.flag_vlaue = 1;
+
+					// app_para.relay_open_flag = TRUE;	//继电器开标志位
+
+					if(s2_flag){
+						s2_flag = 0;
+					}
 					#endif
 		    	}
 			}
@@ -680,13 +744,17 @@ void app_charge_ctl_handle(void)
 			break;
 		case AC_CHARGE_STATE_STOP_ACT:			        // 充电停止动作；断开输出继电器、刷新未结算账单记录、停止pwm
 			#if 1
-			drv_common_toggle_gpio_status(OUTPUT_IO_L_RELAY_COLSE);	//关继电器
+			gpio_bit_reset(RELAY_N_CTRL_GPIO_PORT, RELAY_N_CTRL_PIN);
+			gpio_bit_reset(RELAY_L_CTRL_GPIO_PORT, RELAY_L_CTRL_PIN);
 			app_para.relay_open_flag = FALSE;	//继电器开标志位
+			app_para.flag_vlaue = 0;
 			#endif
 		
 			drv_common_set_cp_pwm(0xFFFF);											//关pwm
+			app_para.cp_flag = 0;
+			drv_common_set_gpio_status(OUTPUT_IO_CP_HIGLT_OFF, SET);
 
-			// log_d("888888\r\n");
+
 			s_ac_charge_info.s2_open_flag = FALSE;
 			if(s_charge_end_flag == TRUE)
 				{
@@ -712,18 +780,20 @@ void app_charge_ctl_handle(void)
 			s_check_err_nub = 0;
 			s_ac_charge_info.charge_state = AC_CHARGE_STATE_IDLE_GUN_NOLINK;
 			if(s_charge_end_flag == TRUE)
-				{
-				
-			     s_charge_end_flag = FALSE;
-			     s_ac_charge_info.charge_end = FALSE;
+			{
+			
+				s_charge_end_flag = FALSE;
+				s_ac_charge_info.charge_end = FALSE;
 
-			  }
+			}
+			s2_on_flag = 0;
 			break;
 		default:
 			break;
 	}
 }
 
+#if 0
 //停止充电
 BOOLEAN app_chargectl_stopcharge(void)
 {
@@ -744,7 +814,7 @@ BOOLEAN app_chargectl_startcharge(void)
 		return FALSE;
 	}
 }
-
+#endif
 
 
 //充电主流程

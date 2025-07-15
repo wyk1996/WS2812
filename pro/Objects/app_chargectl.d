@@ -27,13 +27,14 @@
   ..\lib\GD32E23x_standard_peripheral\Include\gd32e23x_wwdgt.h \
   ..\lib\GD32E23x_standard_peripheral\Include\gd32e23x_misc.h \
   ..\lib\GD32E23x_standard_peripheral\Include\gd32e23x_cmp.h \
-  ..\bsp\Timeout\TimeOut.h ..\bsp\systick\systick.h \
-  ..\app\app_realcheck.h ..\app\IndependentDataType.h \
-  ..\app\app_chargectl.h ..\bsp\customer\customer_config.h \
-  ..\bsp\customer\customer_device_type.h ..\bsp\customer\hw_api_usart.h \
-  ..\app\Includes.h D:\keil_v5\ARM\ARMCLANG\Bin\..\include\stdio.h \
+  ..\bsp\Timeout\TimeOut.h ..\app\Includes.h \
+  D:\keil_v5\ARM\ARMCLANG\Bin\..\include\stdio.h \
   D:\keil_v5\ARM\ARMCLANG\Bin\..\include\string.h \
   D:\keil_v5\ARM\ARMCLANG\Bin\..\include\math.h \
-  ..\bsp\gd32e230c_eval\gd32e230c_eval.h \
-  ..\bsp\customer\customer_device_type.h ..\bsp\customer\drv_common.h \
-  ..\app\IndependentDataType.h ..\bsp\customer\bsp_led.h
+  ..\bsp\gd32e230c_eval\gd32e230c_eval.h ..\bsp\systick\systick.h \
+  ..\bsp\customer\customer_config.h \
+  ..\bsp\customer\customer_device_type.h \
+  ..\bsp\customer\customer_device_type.h ..\app\IndependentDataType.h \
+  ..\bsp\customer\drv_common.h ..\app\IndependentDataType.h \
+  ..\bsp\customer\bsp_led.h ..\bsp\customer\hw_api_usart.h \
+  ..\app\Includes.h ..\app\app_realcheck.h ..\app\app_chargectl.h

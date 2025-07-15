@@ -16,20 +16,20 @@ void Uart1_Init(void)
     gpio_af_set(GPIOA, GPIO_AF_1, TX1_PIN);
 
     /* connect port to USARTx_Rx */
-    gpio_af_set(GPIOA, GPIO_AF_1, RX1_PIN);
+    // gpio_af_set(GPIOA, GPIO_AF_1, RX1_PIN);
 
     /* configure USART Tx as alternate function push-pull */
     gpio_mode_set(GPIOA, GPIO_MODE_AF, GPIO_PUPD_PULLUP, TX1_PIN);
     gpio_output_options_set(GPIOA, GPIO_OTYPE_PP, GPIO_OSPEED_10MHZ, TX1_PIN);
 
     /* configure USART Rx as alternate function push-pull */
-    gpio_mode_set(GPIOA, GPIO_MODE_AF, GPIO_PUPD_PULLUP, RX1_PIN);
-    gpio_output_options_set(GPIOA, GPIO_OTYPE_PP, GPIO_OSPEED_10MHZ, RX1_PIN);
+    // gpio_mode_set(GPIOA, GPIO_MODE_AF, GPIO_PUPD_PULLUP, RX1_PIN);
+    // gpio_output_options_set(GPIOA, GPIO_OTYPE_PP, GPIO_OSPEED_10MHZ, RX1_PIN);
 
     /* USART configure */
     usart_deinit(USART1);
-    usart_baudrate_set(USART1, 115200U);
-    usart_receive_config(USART1, USART_RECEIVE_ENABLE);
+    usart_baudrate_set(USART1, 9600);
+    // usart_receive_config(USART1, USART_RECEIVE_ENABLE);
     usart_transmit_config(USART1, USART_TRANSMIT_ENABLE);
 
     usart_enable(USART1);
@@ -174,7 +174,7 @@ void Fwdgt_Config(void)
     /* configure and enable the FWDGT */
     /* enable write access to FWDGT_PSC and FWDGT_RLD registers.
     FWDGT counter clock: 40KHz(IRC40K) / 64 = 0.625 KHz */
-    fwdgt_config(625, FWDGT_PSC_DIV64);
+    fwdgt_config(500, FWDGT_PSC_DIV32);
     fwdgt_enable();
 }
 
@@ -203,7 +203,7 @@ void Timer5_Base(void)
     timer_initpara.prescaler         = 71; /* 7200-1 */
     timer_initpara.alignedmode       = TIMER_COUNTER_EDGE;
     timer_initpara.counterdirection  = TIMER_COUNTER_UP;
-    timer_initpara.period            = 19;//25KHz
+    timer_initpara.period            = 9;//25KHz
     timer_initpara.clockdivision     = TIMER_CKDIV_DIV1;
     timer_init(TIMER5, &timer_initpara);
 
@@ -214,7 +214,7 @@ void Timer5_Base(void)
     /* enable a TIMER */
     timer_enable(TIMER5);     
     
-    nvic_irq_enable(TIMER5_IRQn, 0);
+    nvic_irq_enable(TIMER5_IRQn, 3);
 }
 
 
@@ -393,7 +393,7 @@ void Adc_Init(void)
 
     /* enable ADC interface */
     adc_enable();
-    delay_1ms(1U);
+    delay_ms(1U);
     /* ADC calibration and reset calibration */
     adc_calibration_enable();    
 }

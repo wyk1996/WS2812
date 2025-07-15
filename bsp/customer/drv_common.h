@@ -19,10 +19,10 @@
 
 
 //output IO
-#define RELAY_L_CTRL_PIN				                    GPIO_PIN_10                                     //继电器L相控制引脚
+#define RELAY_L_CTRL_PIN				                    GPIO_PIN_10                                     //继电器N相控制引脚
 #define RELAY_L_CTRL_GPIO_PORT		                        GPIOB
 
-#define RELAY_N_CTRL_PIN				                    GPIO_PIN_11                                     //继电器N相控制引脚
+#define RELAY_N_CTRL_PIN				                    GPIO_PIN_11                                     //继电器L相控制引脚
 #define RELAY_N_CTRL_GPIO_PORT		                        GPIOB
 
 #define POWER_CTL_PORT                                      GPIOA
@@ -48,7 +48,24 @@
 #define Out_Short_DET_PORT		                            GPIOB							//短路检测引脚
 #define Out_Short_DET_PIN		                            GPIO_PIN_9				
 #define Out_Short_DET_ON		                            gpio_bit_set(Out_Short_DET_PORT, Out_Short_DET_PIN)	//短路检测引脚使能
-#define Out_Short_DET_OFF		                            gpio_bit_reset(Out_Short_DET_PORT, Out_Short_DET_PIN)	//短路检测引脚禁止使能		
+#define Out_Short_DET_OFF		                            gpio_bit_reset(Out_Short_DET_PORT, Out_Short_DET_PIN)	//短路检测引脚禁止使能
+
+#define RCD_DETECT_PORT                                 	GPIOB						//RCD  B漏检测 输入
+#define RCD_DETECT_PIN                                  	GPIO_PIN_3
+
+#define RCD_CALIBRATION_PORT                            	GPIOB                       //RCD有效值校准  输出
+#define RCD_CALIBRATION_PIN                             	GPIO_PIN_5                  //有效值校准
+
+#define RCD_ZERO_CALI_PORT                             	 	GPIOB                       //RCD校零  输出
+#define RCD_ZERO_CALI_PIN                               	GPIO_PIN_4                  //校零
+
+
+
+#define RCD_TEST_PORT										GPIOB 
+#define RCD_TEST_PIN										GPIO_PIN_7					//RCD测试 输出
+
+
+
 
 
 //IO口状态
@@ -69,6 +86,7 @@ typedef enum
 	OUTPUT_IO_POWER_CTRL,
 	OUTPUT_IO_L_SYNNCEHIAN_CTRL,
 	OUTPUT_IO_N_SYNNCEHIAN_CTRL,
+	OUTPUT_IO_CP_HIGLT_OFF,
 	OUTPUT_IO_MAX
 }_e_output_io_digital_typedef;
 
@@ -83,9 +101,13 @@ void drv_common_usart0_send(INT8U *p_buff, INT16U data_len);
 FP32 drv_common_cp_vol_get(void);
 FP32 drv_common_earth_vol_get(void);
 FP32 drv_common_temperature_vol_get(void);
+FP32 drv_common_temp_environment_vol_get(void);
+FP32 drv_common_diode_vol_get(void);
+FP32 drv_common_synncehianL_vol_get(void);
+FP32 drv_common_synncehianN_vol_get(void);
+FP32 drv_common_short_vol_get(void);
 void drv_common_gpio_init(void);
 void drv_common_set_gpio_status(_e_output_io_digital_typedef output_gpio, _e_gpio_status gpio_status);
-void drv_common_toggle_gpio_status(_e_output_io_digital_typedef output_gpio);
 void drv_common_timer_init(void);
 void drv_common_set_cp_pwm(INT16U maxcurr);
 
